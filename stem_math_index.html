@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STEM Math</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --navy: #12355b;
+      --navy-dark: #0d2948;
+      --blue-soft: #eef4fb;
+      --border: #d8dee8;
+      --text: #1f2937;
+      --muted: #667085;
+      --bg: #f4f6f8;
+      --white: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      color: white;
+      padding: 42px 20px 36px;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .78rem;
+      font-weight: 800;
+      opacity: .78;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin: 12px 0 0;
+      font-size: 1.08rem;
+      opacity: .9;
+      max-width: 720px;
+      line-height: 1.5;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 34px 20px 60px;
+    }
+
+    .section {
+      margin-bottom: 34px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.35rem;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 118px;
+      padding: 18px;
+      text-decoration: none;
+      color: inherit;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(18, 53, 91, .06);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: #a9bdd6;
+      box-shadow: 0 8px 22px rgba(18, 53, 91, .10);
+    }
+
+    .icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 54px;
+      background: var(--blue-soft);
+      color: var(--navy);
+      font-size: 1.7rem;
+      font-weight: 900;
+    }
+
+    .card-text {
+      min-width: 0;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+
+    .card-desc {
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.4;
+    }
+
+    .custom-tools {
+      margin-top: 10px;
+      padding: 20px;
+      border-radius: 16px;
+      background: #eaf1fb;
+      border: 1px solid #c7d8ec;
+    }
+
+    .custom-tools .section-head {
+      margin-bottom: 12px;
+    }
+
+    .tool-card {
+      min-height: 138px;
+      border: 2px solid #9eb9d8;
+    }
+
+    .tool-card .icon {
+      background: var(--navy);
+      color: white;
+      width: 62px;
+      height: 62px;
+      flex-basis: 62px;
+      font-size: 1.9rem;
+    }
+
+    .tool-card .card-title {
+      font-size: 1.08rem;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .82rem;
+      padding: 16px 20px 30px;
+    }
+
+    @media (max-width: 900px) {
+      .grid,
+      .grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .grid,
+      .grid.two {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      header {
+        padding-top: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="eyebrow">Teacher Resources</div>
+      <h1>STEM Math</h1>
+      <p class="subtitle">
+        A central hub for the math team’s daily systems, assessment tools, planning resources,
+        and custom STEM Math applications.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-head">
+        <h2>School Systems</h2>
+        <div class="section-note">Core platforms used throughout the school day</div>
+      </div>
+
+      <div class="grid">
+        <a class="card" href="https://stemcollegiate.powerschool.com/teachers/home.html" target="_blank" rel="noopener">
+          <div class="icon">P</div>
+          <div class="card-text">
+            <div class="card-title">PowerSchool</div>
+            <div class="card-desc">Teacher portal for classes, student information, and reporting.</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://stemcollegiate.schoology.com/home" target="_blank" rel="noopener">
+          <div class="icon">S</div>
+          <div class="card-text">
+            <div class="card-title">Schoology</div>
+            <div class="card-desc">Course materials, assignments, communication, and classroom resources.</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://stemcollegiate.sharepoint.com/:f:/s/MathTeam/IgCZF0VRi-IpR7b1HOx60MCzAd-AUP55iXImsiKaWHIT6GE?e=NVbliF" target="_blank" rel="noopener">
+          <div class="icon">T</div>
+          <div class="card-text">
+            <div class="card-title">Microsoft Teams</div>
+            <div class="card-desc">Shared Math Team files and collaborative department resources.</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.schoolinterviews.ca/login?timeout" target="_blank" rel="noopener">
+          <div class="icon">SI</div>
+          <div class="card-text">
+            <div class="card-title">School Interviews</div>
+            <div class="card-desc">Parent-teacher interview scheduling and appointment management.</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Assessment & Planning</h2>
+        <div class="section-note">Tools for assessment, scheduling, and document creation</div>
+      </div>
+
+      <div class="grid">
+        <a class="card" href="https://app.gradecam.com/login?redirect=/home" target="_blank" rel="noopener">
+          <div class="icon">G</div>
+          <div class="card-text">
+            <div class="card-title">Gradient</div>
+            <div class="card-desc">Assessment scanning, grading, and results analysis.</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.overleaf.com/project" target="_blank" rel="noopener">
+          <div class="icon">O</div>
+          <div class="card-text">
+            <div class="card-title">Overleaf</div>
+            <div class="card-desc">Create and compile LaTeX tests, reviews, and curriculum documents.</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section custom-tools">
+      <div class="section-head">
+        <h2>STEM Math Tools</h2>
+        <div class="section-note">Custom tools built for the Math Team</div>
+      </div>
+
+      <div class="grid two">
+        <a class="card tool-card" href="index.html">
+          <div class="icon">B</div>
+          <div class="card-text">
+            <div class="card-title">Test Blueprinting</div>
+            <div class="card-desc">
+              Build assessment blueprints, tag curriculum outcomes, track coverage,
+              and generate Overleaf-ready summaries.
+            </div>
+          </div>
+        </a>
+
+        <a class="card tool-card" href="https://navistokes-prit.github.io/Latex-Test-Generator/">
+          <div class="icon">TM</div>
+          <div class="card-text">
+            <div class="card-title">Test Making</div>
+            <div class="card-desc">
+              Create and organize assessment questions using the STEM Math test-making workflow.
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    STEM Collegiate Math Team
+  </footer>
+</body>
+</html>

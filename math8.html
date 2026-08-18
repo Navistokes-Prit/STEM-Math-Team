@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math 8 Test Blueprint</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      color: #1f2937;
+    }
+
+    header {
+      background: #12355b;
+      color: #fff;
+      padding: 22px 20px;
+    }
+
+    .header-inner {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    header h1 { margin: 0; font-size: 2rem; }
+    header p { margin: 6px 0 0; opacity: .9; }
+
+    .back-link {
+      color: white;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.45);
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+
+    main {
+      max-width: 1380px;
+      margin: 28px auto;
+      padding: 0 18px 60px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.95fr) minmax(430px, 1.35fr) minmax(300px, .8fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+      padding: 20px;
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      color: #12355b;
+    }
+
+    .subtle {
+      color: #667085;
+      line-height: 1.5;
+      font-size: .93rem;
+    }
+
+    .curriculum-toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 14px 0 8px;
+    }
+
+    .toolbar-btn {
+      border: 1px solid #cfd8e3;
+      background: #fff;
+      color: #12355b;
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: .82rem;
+    }
+
+    .toolbar-btn:hover { background: #eef4fb; }
+
+    .unit {
+      margin-top: 12px;
+      border: 1px solid #d8dee8;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .unit-header {
+      width: 100%;
+      border: 0;
+      background: #eef4fb;
+      color: #12355b;
+      padding: 12px 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .unit-header:hover { background: #e4eef9; }
+
+    .unit-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .unit-chevron {
+      width: 16px;
+      font-size: .9rem;
+      transition: transform .15s ease;
+    }
+
+    .unit.collapsed .unit-chevron { transform: rotate(-90deg); }
+
+    .unit-header h3 {
+      margin: 0;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+    }
+
+    .unit-count {
+      font-size: .75rem;
+      color: #516174;
+      font-weight: 700;
+      background: rgba(255,255,255,.8);
+      border-radius: 999px;
+      padding: 4px 8px;
+      white-space: nowrap;
+    }
+
+    .unit-body { padding: 8px; }
+    .unit.collapsed .unit-body { display: none; }
+
+    .knowledge-card {
+      border: 1px solid #e0e5ec;
+      border-radius: 8px;
+      margin-bottom: 7px;
+      background: #fff;
+    }
+
+    .knowledge-main {
+      padding: 9px 10px 6px;
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
+
+    .knowledge-id {
+      display: inline-block;
+      min-width: 32px;
+      color: #12355b;
+      font-weight: 800;
+      margin-right: 5px;
+    }
+
+    .knowledge-text {
+      flex: 1;
+      line-height: 1.38;
+      font-size: .88rem;
+    }
+
+    .context-wrap {
+      padding: 0 10px 8px 10px;
+      margin-left: 0;
+    }
+
+    .context-details {
+      border: 0;
+      background: transparent;
+    }
+
+    .context-details summary {
+      cursor: pointer;
+      display: inline-block;
+      color: #64748b;
+      font-size: .77rem;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .context-details summary::-webkit-details-marker { display: none; }
+    .context-details summary::after { content: " ▾"; }
+    .context-details[open] summary::after { content: " ▴"; }
+
+    .context-content {
+      margin-top: 6px;
+      padding: 9px 10px;
+      border: 1px solid #d8dee8;
+      border-radius: 7px;
+      background: #f8fafc;
+      line-height: 1.4;
+      font-size: .8rem;
+    }
+
+    .context-content h4 {
+      margin: 0 0 4px;
+      color: #12355b;
+      font-size: .8rem;
+    }
+
+    .context-content h4:not(:first-child) { margin-top: 8px; }
+    .context-content ul { margin: 0; padding-left: 17px; }
+
+
+    .assignment-title-box {
+      margin-bottom: 18px;
+      padding: 14px;
+      border: 1px solid #d8dee8;
+      border-radius: 10px;
+      background: #f8fafc;
+    }
+
+    .assignment-title-box label {
+      display: block;
+      margin-bottom: 6px;
+      color: #12355b;
+      font-size: .85rem;
+      font-weight: 800;
+    }
+
+    .assignment-title-box input {
+      width: 100%;
+      padding: 10px 11px;
+      border: 1px solid #cfd6df;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .question-toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .add-question-btn {
+      border: 0;
+      background: #12355b;
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .question-card {
+      border: 1px solid #d8dee8;
+      border-radius: 11px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: #fff;
+    }
+
+
+    .question-card.collapsed .question-body {
+      display: none;
+    }
+
+    .question-collapse-btn {
+      border: 1px solid #cfd8e3;
+      background: #fff;
+      color: #12355b;
+      border-radius: 7px;
+      padding: 6px 9px;
+      cursor: pointer;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .question-head-actions {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .question-head {
+      background: #eef4fb;
+      padding: 12px 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .question-head strong {
+      color: #12355b;
+      font-size: 1rem;
+    }
+
+    .delete-question {
+      border: 0;
+      background: #fee2e2;
+      color: #991b1b;
+      border-radius: 7px;
+      padding: 7px 9px;
+      cursor: pointer;
+      font-size: .8rem;
+    }
+
+    .question-body {
+      padding: 13px;
+    }
+
+    .question-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) 90px minmax(150px, .8fr);
+      gap: 10px;
+      align-items: end;
+    }
+
+    label.field-label {
+      display: block;
+      font-size: .76rem;
+      color: #667085;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px 9px;
+      border: 1px solid #cfd6df;
+      border-radius: 7px;
+      font-size: .9rem;
+      background: #fff;
+    }
+
+    .difficulty-group {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .difficulty-btn {
+      border: 1px solid #cfd6df;
+      background: #fff;
+      border-radius: 7px;
+      padding: 7px 9px;
+      cursor: pointer;
+      font-weight: 800;
+      min-width: 34px;
+    }
+
+    .difficulty-btn.active.level1 {
+      background: #e8f5e9;
+      border-color: #2e7d32;
+      color: #1b5e20;
+    }
+
+    .difficulty-btn.active.level2 {
+      background: #fff8e1;
+      border-color: #f9a825;
+      color: #805600;
+    }
+
+    .difficulty-btn.active.level3 {
+      background: #ffebee;
+      border-color: #c62828;
+      color: #991b1b;
+    }
+
+    .tag-section {
+      margin-top: 13px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 12px;
+    }
+
+    .tag-section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .tag-section-title strong {
+      color: #12355b;
+      font-size: .9rem;
+    }
+
+    .tag-picker {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 7px;
+      margin-bottom: 9px;
+    }
+
+    .tag-add-btn {
+      border: 0;
+      background: #eaf1fb;
+      color: #12355b;
+      border-radius: 7px;
+      padding: 8px 10px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tag-list {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 999px;
+      background: #eaf1fb;
+      color: #12355b;
+      padding: 5px 8px;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .tag button {
+      border: 0;
+      background: transparent;
+      color: #12355b;
+      cursor: pointer;
+      padding: 0;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .allocation-box {
+      border: 1px solid #d8dee8;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .allocation-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 88px;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 10px;
+      border-top: 1px solid #edf0f4;
+      font-size: .82rem;
+    }
+
+    .allocation-row:first-child { border-top: 0; }
+
+    .allocation-summary {
+      padding: 8px 10px;
+      background: #f8fafc;
+      border-top: 1px solid #d8dee8;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .allocation-summary.ok { color: #166534; }
+    .allocation-summary.bad { color: #b42318; }
+
+
+    .knowledge-card[draggable="true"] {
+      cursor: grab;
+    }
+
+    .knowledge-card[draggable="true"]:active {
+      cursor: grabbing;
+    }
+
+    .knowledge-card.dragging {
+      opacity: .45;
+    }
+
+    .drop-zone {
+      margin-top: 12px;
+      border: 2px dashed #b8c7d9;
+      border-radius: 9px;
+      padding: 14px;
+      text-align: center;
+      color: #667085;
+      background: #fbfdff;
+      font-size: .84rem;
+      transition: border-color .15s ease, background .15s ease, color .15s ease;
+    }
+
+    .drop-zone.drag-over {
+      border-color: #12355b;
+      background: #eef4fb;
+      color: #12355b;
+    }
+
+    .questions-panel {
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
+
+
+    .overleaf-btn {
+      width: 100%;
+      border: 0;
+      background: #0f766e;
+      color: #fff;
+      border-radius: 8px;
+      padding: 11px 13px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .overleaf-btn:hover {
+      background: #115e59;
+    }
+
+    .latex-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+    }
+
+    .latex-modal.open {
+      display: flex;
+    }
+
+    .latex-dialog {
+      width: min(1000px, 96vw);
+      max-height: 90vh;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .latex-dialog-head {
+      padding: 14px 16px;
+      background: #12355b;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .latex-dialog-head h3 {
+      margin: 0;
+      color: #fff;
+      font-size: 1.05rem;
+    }
+
+    .latex-close {
+      border: 1px solid rgba(255,255,255,.45);
+      background: transparent;
+      color: #fff;
+      border-radius: 7px;
+      padding: 6px 9px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .latex-dialog-body {
+      padding: 14px;
+      overflow: auto;
+    }
+
+    .latex-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .latex-action-btn {
+      border: 1px solid #cfd8e3;
+      background: #fff;
+      color: #12355b;
+      border-radius: 8px;
+      padding: 8px 11px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .latex-action-btn.primary {
+      background: #12355b;
+      color: #fff;
+      border-color: #12355b;
+    }
+
+    #latex-output {
+      width: 100%;
+      min-height: 520px;
+      resize: vertical;
+      border: 1px solid #cfd8e3;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: .82rem;
+      line-height: 1.4;
+      white-space: pre;
+    }
+
+    .summary-panel {
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow-y: auto;
+      scrollbar-gutter: stable;
+    }
+
+    .summary-card {
+      border: 1px solid #d8dee8;
+      border-radius: 10px;
+      padding: 13px;
+      background: #fbfcfe;
+      margin-bottom: 12px;
+    }
+
+    .summary-card > strong {
+      display: block;
+      color: #12355b;
+      margin-bottom: 8px;
+    }
+
+    .progress-row { margin: 9px 0; }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: .82rem;
+      margin-bottom: 4px;
+    }
+
+    .progress-label span:first-child { flex: 1; }
+
+    .bar {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar > div {
+      height: 100%;
+      background: #12355b;
+    }
+
+    .coverage-unit {
+      margin-top: 10px;
+    }
+
+    .coverage-unit-title {
+      color: #12355b;
+      font-weight: 800;
+      font-size: .82rem;
+      margin-bottom: 5px;
+    }
+
+    .coverage-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .coverage-chip {
+      font-size: .74rem;
+      border-radius: 999px;
+      padding: 4px 7px;
+      border: 1px solid #d8dee8;
+      background: #fff;
+      color: #667085;
+      font-weight: 800;
+    }
+
+    .coverage-chip.covered {
+      background: #e8f5e9;
+      color: #1b5e20;
+      border-color: #9bc6a0;
+    }
+
+    .difficulty-key { margin-top: 14px; }
+
+    .key {
+      border-radius: 8px;
+      padding: 9px 10px;
+      margin-bottom: 7px;
+      line-height: 1.35;
+      font-size: .82rem;
+    }
+
+    .key1 { background: #e8f5e9; }
+    .key2 { background: #fff8e1; }
+    .key3 { background: #ffebee; }
+
+    .empty {
+      color: #667085;
+      font-style: italic;
+      font-size: .88rem;
+    }
+
+    @media (max-width: 1180px) {
+      .page-grid {
+        grid-template-columns: minmax(300px, .9fr) minmax(420px, 1.2fr);
+      }
+      .questions-panel {
+        position: static;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .summary-panel {
+        grid-column: 1 / -1;
+        position: static;
+        max-height: none;
+        overflow: visible;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .page-grid { grid-template-columns: 1fr; }
+      .question-grid { grid-template-columns: 1fr; }
+      .summary-panel { grid-column: auto; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>Math 8 Test Blueprint</h1>
+      <p>Question-first blueprinting with multiple Knowledge tags</p>
+    </div>
+    <a class="back-link" href="index.html">← Back to Courses</a>
+  </div>
+</header>
+
+<main>
+  <div class="page-grid">
+
+    <section class="panel">
+      <h2>Curriculum Reference</h2>
+      <p class="subtle">
+        Knowledge statements are numbered permanently. Drag any Knowledge card onto a test question. Collapse topics while working, and open
+        Curriculum context only when you need the related Understanding or Skills &amp; Procedures.
+      </p>
+
+      <div class="curriculum-toolbar">
+        <button class="toolbar-btn" type="button" onclick="collapseAllUnits()">Collapse All</button>
+        <button class="toolbar-btn" type="button" onclick="expandAllUnits()">Expand All</button>
+      </div>
+
+      <div id="curriculum-container"></div>
+    </section>
+
+    <section class="panel questions-panel">
+      <div class="assignment-title-box">
+        <label for="assignment-title">Assignment / Test Title</label>
+        <input id="assignment-title"
+               type="text"
+               placeholder="e.g. Math 8 Number Unit Test"
+               oninput="updateSummary()">
+      </div>
+
+      <div class="question-toolbar">
+        <div>
+          <h2 style="margin-bottom:5px;">Test Questions</h2>
+          <p class="subtle" style="margin:0;">
+            Create each question once, then drag Knowledge outcomes from the curriculum column onto the question. If a question assesses multiple outcomes, each tagged curriculum reference lists the question numbers that assess it in the Knowledge Distribution. Adding a new question automatically minimizes the questions above it.
+          </p>
+        </div>
+        <button class="add-question-btn" type="button" onclick="addQuestion()">+ Add Question</button>
+      </div>
+
+      <div id="questions-container"></div>
+    </section>
+
+    <aside class="panel summary-panel">
+      <h2>Blueprint Summary</h2>
+
+      <button class="overleaf-btn" type="button" onclick="generateOverleafCode()">
+        Generate Overleaf Code
+      </button>
+
+      <div class="summary-card">
+        <strong>Total Test Marks</strong>
+        <span id="total-marks">0</span>
+      </div>
+
+      <div class="summary-card">
+        <strong>Difficulty Distribution</strong>
+        <div id="difficulty-summary"></div>
+      </div>
+
+      <div class="summary-card">
+        <strong>Knowledge Distribution</strong>
+        <div id="knowledge-summary">
+          <div class="empty">Tag Knowledge to questions to see distribution.</div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <strong>Knowledge Coverage</strong>
+        <div id="coverage-summary"></div>
+      </div>
+
+      <div class="difficulty-key">
+        <div class="key key1"><strong>Level 1:</strong> direct recall or straightforward one-step work.</div>
+        <div class="key key2"><strong>Level 2:</strong> familiar application or multiple straightforward steps.</div>
+        <div class="key key3"><strong>Level 3:</strong> non-routine reasoning, strategic planning, or synthesis.</div>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<div class="latex-modal" id="latex-modal" aria-hidden="true">
+  <div class="latex-dialog">
+    <div class="latex-dialog-head">
+      <h3>Overleaf / LaTeX Blueprint Code</h3>
+      <button class="latex-close" type="button" onclick="closeLatexModal()">Close</button>
+    </div>
+
+    <div class="latex-dialog-body">
+      <div class="latex-actions">
+        <button class="latex-action-btn primary" id="copy-latex-btn" type="button" onclick="copyLatexCode()">Copy Code</button>
+        <button class="latex-action-btn" type="button" onclick="downloadLatexFile()">Download .tex</button>
+      </div>
+
+      <textarea id="latex-output" spellcheck="false"></textarea>
+    </div>
+  </div>
+</div>
+
+<script>
+const curriculum = [
+  {
+    unit: "Number",
+    clusters: [
+      {
+        understanding: [
+          "There are infinitely many rational numbers between any two rational numbers on the number line."
+        ],
+        skills: [
+          "Express rational numbers as fractions and decimal numbers.",
+          "Classify natural numbers, integers, and rational numbers.",
+          "Relate a rational number to its position on the number line.",
+          "Compare and order rational numbers.",
+          "Determine a rational number between any two given rational numbers.",
+          "Investigate fractions that result in repeating decimals.",
+          "Add, subtract, multiply, and divide any two rational numbers.",
+          "Assess the reasonableness of a sum, difference, product, or quotient, using estimation.",
+          "Evaluate numerical expressions involving rational numbers according to the order of operations.",
+          "Solve problems involving rational numbers in real-world situations."
+        ],
+        knowledge: [
+          "The set of real numbers includes the sets of rational numbers and irrational numbers.",
+          "A rational number can be expressed as the quotient of two integers, a/b, where b ≠ 0.",
+          "Rational numbers are terminating or repeating decimal numbers.",
+          "A repeating decimal, represented with a segment over the repeating digit(s), is a decimal number that contains a digit or group of digits that repeat endlessly.",
+          "The set of rational numbers includes the sets of natural numbers and integers.",
+          "The conventional order of operations applies to operations on rational numbers."
+        ]
+      },
+      {
+        understanding: [
+          "Irrational numbers fill the gaps between rational numbers on the number line."
+        ],
+        skills: [
+          "Distinguish between rational numbers and irrational numbers.",
+          "Classify the expression of an irrational number as exact or approximate.",
+          "Approximate an irrational number as a rounded decimal.",
+          "Express an irrational number as an exact value.",
+          "Relate an irrational number to its approximate position on the number line.",
+          "Compare and order real numbers."
+        ],
+        knowledge: [
+          "An irrational number is a real number that is not rational.",
+          "An irrational number cannot be expressed as the quotient of two integers, a/b.",
+          "Irrational numbers are non-terminating, non-repeating decimal numbers.",
+          "The approximate value of an irrational number can be expressed by using a rounded decimal number.",
+          "An irrational number can be expressed as an exact value, such as √2 or π."
+        ]
+      },
+      {
+        understanding: [
+          "Square roots can be explained with rational numbers and irrational numbers."
+        ],
+        skills: [
+          "Classify positive rational numbers as perfect squares or non-perfect squares.",
+          "Express perfect and non-perfect squares as repeated multiplication and as powers.",
+          "Justify the number of square roots of real numbers, including zero.",
+          "Approximate the square roots of non-perfect squares, within 144.",
+          "Determine the area of a square, given the side length.",
+          "Determine the side length of a square, given its area.",
+          "Solve problems involving perimeter and area of squares."
+        ],
+        knowledge: [
+          "A non-perfect square is the product of two identical irrational numbers.",
+          "Every positive real number has exactly two square roots, one positive and one negative.",
+          "Zero is the only real number that has exactly one square root.",
+          "Negative real numbers do not have square roots that are real numbers.",
+          "The equation x² = a has two solutions, √a and −√a.",
+          "The radical sign, √, is the conventional notation that indicates the positive square root (principal square root) of a number.",
+          "The radical sign with a negative sign in front, −√, indicates the negative square root of a number (secondary square root).",
+          "The notation x = ±√a indicates x = +√a or x = −√a.",
+          "The radical sign is used to express the exact value of a square root of a non-perfect square, e.g., √2.",
+          "A rounded decimal number can express the approximate value of a square root.",
+          "The approximate value of a square root of a non-perfect square can be determined by using perfect squares as benchmarks.",
+          "A non-perfect square can be represented by the area of a square, while side length can be expressed as an approximate or exact value."
+        ]
+      },
+      {
+        understanding: [
+          "A ratio can be interpreted as a multiplicative comparison."
+        ],
+        skills: [
+          "Describe one quantity in a ratio as a multiple of the other.",
+          "Determine the constant of proportionality for a given ratio.",
+          "Generate equivalent ratios for a given constant of proportionality.",
+          "Determine the missing quantity in a ratio, given the constant of proportionality.",
+          "Solve problems that involve quantities related by a constant of proportionality, including in real-world situations."
+        ],
+        knowledge: [
+          "A multiplicative comparison describes the multiplicative relationship between one quantity and another.",
+          "Either of the quantities in a multiplicative comparison can be described as a multiple of the other.",
+          "The factor that relates two quantities in a ratio is the constant of proportionality, k.",
+          "When quantity a in ratio a : b is directly proportional to quantity b, k = b/a.",
+          "When quantity a in ratio a : b is inversely proportional to quantity b, k = ab.",
+          "A constant of proportionality can be expressed as a decimal number and a ratio, and is the same for any equivalent ratios.",
+          "A constant of proportionality can be referred to by various names, depending on the context, including slope, unit rate, and scale factor."
+        ]
+      }
+    ]
+  },
+
+  {
+    unit: "Algebra",
+    clusters: [
+      {
+        understanding: [
+          "A polynomial is built by using operations of addition, subtraction, and multiplication."
+        ],
+        skills: [
+          "Express an algebraic term as multiplication of a coefficient and variable factors and vice versa.",
+          "Justify that an algebraic expression is a polynomial.",
+          "Express algebraic terms, using conventional representations.",
+          "Classify a polynomial according to number of terms.",
+          "Relate the value of the exponent in an algebraic term to the degree of the algebraic term.",
+          "Name algebraic terms according to degree.",
+          "Determine the degree of a polynomial.",
+          "Express a polynomial with terms in descending or ascending order according to degree.",
+          "Add and subtract monomials by combining like terms."
+        ],
+        knowledge: [
+          "An algebraic term is the product of a coefficient and a power.",
+          "An algebraic term is also called a monomial.",
+          "A polynomial is the sum of monomials in which the coefficients are real numbers and the exponent of the variable in each term is a natural number.",
+          "A power of a variable represents a product of several copies of the variable.",
+          "The conventional representation of an algebraic term with a coefficient of one is a variable without a coefficient, e.g., 1x² = x².",
+          "The conventional representation of a linear term is a term without the exponent, e.g., x¹ = x.",
+          "The conventional representation of a constant term is a number without a variable, e.g., 5x⁰ = 5.",
+          "Polynomials can be classified according to the number of algebraic terms, i.e., monomials have one term, binomials have two terms, and trinomials have three terms.",
+          "The value of the exponent in an algebraic term is called the degree of the algebraic term, e.g., x² has a degree of 2.",
+          "The degree of a polynomial is the greatest degree of any of its algebraic terms.",
+          "Polynomials can be named according to degree, i.e., degree of 1 is linear, degree of 2 is quadratic, degree of 3 is cubic, and degree of n is a polynomial.",
+          "A constant term is equivalent to an algebraic term that has a degree of zero.",
+          "Algebraic terms with the same variable and the same degree are like terms.",
+          "The conventional representation of a polynomial is writing algebraic terms in descending order of degree.",
+          "Adding and subtracting polynomials involves combining like terms.",
+          "Subtracting a polynomial is the same as adding its additive inverse."
+        ]
+      },
+      {
+        understanding: [
+          "Any factor or multiple of an equation is an equivalent equation."
+        ],
+        skills: [
+          "Express an equation with rational coefficients as an equivalent equation with integers.",
+          "Solve equations with rational coefficients.",
+          "Solve problems, using equations with rational coefficients.",
+          "Solve linear equations, including with parentheses and variables on both sides of the equation."
+        ],
+        knowledge: [
+          "Multiplying or dividing both sides of an equation by the same number results in an equivalent equation.",
+          "An equation including rational numbers can be expressed as an equivalent equation with integers, e.g., (1/2)x + 3 = 5 can be expressed as x + 6 = 10."
+        ]
+      },
+      {
+        understanding: [
+          "An inequality can describe the unequal relationship between all possible values of a variable and a number."
+        ],
+        skills: [
+          "Identify an inequality as strict or non-strict.",
+          "Model inequalities on the number line.",
+          "Verify, by substitution, whether a number is a solution of an inequality.",
+          "Represent a real-world situation as an inequality."
+        ],
+        knowledge: [
+          "An inequality is a relation that represents a comparison of two numbers or expressions, which may include a variable.",
+          "The solution of an inequality is a range of values that satisfies the inequality.",
+          "An inequality can be expressed by using words or symbols.",
+          "A strict inequality describes values as “less than,” <, or “greater than,” >, a given number.",
+          "A non-strict inequality describes values as “less than or equal to,” ≤, or “greater than or equal to,” ≥, a given number, i.e., x ≥ a, indicates x > a or x = a.",
+          "An inequality can be modelled on the number line by using a ray extending to the right for values greater than and to the left for values less than the given number.",
+          "On the number line, the given number is indicated with an open dot, ○, for strict inequalities and with a closed dot, ●, for non-strict inequalities.",
+          "Inequalities can describe real-world situations, such as speed limits, height restrictions, and age restrictions."
+        ]
+      }
+    ]
+  },
+
+  {
+    unit: "Geometry",
+    clusters: [
+      {
+        understanding: [
+          "Similarity of geometric objects can be explained with proportions."
+        ],
+        skills: [
+          "Determine the scale factor of similar geometric objects.",
+          "Determine whether geometric objects are similar, given a scale factor.",
+          "Apply scale factor to objects.",
+          "Solve problems involving areas of similar geometric objects.",
+          "Solve problems involving scale factor in real-world situations."
+        ],
+        knowledge: [
+          "Geometric objects are similar if one may be obtained from the other by using a scale factor or rotation.",
+          "All circles are similar and all squares are similar.",
+          "Rectangles are similar if they have the same ratio of the longer side to the shorter side.",
+          "The scale factor is the result of dividing the scale drawing length by the corresponding original object length, when lengths are in the same units.",
+          "The scale factor represents the ratios of the corresponding lengths in similar geometric objects, resulting in a similar object being enlarged when the scale factor is > 1, reduced when the scale factor is > 0 and < 1, and maintained when the scale factor is 1.",
+          "The scale factor that relates the areas of two similar objects is the square of the scale factor that relates the side lengths.",
+          "Scale factors appear in real-world situations, such as maps, blueprints, and scale drawings."
+        ]
+      },
+      {
+        understanding: [
+          "Transformations of size can create similar shapes."
+        ],
+        skills: [
+          "Dilate a geometric object in the Cartesian plane, given dilation centre (0, 0) and a scale factor, using hands-on materials or a digital geometry environment.",
+          "Determine the coordinates of the vertices of a similar polygon, given dilation centre (0, 0), a scale factor, and the coordinates of the polygon’s vertices.",
+          "Verify that geometric objects are similar, using the Cartesian plane or straight lines."
+        ],
+        knowledge: [
+          "Applying a dilation to a geometric object creates a similar shape.",
+          "A dilation is a transformation of size (non-rigid transformation) determined by a scale factor and a dilation centre.",
+          "A dilation centre is a fixed point on a plane, from which a geometric object is enlarged or reduced in all directions from the point.",
+          "The x- and y-coordinates of each vertex of a polygon can be multiplied by a scale factor to determine the dilated shape on the Cartesian plane, with a dilation centre at the origin.",
+          "A geometric object and its corresponding dilated shape can be connected by straight lines through the dilation centre."
+        ]
+      },
+      {
+        understanding: [
+          "Theorems are proved and can be applied to solve problems."
+        ],
+        skills: [
+          "Justify unknown interior angle measures in triangles, using angle theorems.",
+          "Prove that a geometric object is a triangle, given the three side lengths.",
+          "Prove that a triangle is a right triangle, using hands-on materials or a digital geometry environment.",
+          "Determine an unknown side length in a right triangle, given any two side lengths, using the Pythagorean theorem.",
+          "Illustrate a problem involving triangles, using hands-on materials or a digital geometry environment.",
+          "Solve problems involving triangles, using theorems."
+        ],
+        knowledge: [
+          "A theorem is a fact that is proved by previously known facts.",
+          "The interior angles in a triangle can be determined by using angle theorems, including the sum of all interior angles in a triangle is 180°, the two angles opposite the two equal sides in an isosceles triangle are congruent, and all interior angles in an equilateral triangle are 60°.",
+          "The triangle inequality theorem states that for any triangle, the sum of any two side lengths is greater than the length of the third side.",
+          "If a, b, and c are the lengths of the sides of a triangle, the triangle inequality theorem can be represented as a + b > c, a + c > b, and b + c > a.",
+          "The longest side of a right triangle, the hypotenuse, is directly opposite the right angle.",
+          "For any right triangle, the area of the square on the longest side, c, is equal to the sum of the areas of the squares on the two shorter sides, a and b, according to the Pythagorean theorem.",
+          "The Pythagorean theorem can be represented symbolically as a² + b² = c²."
+        ]
+      }
+    ]
+  },
+
+  {
+    unit: "Measurement",
+    clusters: [
+      {
+        understanding: [
+          "Representing 3-D shapes with 2-D models can facilitate calculation of surface area."
+        ],
+        skills: [
+          "Identify if a 3-D shape is a polyhedron.",
+          "Calculate the surface area of various polyhedrons and cylinders, using a 2-D model.",
+          "Solve problems involving surface area of polyhedrons and cylinders, including in real-world situations.",
+          "Predict the 3-D shape modelled by a net.",
+          "Relate each shape on a net to the corresponding face of a 3-D shape.",
+          "Differentiate between examples and non-examples of nets for a cube.",
+          "Justify the choice of net, orthographic drawing, or isometric drawing to represent a 3-D shape.",
+          "Recognize the orthographic drawing and isometric drawing related to a given 3-D shape, and vice versa.",
+          "Create orthographic drawings for 3-D shapes, with or without a digital geometry environment.",
+          "Model 3-D shapes related to given orthographic drawings and isometric drawings."
+        ],
+        knowledge: [
+          "Polyhedrons, including prisms and pyramids, are 3-D shapes with polygonal faces.",
+          "Certain 3-D shapes are not polyhedrons, such as cylinders and spheres.",
+          "A pyramid is a polyhedron with triangular lateral faces and one polygonal base opposite a vertex called the apex.",
+          "The surface of a 3-D shape is a composition of faces and curved surfaces that are various 2-D shapes.",
+          "Each 2-D shape that composes the surface of a 3-D shape has dimensions that are necessary for calculating its area, including base, height, and radius.",
+          "Surface area of a 3-D shape is the sum of the areas of its surface and can be used in real-world situations, e.g., determining the materials needed to wrap or tile an object.",
+          "The curved lateral surface of a cylinder is a rectangle, where the length is equal to the circumference of the circular base.",
+          "A 2-D model may not represent all of the faces and curved surfaces of a 3-D shape.",
+          "2-D models of 3-D shapes include nets, orthographic drawings, and isometric drawings.",
+          "A net is a 2-D model of the surface of a 3-D shape that can be folded into a 3-D model.",
+          "A 3-D shape can have different nets.",
+          "An orthographic drawing shows the front, top, and right-side views of a 3-D shape separately.",
+          "An isometric drawing shows a 3-D shape rotated to show the front, top, and right-side views."
+        ]
+      }
+    ]
+  },
+
+  {
+    unit: "Functions",
+    clusters: [
+      {
+        understanding: [
+          "Attributes of linear functions support connections between graphs and equations."
+        ],
+        skills: [
+          "Calculate the slope of a line, given two points on the line.",
+          "Compare the slopes of various parallel lines.",
+          "Compare the slopes of various perpendicular lines.",
+          "Investigate how b and m in the equation y = mx + b affect the vertical position and steepness of a graph.",
+          "Prove that the slope of a vertical line is undefined.",
+          "Distinguish between graphs of linear and non-linear functions.",
+          "Investigate how variations of slope and y-intercepts contextually affect the rate of change of a linear function.",
+          "Propose a possible real-world situation, with a restricted domain and range, related to a given slope.",
+          "Graph a linear function, given slope and one point on the line.",
+          "Solve problems involving rate of change from various representations modelling real-world situations.",
+          "Prove that a linear function has exactly one x-intercept.",
+          "Express, as an ordered pair, the x- and y-intercepts of a linear function from a graph or equation.",
+          "Express a linear function as an equation in slope-intercept form, given the graph.",
+          "Graph a linear function, given the equation.",
+          "Express a horizontal or vertical line as an equation.",
+          "Graph horizontal and vertical lines."
+        ],
+        knowledge: [
+          "Slope is the steepness of a line and has both magnitude and direction.",
+          "The steeper the slope of a line, the greater its magnitude.",
+          "A horizontal line has a slope of zero.",
+          "A vertical line has an undefined slope.",
+          "A line that slants in an upward direction from left to right indicates a positive slope.",
+          "A line that slants in a downward direction from left to right indicates a negative slope.",
+          "Slope, m, of a line can be described by the ratio of the rise (vertical displacement) to the run (horizontal displacement) between two points on the line.",
+          "A linear function can be represented by a non-vertical straight line or a set of points that follow a non-vertical linear path.",
+          "Slope provides insight into the rate of change modelled by a linear function.",
+          "Rate of change describes the change in one variable with respect to another variable in a situation modelled by a function, such as constant speed, hourly wages, or filling a container at a constant rate.",
+          "Linear functions have a constant rate of change.",
+          "Rate of change of a linear function can be determined from any representation of the function by using the slope formula.",
+          "A linear function can be expressed as an equation in slope-intercept form, represented symbolically as y = mx + b, where m is the slope and b is the constant and the y-intercept.",
+          "The graph of a horizontal line can be expressed as an equation, represented symbolically as y = b.",
+          "The graph of a vertical line can be expressed as an equation, represented symbolically as x = a, where a is a constant.",
+          "The x-intercept of a function, indicated by the point at which a graph crosses the x-axis, is the value of the x-coordinate when the y-coordinate is zero.",
+          "A linear function where m ≠ 0 has exactly one x-intercept, which is the solution of the equation mx + b = 0.",
+          "The y-intercept of a function, indicated by the point at which a graph crosses the y-axis, is the value of the y-coordinate when the x-coordinate is zero.",
+          "A linear function has exactly one y-intercept."
+        ]
+      }
+    ]
+  },
+
+  {
+    unit: "Statistics",
+    clusters: [
+      {
+        understanding: [
+          "Shape can determine which statistic best typifies a data set."
+        ],
+        skills: [
+          "Describe the shape of distributions.",
+          "Explain the effects of changing the size of the intervals in a histogram on the interpretation of the shape of a distribution.",
+          "Represent distributions, using histograms with equal intervals.",
+          "Compare the shape of distributions from two different samples of the same population.",
+          "Justify the choice of mean, median, or mode to typify a data set for distributions of various shapes."
+        ],
+        knowledge: [
+          "A distribution is an ordered data set in which the frequencies of all data values are evident.",
+          "A bar graph is a graphical representation of discrete data that shows the shape of a distribution by using the frequency of data grouped in categories.",
+          "A histogram is a graphical representation of continuous data that shows the shape of a distribution by using the frequency of data grouped in intervals.",
+          "One graph, e.g., a double bar graph, can be used to compare multiple sets of discrete data.",
+          "The shape of a distribution is described by the number of modes it has and whether it is symmetric, uniform, or skewed.",
+          "In a symmetrical distribution of quantitative data, the mean and the median are equal.",
+          "In a left-skewed distribution of quantitative data, the mean is less than the median and mode.",
+          "In a right-skewed distribution of quantitative data, the mean is greater than the median and mode.",
+          "The peaks of bar graphs and histograms represent the modes of a distribution, including unimodal and bimodal distributions.",
+          "Measures of central tendency, including mean, median, and mode, are statistics that describe the centre of a distribution.",
+          "Measures of central tendency can describe typical data values for a data set."
+        ]
+      },
+      {
+        understanding: [
+          "Circle graphs communicate categorical data efficiently."
+        ],
+        skills: [
+          "Represent data, using a circle graph.",
+          "Analyze circle graphs to solve problems."
+        ],
+        knowledge: [
+          "A circle graph is a graphical representation of categorical data that shows the distribution through proportional sections in a circle.",
+          "In a circle graph, the number of data points in each category corresponds to a proportional section of 360 degrees.",
+          "A circle graph can use percentages to indicate the number of data points in each section."
+        ]
+      }
+    ]
+  },
+
+  {
+    unit: "Probability",
+    clusters: [
+      {
+        understanding: [
+          "The occurrence of one event can affect the probability of another."
+        ],
+        skills: [
+          "Determine whether two events are independent or dependent.",
+          "Determine the probability of two or more independent events by modelling the sample space.",
+          "Determine the probability of two dependent events by modelling the sample space."
+        ],
+        knowledge: [
+          "Sample space can be represented in various ways, including set notation, lists, and tables.",
+          "Set notation can represent a sample space, S, as an ordered or unordered list of all possible outcomes inside braces, e.g., S = {H, T} represents the sample space for flipping a coin.",
+          "A compound event can consist of two or more events.",
+          "The sample space of compound events can be represented with various models, including tree diagrams, area models, and set notation.",
+          "Two events are independent if the occurrence of one event does not affect the occurrence of the other, such as choosing two marbles from a box but returning the first marble before choosing the second.",
+          "Two events are dependent if the occurrence of one event affects the occurrence of the other, such as choosing students for a team."
+        ]
+      }
+    ]
+  }
+]
+
+const collapsedUnits = new Set();
+const questions = [];
+let questionCounter = 1;
+
+function getUnitPrefix(unitName) {
+  return {
+    "Number": "N",
+    "Algebra": "A",
+    "Geometry": "G",
+    "Measurement": "M",
+    "Functions": "F",
+    "Statistics": "S",
+    "Probability": "P"
+  }[unitName] || "K";
+}
+
+function getAllKnowledgeItems() {
+  const items = [];
+
+  curriculum.forEach(unit => {
+    let n = 1;
+    const prefix = getUnitPrefix(unit.unit);
+
+    unit.clusters.forEach(cluster => {
+      cluster.knowledge.forEach(text => {
+        items.push({
+          id: `${prefix}${n++}`,
+          unit: unit.unit,
+          text,
+          understanding: cluster.understanding,
+          skills: cluster.skills
+        });
+      });
+    });
+  });
+
+  return items;
+}
+
+const knowledgeItems = getAllKnowledgeItems();
+const knowledgeById = Object.fromEntries(knowledgeItems.map(item => [item.id, item]));
+
+function renderCurriculum() {
+  const container = document.getElementById("curriculum-container");
+  container.innerHTML = "";
+
+  curriculum.forEach(unit => {
+    const unitItems = knowledgeItems.filter(x => x.unit === unit.unit);
+    const covered = unitItems.filter(item =>
+      questions.some(q => q.tags.includes(item.id))
+    ).length;
+
+    const unitDiv = document.createElement("section");
+    unitDiv.className = `unit ${collapsedUnits.has(unit.unit) ? "collapsed" : ""}`;
+
+    unitDiv.innerHTML = `
+      <button class="unit-header" type="button" data-unit="${unit.unit}">
+        <span class="unit-title-wrap">
+          <span class="unit-chevron">▼</span>
+          <h3>${unit.unit}</h3>
+        </span>
+        <span class="unit-count">${covered} of ${unitItems.length} covered</span>
+      </button>
+      <div class="unit-body"></div>
+    `;
+
+    const body = unitDiv.querySelector(".unit-body");
+
+    unitItems.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "knowledge-card";
+      card.setAttribute("draggable", "true");
+      card.dataset.knowledgeId = item.id;
+
+      card.innerHTML = `
+        <div class="knowledge-main">
+          <div class="knowledge-text">
+            <span class="knowledge-id">${item.id}</span>${item.text}
+          </div>
+        </div>
+        <div class="context-wrap">
+          <details class="context-details">
+            <summary>Curriculum context</summary>
+            <div class="context-content">
+              <h4>Understanding</h4>
+              <ul>${item.understanding.map(x => `<li>${x}</li>`).join("")}</ul>
+              <h4>Skills &amp; Procedures</h4>
+              <ul>${item.skills.map(x => `<li>${x}</li>`).join("")}</ul>
+            </div>
+          </details>
+        </div>
+      `;
+
+      card.addEventListener("dragstart", event => {
+        card.classList.add("dragging");
+        event.dataTransfer.effectAllowed = "copy";
+        event.dataTransfer.setData("text/plain", item.id);
+      });
+
+      card.addEventListener("dragend", () => {
+        card.classList.remove("dragging");
+      });
+
+      body.appendChild(card);
+    });
+
+    container.appendChild(unitDiv);
+  });
+
+  document.querySelectorAll("[data-unit]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const unit = btn.dataset.unit;
+      if (collapsedUnits.has(unit)) collapsedUnits.delete(unit);
+      else collapsedUnits.add(unit);
+      renderCurriculum();
+    });
+  });
+}
+
+function collapseAllUnits() {
+  curriculum.forEach(unit => collapsedUnits.add(unit.unit));
+  renderCurriculum();
+}
+
+function expandAllUnits() {
+  collapsedUnits.clear();
+  renderCurriculum();
+}
+
+function addQuestion() {
+  questions.forEach(existing => existing.collapsed = true);
+
+  const q = {
+    uid: questionCounter++,
+    label: `Q${questions.length + 1}`,
+    marks: 1,
+    difficulty: 2,
+    tags: [],
+    allocations: {},
+    collapsed: false
+  };
+
+  questions.push(q);
+  renderQuestions();
+  updateSummary();
+}
+
+function toggleQuestionCollapse(uid) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q) return;
+  q.collapsed = !q.collapsed;
+  renderQuestions();
+}
+
+function deleteQuestion(uid) {
+  const index = questions.findIndex(q => q.uid === uid);
+  if (index >= 0) questions.splice(index, 1);
+  renderQuestions();
+  updateSummary();
+  renderCurriculum();
+}
+
+function updateQuestion(uid, field, value) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q) return;
+
+  if (field === "marks") {
+    q.marks = Math.max(0, Number(value) || 0);
+    rebalanceAllocations(q);
+  } else {
+    q[field] = value;
+  }
+
+  renderQuestions();
+  updateSummary();
+}
+
+function setDifficulty(uid, level) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q) return;
+  q.difficulty = level;
+  renderQuestions();
+  updateSummary();
+}
+
+function addTagToQuestion(uid, tag) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q || !tag || q.tags.includes(tag) || !knowledgeById[tag]) return;
+
+  q.tags.push(tag);
+  rebalanceAllocations(q);
+  renderQuestions();
+  updateSummary();
+  renderCurriculum();
+}
+
+function removeTag(uid, tag) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q) return;
+
+  q.tags = q.tags.filter(x => x !== tag);
+  delete q.allocations[tag];
+  rebalanceAllocations(q);
+  renderQuestions();
+  updateSummary();
+  renderCurriculum();
+}
+
+function rebalanceAllocations(q) {
+  if (!q.tags.length) {
+    q.allocations = {};
+    return;
+  }
+
+  const marks = Number(q.marks) || 0;
+  const base = marks / q.tags.length;
+
+  q.tags.forEach(tag => {
+    q.allocations[tag] = Number(base.toFixed(2));
+  });
+}
+
+function updateAllocation(uid, tag, value) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q) return;
+
+  q.allocations[tag] = Math.max(0, Number(value) || 0);
+  updateSummary();
+  updateAllocationStatus(uid);
+}
+
+function getAllocationTotal(q) {
+  return q.tags.reduce((sum, tag) => sum + (Number(q.allocations[tag]) || 0), 0);
+}
+
+function updateAllocationStatus(uid) {
+  const q = questions.find(q => q.uid === uid);
+  const el = document.getElementById(`allocation-status-${uid}`);
+  if (!q || !el) return;
+
+  const total = getAllocationTotal(q);
+  const expected = Number(q.marks) || 0;
+  const ok = Math.abs(total - expected) < 0.01;
+
+  el.className = `allocation-summary ${ok ? "ok" : "bad"}`;
+  el.textContent = `Allocated: ${total.toFixed(2)} / ${expected.toFixed(2)} marks ${ok ? "✓" : "— adjust allocations"}`;
+}
+
+function renderQuestions() {
+  const container = document.getElementById("questions-container");
+
+  if (!questions.length) {
+    container.innerHTML = `<div class="empty">No questions yet. Click “+ Add Question” to begin.</div>`;
+    return;
+  }
+
+  container.innerHTML = "";
+
+  questions.forEach(q => {
+
+    const card = document.createElement("div");
+    card.className = `question-card ${q.collapsed ? "collapsed" : ""}`;
+
+
+    const tagsHtml = q.tags.length
+      ? q.tags.map(tag => `
+          <span class="tag">
+            ${tag}
+            <button type="button" title="Remove ${tag}" onclick="removeTag(${q.uid}, '${tag}')">×</button>
+          </span>
+        `).join("")
+      : `<span class="empty">No Knowledge tagged yet.</span>`;
+
+
+    card.innerHTML = `
+      <div class="question-head">
+        <strong>${escapeHtml(q.label || `Question ${q.uid}`)}</strong>
+        <div class="question-head-actions">
+          <button class="question-collapse-btn"
+                  type="button"
+                  onclick="toggleQuestionCollapse(${q.uid})">
+            ${q.collapsed ? "Expand" : "Minimize"}
+          </button>
+          <button class="delete-question"
+                  type="button"
+                  onclick="deleteQuestion(${q.uid})">
+            Remove Question
+          </button>
+        </div>
+      </div>
+
+      <div class="question-body">
+        <div class="question-grid">
+          <div>
+            <label class="field-label">Question label</label>
+            <input type="text" value="${escapeHtml(q.label)}"
+                   oninput="updateQuestion(${q.uid}, 'label', this.value)">
+          </div>
+
+          <div>
+            <label class="field-label">Marks</label>
+            <input type="number" min="0" step="1" value="${q.marks}"
+                   onchange="updateQuestion(${q.uid}, 'marks', this.value)">
+          </div>
+
+          <div>
+            <label class="field-label">Difficulty</label>
+            <div class="difficulty-group">
+              <button type="button" class="difficulty-btn level1 ${q.difficulty === 1 ? "active" : ""}"
+                      onclick="setDifficulty(${q.uid}, 1)">1</button>
+              <button type="button" class="difficulty-btn level2 ${q.difficulty === 2 ? "active" : ""}"
+                      onclick="setDifficulty(${q.uid}, 2)">2</button>
+              <button type="button" class="difficulty-btn level3 ${q.difficulty === 3 ? "active" : ""}"
+                      onclick="setDifficulty(${q.uid}, 3)">3</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tag-section">
+          <div class="tag-section-title">
+            <strong>Knowledge assessed</strong>
+            <span class="subtle">${q.tags.length} tagged</span>
+          </div>
+
+          <div class="drop-zone"
+               data-drop-question="${q.uid}">
+            Drag a Knowledge outcome from the left and drop it here
+          </div>
+
+          <div class="tag-list" style="margin-top:10px;">${tagsHtml}</div>
+
+
+        </div>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+
+  document.querySelectorAll("[data-drop-question]").forEach(zone => {
+    zone.addEventListener("dragover", event => {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "copy";
+      zone.classList.add("drag-over");
+    });
+
+    zone.addEventListener("dragleave", () => {
+      zone.classList.remove("drag-over");
+    });
+
+    zone.addEventListener("drop", event => {
+      event.preventDefault();
+      zone.classList.remove("drag-over");
+      const tag = event.dataTransfer.getData("text/plain");
+      const uid = Number(zone.dataset.dropQuestion);
+      addTagToQuestion(uid, tag);
+    });
+  });
+}
+
+function updateSummary() {
+  const totalMarks = questions.reduce((sum, q) => sum + (Number(q.marks) || 0), 0);
+  document.getElementById("total-marks").textContent = totalMarks.toFixed(2).replace(".00","");
+
+  const difficultyMarks = {1:0, 2:0, 3:0};
+  questions.forEach(q => {
+    difficultyMarks[q.difficulty] += Number(q.marks) || 0;
+  });
+
+  document.getElementById("difficulty-summary").innerHTML = [1,2,3].map(level => {
+    const marks = difficultyMarks[level];
+    const pct = totalMarks ? marks / totalMarks * 100 : 0;
+    return `
+      <div class="progress-row">
+        <div class="progress-label">
+          <span>Level ${level}</span>
+          <span>${marks.toFixed(2).replace(".00","")} — ${pct.toFixed(1)}%</span>
+        </div>
+        <div class="bar"><div style="width:${pct}%"></div></div>
+      </div>
+    `;
+  }).join("");
+
+  const knowledgeQuestions = {};
+  knowledgeItems.forEach(item => knowledgeQuestions[item.id] = []);
+
+  questions.forEach((q, index) => {
+    const questionLabel = (q.label || `Q${index + 1}`).trim();
+    q.tags.forEach(tag => {
+      knowledgeQuestions[tag].push(questionLabel);
+    });
+  });
+
+  const taggedIds = knowledgeItems
+    .filter(item => knowledgeQuestions[item.id].length > 0)
+    .map(item => item.id);
+
+  const knowledgeSummary = document.getElementById("knowledge-summary");
+
+  if (!taggedIds.length) {
+    knowledgeSummary.innerHTML = `<div class="empty">Tag Knowledge to questions to see distribution.</div>`;
+  } else {
+    knowledgeSummary.innerHTML = taggedIds.map(id => {
+      const questionLabels = knowledgeQuestions[id].join(", ");
+      return `
+        <div class="progress-row">
+          <div class="progress-label">
+            <span><strong>${id}</strong> — ${knowledgeById[id].text}</span>
+            <span style="white-space:nowrap; font-weight:800; color:#12355b;">${questionLabels}</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  const coveredSet = new Set();
+  questions.forEach(q => q.tags.forEach(tag => coveredSet.add(tag)));
+
+  const coverage = document.getElementById("coverage-summary");
+  coverage.innerHTML = curriculum.map(unit => {
+    const unitItems = knowledgeItems.filter(item => item.unit === unit.unit);
+    const chips = unitItems.map(item => `
+      <span class="coverage-chip ${coveredSet.has(item.id) ? "covered" : ""}">${item.id}</span>
+    `).join("");
+
+    return `
+      <div class="coverage-unit">
+        <div class="coverage-unit-title">${unit.unit}</div>
+        <div class="coverage-chips">${chips}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+function latexEscape(value) {
+  let text = String(value ?? "");
+
+  const placeholders = [];
+
+  function protect(latex) {
+    const token = `@@SAFE${placeholders.length}@@`;
+    placeholders.push(latex);
+    return token;
+  }
+
+  // Common complete math fragments first.
+  text = text
+    .replace(/√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$\\sqrt{${radicand}}$`))
+    .replace(/−√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$-\\sqrt{${radicand}}$`))
+    .replace(/±√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$\\pm\\sqrt{${radicand}}$`))
+    .replace(/([A-Za-z0-9])²/g, (_, base) => protect(`$${base}^{2}$`))
+    .replace(/([A-Za-z0-9])³/g, (_, base) => protect(`$${base}^{3}$`))
+    .replace(/([A-Za-z0-9])¹/g, (_, base) => protect(`$${base}^{1}$`))
+    .replace(/([A-Za-z0-9])⁰/g, (_, base) => protect(`$${base}^{0}$`));
+
+  const replacements = [
+    ["π", "$\\pi$"],
+    ["×", "$\\times$"],
+    ["⋅", "$\\cdot$"],
+    ["−", "$-$"],
+    ["√", "$\\sqrt{\\phantom{x}}$"],
+    ["∛", "$\\sqrt[3]{\\phantom{x}}$"],
+    ["≤", "$\\leq$"],
+    ["≥", "$\\geq$"],
+    ["≠", "$\\neq$"],
+    ["±", "$\\pm$"],
+    ["≅", "$\\cong$"],
+    ["⊥", "$\\perp$"],
+    ["∥", "$\\parallel$"],
+    ["°", "$^{\\circ}$"],
+    ["○", "$\\circ$"],
+    ["●", "$\\bullet$"]
+  ];
+
+  replacements.forEach(([unicode, latex]) => {
+    text = text.split(unicode).join(protect(latex));
+  });
+
+  text = text
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/–/g, "--")
+    .replace(/—/g, "---")
+    .replace(/\u00A0/g, " ");
+
+  text = text
+    .replaceAll("\\", "\\textbackslash{}")
+    .replaceAll("&", "\\&")
+    .replaceAll("%", "\\%")
+    .replaceAll("$", "\\$")
+    .replaceAll("#", "\\#")
+    .replaceAll("_", "\\_")
+    .replaceAll("{", "\\{")
+    .replaceAll("}", "\\}")
+    .replaceAll("~", "\\textasciitilde{}")
+    .replaceAll("^", "\\textasciicircum{}");
+
+  placeholders.forEach((latex, index) => {
+    text = text.split(`@@SAFE${index}@@`).join(latex);
+  });
+
+  return text;
+}
+
+function buildLatexBlueprint() {
+  const assignmentTitle = document.getElementById("assignment-title").value.trim() || "Math 8 Test Blueprint";
+  const latexAssignmentTitle = latexEscape(assignmentTitle);
+  const totalMarks = questions.reduce((sum, q) => sum + (Number(q.marks) || 0), 0);
+
+  const difficultyMarks = {1: 0, 2: 0, 3: 0};
+  questions.forEach(q => {
+    difficultyMarks[q.difficulty] += Number(q.marks) || 0;
+  });
+
+  const knowledgeQuestions = {};
+  knowledgeItems.forEach(item => knowledgeQuestions[item.id] = []);
+
+  questions.forEach((q, index) => {
+    const qLabel = (q.label || `Q${index + 1}`).trim();
+    q.tags.forEach(tag => {
+      knowledgeQuestions[tag].push(qLabel);
+    });
+  });
+
+  const coveredKnowledge = knowledgeItems.filter(item => knowledgeQuestions[item.id].length > 0);
+
+  const questionRows = questions.map((q, index) => {
+    const qLabel = latexEscape((q.label || `Q${index + 1}`).trim());
+    const tags = q.tags.length ? q.tags.map(latexEscape).join(", ") : "---";
+    return `${qLabel} & ${Number(q.marks) || 0} & Level ${q.difficulty} & ${tags} \\\\`;
+  }).join("\n");
+
+  const knowledgeRows = coveredKnowledge.map(item => {
+    const refs = knowledgeQuestions[item.id].map(latexEscape).join(", ");
+    return `${latexEscape(item.id)} & ${latexEscape(item.text)} & ${refs} \\\\`;
+  }).join("\n");
+
+  const coverageByUnit = curriculum.map(unit => {
+    const items = knowledgeItems.filter(item => item.unit === unit.unit);
+    const covered = items.filter(item => knowledgeQuestions[item.id].length > 0);
+    const missing = items.filter(item => knowledgeQuestions[item.id].length === 0);
+
+    return `
+\\subsection*{${latexEscape(unit.unit)}}
+\\textbf{Covered:} ${covered.length ? covered.map(item => latexEscape(item.id)).join(", ") : "None"}\\\\
+\\textbf{Not represented:} ${missing.length ? missing.map(item => latexEscape(item.id)).join(", ") : "None"}
+`;
+  }).join("\n");
+
+  const difficultyRows = [1,2,3].map(level => {
+    const marks = difficultyMarks[level];
+    const pct = totalMarks ? (marks / totalMarks * 100) : 0;
+    return `Level ${level} & ${marks} & ${pct.toFixed(1)}\\% \\\\`;
+  }).join("\n");
+
+  return `\\documentclass[11pt]{article}
+
+\\usepackage[margin=0.75in]{geometry}
+\\usepackage{array}
+\\usepackage{booktabs}
+\\usepackage{longtable}
+\\usepackage{xcolor}
+\\usepackage{tabularx}
+\\usepackage{enumitem}
+\\usepackage{fancyhdr}
+\\usepackage{titlesec}
+
+\\definecolor{blueprintblue}{HTML}{12355B}
+\\definecolor{lightblue}{HTML}{EEF4FB}
+\\definecolor{lightgray}{HTML}{F5F7FA}
+
+\\pagestyle{fancy}
+\\fancyhf{}
+\\lhead{Math 8 Blueprint}
+\\rhead{${latexAssignmentTitle}}
+\\cfoot{\\thepage}
+
+\\titleformat{\\section}
+  {\\large\\bfseries\\color{blueprintblue}}
+  {}
+  {0pt}
+  {}
+
+\\titleformat{\\subsection}
+  {\\normalsize\\bfseries\\color{blueprintblue}}
+  {}
+  {0pt}
+  {}
+
+\\setlength{\\parindent}{0pt}
+\\setlength{\\parskip}{4pt}
+
+\\begin{document}
+
+\\begin{center}
+    {\\LARGE\\bfseries\\color{blueprintblue} ${latexAssignmentTitle}}\\\\[4pt]
+    {\\large Math 8 Curriculum Coverage Overview}
+\\end{center}
+
+\\vspace{0.5em}
+
+\\section*{Assessment Summary}
+
+\\begin{tabular}{@{}lr@{}}
+\\toprule
+\\textbf{Assignment} & ${latexAssignmentTitle} \\\\
+\\textbf{Total Questions} & ${questions.length} \\\\
+\\textbf{Total Marks} & ${totalMarks} \\\\
+\\bottomrule
+\\end{tabular}
+
+\\vspace{1em}
+
+\\section*{Difficulty Distribution}
+
+\\begin{tabular}{@{}lrr@{}}
+\\toprule
+\\textbf{Difficulty} & \\textbf{Marks} & \\textbf{Percent} \\\\
+\\midrule
+${difficultyRows}
+\\bottomrule
+\\end{tabular}
+
+\\vspace{1em}
+
+\\section*{Questions}
+
+\\begin{longtable}{>{\\bfseries}p{0.12\\textwidth} p{0.10\\textwidth} p{0.13\\textwidth} p{0.52\\textwidth}}
+\\toprule
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Knowledge References} \\\\
+\\midrule
+\\endfirsthead
+\\toprule
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Knowledge References} \\\\
+\\midrule
+\\endhead
+${questionRows || "\\multicolumn{4}{l}{No questions entered.} \\\\"}
+\\bottomrule
+\\end{longtable}
+
+\\section*{Knowledge Distribution}
+
+\\begin{longtable}{>{\\bfseries}p{0.08\\textwidth} p{0.70\\textwidth} p{0.14\\textwidth}}
+\\toprule
+\\textbf{Ref.} & \\textbf{Knowledge Statement} & \\textbf{Questions} \\\\
+\\midrule
+\\endfirsthead
+\\toprule
+\\textbf{Ref.} & \\textbf{Knowledge Statement} & \\textbf{Questions} \\\\
+\\midrule
+\\endhead
+${knowledgeRows || "\\multicolumn{3}{l}{No Knowledge references tagged.} \\\\"}
+\\bottomrule
+\\end{longtable}
+
+\\section*{Curriculum Coverage by Topic}
+
+${coverageByUnit}
+
+\\end{document}
+`;
+}
+
+function generateOverleafCode() {
+  const modal = document.getElementById("latex-modal");
+  const output = document.getElementById("latex-output");
+
+  output.value = buildLatexBlueprint();
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+}
+
+function closeLatexModal() {
+  const modal = document.getElementById("latex-modal");
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+}
+
+async function copyLatexCode() {
+  const output = document.getElementById("latex-output");
+  const button = document.getElementById("copy-latex-btn");
+
+  try {
+    await navigator.clipboard.writeText(output.value);
+  } catch (err) {
+    output.select();
+    document.execCommand("copy");
+  }
+
+  if (button) {
+    const originalText = button.textContent;
+    button.textContent = "Copied ✓";
+    button.disabled = true;
+
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.disabled = false;
+    }, 1400);
+  }
+}
+
+function downloadLatexFile() {
+  const code = document.getElementById("latex-output").value || buildLatexBlueprint();
+  const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  const assignmentTitle = document.getElementById("assignment-title").value.trim() || "Math 8 Test Blueprint";
+  const safeFilename = assignmentTitle
+    .replace(/[^a-z0-9]+/gi, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+  link.download = `${safeFilename || "math8-test-blueprint"}.tex`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById("latex-modal").addEventListener("click", event => {
+  if (event.target.id === "latex-modal") closeLatexModal();
+});
+
+renderCurriculum();
+renderQuestions();
+updateSummary();
+</script>
+</body>
+</html>

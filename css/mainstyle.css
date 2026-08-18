@@ -1,0 +1,200 @@
+        /* =========================================================
+           BASIC PAGE SETUP
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f6f8;
+            color: #1f2937;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        header {
+            background-color: #12355b;
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
+
+        main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .intro h2 {
+            margin-bottom: 10px;
+            color: #12355b;
+        }
+
+        .intro p {
+            color: #5f6b7a;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           COURSE SELECTION
+        ========================================================= */
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+
+            text-decoration: none;
+            color: #1f2937;
+
+            border: 2px solid transparent;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 7px 18px rgba(0, 0, 0, 0.12);
+            border-color: #2563eb;
+        }
+
+        .course-card h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: #12355b;
+        }
+
+        .course-card p {
+            margin: 10px 0 0;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+
+        /* =========================================================
+           DIFFICULTY KEY
+        ========================================================= */
+
+        .difficulty-section {
+            margin-top: 50px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .difficulty-section h2 {
+            margin-top: 0;
+            color: #12355b;
+        }
+
+        .difficulty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .difficulty {
+            padding: 18px;
+            border-radius: 8px;
+        }
+
+        .level-1 {
+            background-color: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+        }
+
+        .level-2 {
+            background-color: #fff8e1;
+            border-left: 5px solid #f9a825;
+        }
+
+        .level-3 {
+            background-color: #ffebee;
+            border-left: 5px solid #c62828;
+        }
+
+        .difficulty h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .difficulty p {
+            margin: 0;
+            line-height: 1.5;
+            font-size: 0.92rem;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+            main {
+                margin-top: 25px;
+            }
+
+        }
+

@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math 20-1 Test Blueprint</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      color: #1f2937;
+    }
+
+    header {
+      background: #12355b;
+      color: #fff;
+      padding: 22px 20px;
+    }
+
+    .header-inner {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    header h1 { margin: 0; font-size: 2rem; }
+    header p { margin: 6px 0 0; opacity: .9; }
+
+    .back-link {
+      color: white;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.45);
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+
+    main {
+      max-width: 1380px;
+      margin: 28px auto;
+      padding: 0 18px 60px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.95fr) minmax(430px, 1.35fr) minmax(300px, .8fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+      padding: 20px;
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      color: #12355b;
+    }
+
+    .subtle {
+      color: #667085;
+      line-height: 1.5;
+      font-size: .93rem;
+    }
+
+    .curriculum-toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 14px 0 8px;
+    }
+
+    .toolbar-btn {
+      border: 1px solid #cfd8e3;
+      background: #fff;
+      color: #12355b;
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: .82rem;
+    }
+
+    .toolbar-btn:hover { background: #eef4fb; }
+
+    .unit {
+      margin-top: 12px;
+      border: 1px solid #d8dee8;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .unit-header {
+      width: 100%;
+      border: 0;
+      background: #eef4fb;
+      color: #12355b;
+      padding: 12px 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .unit-header:hover { background: #e4eef9; }
+
+    .unit-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .unit-chevron {
+      width: 16px;
+      font-size: .9rem;
+      transition: transform .15s ease;
+    }
+
+    .unit.collapsed .unit-chevron { transform: rotate(-90deg); }
+
+    .unit-header h3 {
+      margin: 0;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+    }
+
+    .unit-count {
+      font-size: .75rem;
+      color: #516174;
+      font-weight: 700;
+      background: rgba(255,255,255,.8);
+      border-radius: 999px;
+      padding: 4px 8px;
+      white-space: nowrap;
+    }
+
+    .unit-body { padding: 8px; }
+    .unit.collapsed .unit-body { display: none; }
+
+    .knowledge-card {
+      border: 1px solid #e0e5ec;
+      border-radius: 8px;
+      margin-bottom: 7px;
+      background: #fff;
+    }
+
+    .knowledge-main {
+      padding: 9px 10px 6px;
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
+
+    .knowledge-id {
+      display: inline-block;
+      min-width: 32px;
+      color: #12355b;
+      font-weight: 800;
+      margin-right: 5px;
+    }
+
+    .knowledge-text {
+      flex: 1;
+      line-height: 1.38;
+      font-size: .88rem;
+    }
+
+    .context-wrap {
+      padding: 0 10px 8px 10px;
+      margin-left: 0;
+    }
+
+    .context-details {
+      border: 0;
+      background: transparent;
+    }
+
+    .context-details summary {
+      cursor: pointer;
+      display: inline-block;
+      color: #64748b;
+      font-size: .77rem;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .context-details summary::-webkit-details-marker { display: none; }
+    .context-details summary::after { content: " ▾"; }
+    .context-details[open] summary::after { content: " ▴"; }
+
+    .context-content {
+      margin-top: 6px;
+      padding: 9px 10px;
+      border: 1px solid #d8dee8;
+      border-radius: 7px;
+      background: #f8fafc;
+      line-height: 1.4;
+      font-size: .8rem;
+    }
+
+    .context-content h4 {
+      margin: 0 0 4px;
+      color: #12355b;
+      font-size: .8rem;
+    }
+
+    .context-content h4:not(:first-child) { margin-top: 8px; }
+    .context-content ul { margin: 0; padding-left: 17px; }
+
+
+    .assignment-title-box {
+      margin-bottom: 18px;
+      padding: 14px;
+      border: 1px solid #d8dee8;
+      border-radius: 10px;
+      background: #f8fafc;
+    }
+
+    .assignment-title-box label {
+      display: block;
+      margin-bottom: 6px;
+      color: #12355b;
+      font-size: .85rem;
+      font-weight: 800;
+    }
+
+    .assignment-title-box input {
+      width: 100%;
+      padding: 10px 11px;
+      border: 1px solid #cfd6df;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .question-toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .add-question-btn {
+      border: 0;
+      background: #12355b;
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .question-card {
+      border: 1px solid #d8dee8;
+      border-radius: 11px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: #fff;
+    }
+
+
+    .question-card.collapsed .question-body {
+      display: none;
+    }
+
+    .question-collapse-btn {
+      border: 1px solid #cfd8e3;
+      background: #fff;
+      color: #12355b;
+      border-radius: 7px;
+      padding: 6px 9px;
+      cursor: pointer;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .question-head-actions {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .question-head {
+      background: #eef4fb;
+      padding: 12px 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .question-head strong {
+      color: #12355b;
+      font-size: 1rem;
+    }
+
+    .delete-question {
+      border: 0;
+      background: #fee2e2;
+      color: #991b1b;
+      border-radius: 7px;
+      padding: 7px 9px;
+      cursor: pointer;
+      font-size: .8rem;
+    }
+
+    .question-body {
+      padding: 13px;
+    }
+
+    .question-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) 90px minmax(150px, .8fr);
+      gap: 10px;
+      align-items: end;
+    }
+
+    label.field-label {
+      display: block;
+      font-size: .76rem;
+      color: #667085;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px 9px;
+      border: 1px solid #cfd6df;
+      border-radius: 7px;
+      font-size: .9rem;
+      background: #fff;
+    }
+
+    .difficulty-group {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .difficulty-btn {
+      border: 1px solid #cfd6df;
+      background: #fff;
+      border-radius: 7px;
+      padding: 7px 9px;
+      cursor: pointer;
+      font-weight: 800;
+      min-width: 34px;
+    }
+
+    .difficulty-btn.active.level1 {
+      background: #e8f5e9;
+      border-color: #2e7d32;
+      color: #1b5e20;
+    }
+
+    .difficulty-btn.active.level2 {
+      background: #fff8e1;
+      border-color: #f9a825;
+      color: #805600;
+    }
+
+    .difficulty-btn.active.level3 {
+      background: #ffebee;
+      border-color: #c62828;
+      color: #991b1b;
+    }
+
+    .tag-section {
+      margin-top: 13px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 12px;
+    }
+
+    .tag-section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .tag-section-title strong {
+      color: #12355b;
+      font-size: .9rem;
+    }
+
+    .tag-picker {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 7px;
+      margin-bottom: 9px;
+    }
+
+    .tag-add-btn {
+      border: 0;
+      background: #eaf1fb;
+      color: #12355b;
+      border-radius: 7px;
+      padding: 8px 10px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tag-list {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 999px;
+      background: #eaf1fb;
+      color: #12355b;
+      padding: 5px 8px;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .tag button {
+      border: 0;
+      background: transparent;
+      color: #12355b;
+      cursor: pointer;
+      padding: 0;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .allocation-box {
+      border: 1px solid #d8dee8;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .allocation-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 88px;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 10px;
+      border-top: 1px solid #edf0f4;
+      font-size: .82rem;
+    }
+
+    .allocation-row:first-child { border-top: 0; }
+
+    .allocation-summary {
+      padding: 8px 10px;
+      background: #f8fafc;
+      border-top: 1px solid #d8dee8;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .allocation-summary.ok { color: #166534; }
+    .allocation-summary.bad { color: #b42318; }
+
+
+    .knowledge-card[draggable="true"] {
+      cursor: grab;
+    }
+
+    .knowledge-card[draggable="true"]:active {
+      cursor: grabbing;
+    }
+
+    .knowledge-card.dragging {
+      opacity: .45;
+    }
+
+    .drop-zone {
+      margin-top: 12px;
+      border: 2px dashed #b8c7d9;
+      border-radius: 9px;
+      padding: 14px;
+      text-align: center;
+      color: #667085;
+      background: #fbfdff;
+      font-size: .84rem;
+      transition: border-color .15s ease, background .15s ease, color .15s ease;
+    }
+
+    .drop-zone.drag-over {
+      border-color: #12355b;
+      background: #eef4fb;
+      color: #12355b;
+    }
+
+    .questions-panel {
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
+
+
+    .overleaf-btn {
+      width: 100%;
+      border: 0;
+      background: #0f766e;
+      color: #fff;
+      border-radius: 8px;
+      padding: 11px 13px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .overleaf-btn:hover {
+      background: #115e59;
+    }
+
+    .latex-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+    }
+
+    .latex-modal.open {
+      display: flex;
+    }
+
+    .latex-dialog {
+      width: min(1000px, 96vw);
+      max-height: 90vh;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .latex-dialog-head {
+      padding: 14px 16px;
+      background: #12355b;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .latex-dialog-head h3 {
+      margin: 0;
+      color: #fff;
+      font-size: 1.05rem;
+    }
+
+    .latex-close {
+      border: 1px solid rgba(255,255,255,.45);
+      background: transparent;
+      color: #fff;
+      border-radius: 7px;
+      padding: 6px 9px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .latex-dialog-body {
+      padding: 14px;
+      overflow: auto;
+    }
+
+    .latex-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .latex-action-btn {
+      border: 1px solid #cfd8e3;
+      background: #fff;
+      color: #12355b;
+      border-radius: 8px;
+      padding: 8px 11px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .latex-action-btn.primary {
+      background: #12355b;
+      color: #fff;
+      border-color: #12355b;
+    }
+
+    #latex-output {
+      width: 100%;
+      min-height: 520px;
+      resize: vertical;
+      border: 1px solid #cfd8e3;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: .82rem;
+      line-height: 1.4;
+      white-space: pre;
+    }
+
+    .summary-panel {
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow-y: auto;
+      scrollbar-gutter: stable;
+    }
+
+    .summary-card {
+      border: 1px solid #d8dee8;
+      border-radius: 10px;
+      padding: 13px;
+      background: #fbfcfe;
+      margin-bottom: 12px;
+    }
+
+    .summary-card > strong {
+      display: block;
+      color: #12355b;
+      margin-bottom: 8px;
+    }
+
+    .progress-row { margin: 9px 0; }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: .82rem;
+      margin-bottom: 4px;
+    }
+
+    .progress-label span:first-child { flex: 1; }
+
+    .bar {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar > div {
+      height: 100%;
+      background: #12355b;
+    }
+
+    .coverage-unit {
+      margin-top: 10px;
+    }
+
+    .coverage-unit-title {
+      color: #12355b;
+      font-weight: 800;
+      font-size: .82rem;
+      margin-bottom: 5px;
+    }
+
+    .coverage-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .coverage-chip {
+      font-size: .74rem;
+      border-radius: 999px;
+      padding: 4px 7px;
+      border: 1px solid #d8dee8;
+      background: #fff;
+      color: #667085;
+      font-weight: 800;
+    }
+
+    .coverage-chip.covered {
+      background: #e8f5e9;
+      color: #1b5e20;
+      border-color: #9bc6a0;
+    }
+
+    .difficulty-key { margin-top: 14px; }
+
+    .key {
+      border-radius: 8px;
+      padding: 9px 10px;
+      margin-bottom: 7px;
+      line-height: 1.35;
+      font-size: .82rem;
+    }
+
+    .key1 { background: #e8f5e9; }
+    .key2 { background: #fff8e1; }
+    .key3 { background: #ffebee; }
+
+    .empty {
+      color: #667085;
+      font-style: italic;
+      font-size: .88rem;
+    }
+
+    @media (max-width: 1180px) {
+      .page-grid {
+        grid-template-columns: minmax(300px, .9fr) minmax(420px, 1.2fr);
+      }
+      .questions-panel {
+        position: static;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .summary-panel {
+        grid-column: 1 / -1;
+        position: static;
+        max-height: none;
+        overflow: visible;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .page-grid { grid-template-columns: 1fr; }
+      .question-grid { grid-template-columns: 1fr; }
+      .summary-panel { grid-column: auto; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>Math 20-1 Test Blueprint</h1>
+      <p>Question-first blueprinting with multiple Knowledge tags</p>
+    </div>
+    <a class="back-link" href="index.html">← Back to Courses</a>
+  </div>
+</header>
+
+<main>
+  <div class="page-grid">
+
+    <section class="panel">
+      <h2>Curriculum Reference</h2>
+      <p class="subtle">
+        Math 20-1 Specific Outcomes are numbered permanently. Drag any curriculum outcome onto a test question. Collapse topics while working, and open
+        Curriculum context only when you need the related Understanding or Skills &amp; Procedures.
+      </p>
+
+      <div class="curriculum-toolbar">
+        <button class="toolbar-btn" type="button" onclick="collapseAllUnits()">Collapse All</button>
+        <button class="toolbar-btn" type="button" onclick="expandAllUnits()">Expand All</button>
+      </div>
+
+      <div id="curriculum-container"></div>
+    </section>
+
+    <section class="panel questions-panel">
+      <div class="assignment-title-box">
+        <label for="assignment-title">Assignment / Test Title</label>
+        <input id="assignment-title"
+               type="text"
+               placeholder="e.g. Math 20-1 Number Unit Test"
+               oninput="updateSummary()">
+      </div>
+
+      <div class="question-toolbar">
+        <div>
+          <h2 style="margin-bottom:5px;">Test Questions</h2>
+          <p class="subtle" style="margin:0;">
+            Create each question once, then drag Knowledge outcomes from the curriculum column onto the question. If a question assesses multiple outcomes, each tagged curriculum reference lists the question numbers that assess it in the Curriculum Distribution. Adding a new question automatically minimizes the questions above it.
+          </p>
+        </div>
+        <button class="add-question-btn" type="button" onclick="addQuestion()">+ Add Question</button>
+      </div>
+
+      <div id="questions-container"></div>
+    </section>
+
+    <aside class="panel summary-panel">
+      <h2>Blueprint Summary</h2>
+
+      <button class="overleaf-btn" type="button" onclick="generateOverleafCode()">
+        Generate Overleaf Code
+      </button>
+
+      <div class="summary-card">
+        <strong>Total Test Marks</strong>
+        <span id="total-marks">0</span>
+      </div>
+
+      <div class="summary-card">
+        <strong>Difficulty Distribution</strong>
+        <div id="difficulty-summary"></div>
+      </div>
+
+      <div class="summary-card">
+        <strong>Curriculum Distribution</strong>
+        <div id="knowledge-summary">
+          <div class="empty">Tag curriculum outcomes to questions to see distribution.</div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <strong>Curriculum Coverage</strong>
+        <div id="coverage-summary"></div>
+      </div>
+
+      <div class="difficulty-key">
+        <div class="key key1"><strong>Level 1:</strong> direct recall or straightforward one-step work.</div>
+        <div class="key key2"><strong>Level 2:</strong> familiar application or multiple straightforward steps.</div>
+        <div class="key key3"><strong>Level 3:</strong> non-routine reasoning, strategic planning, or synthesis.</div>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<div class="latex-modal" id="latex-modal" aria-hidden="true">
+  <div class="latex-dialog">
+    <div class="latex-dialog-head">
+      <h3>Overleaf / LaTeX Blueprint Code</h3>
+      <button class="latex-close" type="button" onclick="closeLatexModal()">Close</button>
+    </div>
+
+    <div class="latex-dialog-body">
+      <div class="latex-actions">
+        <button class="latex-action-btn primary" id="copy-latex-btn" type="button" onclick="copyLatexCode()">Copy Code</button>
+        <button class="latex-action-btn" type="button" onclick="downloadLatexFile()">Download .tex</button>
+      </div>
+
+      <textarea id="latex-output" spellcheck="false"></textarea>
+    </div>
+  </div>
+</div>
+
+<script>
+const curriculum = [
+  {
+    "unit": "Algebra and Number",
+    "prefix": "AN",
+    "clusters": [
+      {
+        "understanding": [
+          "Topic: Algebra and Number",
+          "General Outcome: Develop algebraic reasoning and number sense."
+        ],
+        "skills": [
+          "Mathematical Processes: [R, V]"
+        ],
+        "knowledge": [
+          "Demonstrate an understanding of the absolute value of real numbers."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Algebra and Number",
+          "General Outcome: Develop algebraic reasoning and number sense."
+        ],
+        "skills": [
+          "Mathematical Processes: [CN, ME, PS, R]"
+        ],
+        "knowledge": [
+          "Solve problems that involve operations on radicals and radical expressions with numerical and variable radicands."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Algebra and Number",
+          "General Outcome: Develop algebraic reasoning and number sense."
+        ],
+        "skills": [
+          "Mathematical Processes: [C, PS, R]"
+        ],
+        "knowledge": [
+          "Solve problems that involve radical equations (limited to square roots)."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Algebra and Number",
+          "General Outcome: Develop algebraic reasoning and number sense."
+        ],
+        "skills": [
+          "Mathematical Processes: [C, ME, R]"
+        ],
+        "knowledge": [
+          "Determine equivalent forms of rational expressions (limited to numerators and denominators that are monomials, binomials or trinomials)."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Algebra and Number",
+          "General Outcome: Develop algebraic reasoning and number sense."
+        ],
+        "skills": [
+          "Mathematical Processes: [CN, ME, R]"
+        ],
+        "knowledge": [
+          "Perform operations on rational expressions (limited to numerators and denominators that are monomials, binomials or trinomials)."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Algebra and Number",
+          "General Outcome: Develop algebraic reasoning and number sense."
+        ],
+        "skills": [
+          "Mathematical Processes: [C, PS, R]"
+        ],
+        "knowledge": [
+          "Solve problems that involve rational equations (limited to numerators and denominators that are monomials, binomials or trinomials)."
+        ]
+      }
+    ]
+  },
+  {
+    "unit": "Trigonometry",
+    "prefix": "T",
+    "clusters": [
+      {
+        "understanding": [
+          "Topic: Trigonometry",
+          "General Outcome: Develop trigonometric reasoning."
+        ],
+        "skills": [
+          "Mathematical Processes: [R, V]"
+        ],
+        "knowledge": [
+          "Demonstrate an understanding of angles in standard position [0° to 360°]."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Trigonometry",
+          "General Outcome: Develop trigonometric reasoning."
+        ],
+        "skills": [
+          "Mathematical Processes: [C, ME, PS, R, T, V]",
+          "ICT: [C6–4.1]"
+        ],
+        "knowledge": [
+          "Solve problems, using the three primary trigonometric ratios for angles from 0° to 360° in standard position."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Trigonometry",
+          "General Outcome: Develop trigonometric reasoning."
+        ],
+        "skills": [
+          "Mathematical Processes: [C, CN, PS, R, T]",
+          "ICT: [C6–4.1]"
+        ],
+        "knowledge": [
+          "Solve problems, using the cosine law and sine law, including the ambiguous case."
+        ]
+      }
+    ]
+  },
+  {
+    "unit": "Relations and Functions",
+    "prefix": "RF",
+    "clusters": [
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [CN, ME, R]"
+        ],
+        "knowledge": [
+          "Factor polynomial expressions of the form ax² + bx + c, a ≠ 0; a²x² − b²y², a ≠ 0, b ≠ 0; a(f(x))² + b(f(x)) + c, a ≠ 0; and a²(f(x))² − b²(g(y))², a ≠ 0, b ≠ 0, where a, b and c are rational numbers."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [C, PS, R, T, V]",
+          "ICT: [C6–4.1, C6–4.3]"
+        ],
+        "knowledge": [
+          "Graph and analyze absolute value functions (limited to linear and quadratic functions) to solve problems."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [CN, R, T, V]",
+          "ICT: [C6–4.3, C7–4.2]"
+        ],
+        "knowledge": [
+          "Analyze quadratic functions of the form y = a(x − p)² + q and determine the: vertex; domain and range; direction of opening; axis of symmetry; x- and y-intercepts."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [CN, PS, R, T, V]",
+          "ICT: [C6–4.1, C6–4.3]"
+        ],
+        "knowledge": [
+          "Analyze quadratic functions of the form y = ax² + bx + c to identify characteristics of the corresponding graph, including: vertex; domain and range; direction of opening; axis of symmetry; x- and y-intercepts; and to solve problems."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [C, CN, PS, R, T, V]",
+          "ICT: [C6–4.1]"
+        ],
+        "knowledge": [
+          "Solve problems that involve quadratic equations."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [CN, PS, R, T, V]",
+          "ICT: [C6–4.1, C6–4.4]"
+        ],
+        "knowledge": [
+          "Solve, algebraically and graphically, problems that involve systems of linear-quadratic and quadratic-quadratic equations in two variables."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [C, PS, T, V]",
+          "ICT: [C6–4.1, C6–4.3]"
+        ],
+        "knowledge": [
+          "Solve problems that involve linear and quadratic inequalities in two variables."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [CN, PS, V]"
+        ],
+        "knowledge": [
+          "Solve problems that involve quadratic inequalities in one variable."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [CN, PS, R]"
+        ],
+        "knowledge": [
+          "Analyze arithmetic sequences and series to solve problems."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [PS, R]"
+        ],
+        "knowledge": [
+          "Analyze geometric sequences and series to solve problems."
+        ]
+      },
+      {
+        "understanding": [
+          "Topic: Relations and Functions",
+          "General Outcome: Develop algebraic and graphical reasoning through the study of relations."
+        ],
+        "skills": [
+          "Mathematical Processes: [CN, R, T, V]",
+          "ICT: [C6–4.1, C6–4.3]"
+        ],
+        "knowledge": [
+          "Graph and analyze reciprocal functions (limited to the reciprocal of linear and quadratic functions)."
+        ]
+      }
+    ]
+  }
+]
+
+const collapsedUnits = new Set();
+const questions = [];
+let questionCounter = 1;
+
+function getUnitPrefix(unitName) {
+  const unit = curriculum.find(u => u.unit === unitName);
+  return unit?.prefix || "K";
+}
+
+function getAllKnowledgeItems() {
+  const items = [];
+
+  curriculum.forEach(unit => {
+    let n = 1;
+    const prefix = getUnitPrefix(unit.unit);
+
+    unit.clusters.forEach(cluster => {
+      cluster.knowledge.forEach(text => {
+        items.push({
+          id: `${prefix}${n++}`,
+          unit: unit.unit,
+          text,
+          understanding: cluster.understanding,
+          skills: cluster.skills
+        });
+      });
+    });
+  });
+
+  return items;
+}
+
+const knowledgeItems = getAllKnowledgeItems();
+const knowledgeById = Object.fromEntries(knowledgeItems.map(item => [item.id, item]));
+
+function renderCurriculum() {
+  const container = document.getElementById("curriculum-container");
+  container.innerHTML = "";
+
+  curriculum.forEach(unit => {
+    const unitItems = knowledgeItems.filter(x => x.unit === unit.unit);
+    const covered = unitItems.filter(item =>
+      questions.some(q => q.tags.includes(item.id))
+    ).length;
+
+    const unitDiv = document.createElement("section");
+    unitDiv.className = `unit ${collapsedUnits.has(unit.unit) ? "collapsed" : ""}`;
+
+    unitDiv.innerHTML = `
+      <button class="unit-header" type="button" data-unit="${unit.unit}">
+        <span class="unit-title-wrap">
+          <span class="unit-chevron">▼</span>
+          <h3>${unit.unit}</h3>
+        </span>
+        <span class="unit-count">${covered} of ${unitItems.length} covered</span>
+      </button>
+      <div class="unit-body"></div>
+    `;
+
+    const body = unitDiv.querySelector(".unit-body");
+
+    unitItems.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "knowledge-card";
+      card.setAttribute("draggable", "true");
+      card.dataset.knowledgeId = item.id;
+
+      card.innerHTML = `
+        <div class="knowledge-main">
+          <div class="knowledge-text">
+            <span class="knowledge-id">${item.id}</span>${item.text}
+          </div>
+        </div>
+        <div class="context-wrap">
+          <details class="context-details">
+            <summary>Curriculum context</summary>
+            <div class="context-content">
+              <h4>Curriculum Context</h4>
+              <ul>${item.understanding.map(x => `<li>${x}</li>`).join("")}</ul>
+              <h4>Process Codes</h4>
+              <ul>${item.skills.map(x => `<li>${x}</li>`).join("")}</ul>
+            </div>
+          </details>
+        </div>
+      `;
+
+      card.addEventListener("dragstart", event => {
+        card.classList.add("dragging");
+        event.dataTransfer.effectAllowed = "copy";
+        event.dataTransfer.setData("text/plain", item.id);
+      });
+
+      card.addEventListener("dragend", () => {
+        card.classList.remove("dragging");
+      });
+
+      body.appendChild(card);
+    });
+
+    container.appendChild(unitDiv);
+  });
+
+  document.querySelectorAll("[data-unit]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const unit = btn.dataset.unit;
+      if (collapsedUnits.has(unit)) collapsedUnits.delete(unit);
+      else collapsedUnits.add(unit);
+      renderCurriculum();
+    });
+  });
+}
+
+function collapseAllUnits() {
+  curriculum.forEach(unit => collapsedUnits.add(unit.unit));
+  renderCurriculum();
+}
+
+function expandAllUnits() {
+  collapsedUnits.clear();
+  renderCurriculum();
+}
+
+function addQuestion() {
+  questions.forEach(existing => existing.collapsed = true);
+
+  const q = {
+    uid: questionCounter++,
+    label: `Q${questions.length + 1}`,
+    marks: 1,
+    difficulty: 2,
+    tags: [],
+    allocations: {},
+    collapsed: false
+  };
+
+  questions.push(q);
+  renderQuestions();
+  updateSummary();
+}
+
+function toggleQuestionCollapse(uid) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q) return;
+  q.collapsed = !q.collapsed;
+  renderQuestions();
+}
+
+function deleteQuestion(uid) {
+  const index = questions.findIndex(q => q.uid === uid);
+  if (index >= 0) questions.splice(index, 1);
+  renderQuestions();
+  updateSummary();
+  renderCurriculum();
+}
+
+function updateQuestion(uid, field, value) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q) return;
+
+  if (field === "marks") {
+    q.marks = Math.max(0, Number(value) || 0);
+    rebalanceAllocations(q);
+  } else {
+    q[field] = value;
+  }
+
+  renderQuestions();
+  updateSummary();
+}
+
+function setDifficulty(uid, level) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q) return;
+  q.difficulty = level;
+  renderQuestions();
+  updateSummary();
+}
+
+function addTagToQuestion(uid, tag) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q || !tag || q.tags.includes(tag) || !knowledgeById[tag]) return;
+
+  q.tags.push(tag);
+  rebalanceAllocations(q);
+  renderQuestions();
+  updateSummary();
+  renderCurriculum();
+}
+
+function removeTag(uid, tag) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q) return;
+
+  q.tags = q.tags.filter(x => x !== tag);
+  delete q.allocations[tag];
+  rebalanceAllocations(q);
+  renderQuestions();
+  updateSummary();
+  renderCurriculum();
+}
+
+function rebalanceAllocations(q) {
+  if (!q.tags.length) {
+    q.allocations = {};
+    return;
+  }
+
+  const marks = Number(q.marks) || 0;
+  const base = marks / q.tags.length;
+
+  q.tags.forEach(tag => {
+    q.allocations[tag] = Number(base.toFixed(2));
+  });
+}
+
+function updateAllocation(uid, tag, value) {
+  const q = questions.find(q => q.uid === uid);
+  if (!q) return;
+
+  q.allocations[tag] = Math.max(0, Number(value) || 0);
+  updateSummary();
+  updateAllocationStatus(uid);
+}
+
+function getAllocationTotal(q) {
+  return q.tags.reduce((sum, tag) => sum + (Number(q.allocations[tag]) || 0), 0);
+}
+
+function updateAllocationStatus(uid) {
+  const q = questions.find(q => q.uid === uid);
+  const el = document.getElementById(`allocation-status-${uid}`);
+  if (!q || !el) return;
+
+  const total = getAllocationTotal(q);
+  const expected = Number(q.marks) || 0;
+  const ok = Math.abs(total - expected) < 0.01;
+
+  el.className = `allocation-summary ${ok ? "ok" : "bad"}`;
+  el.textContent = `Allocated: ${total.toFixed(2)} / ${expected.toFixed(2)} marks ${ok ? "✓" : "— adjust allocations"}`;
+}
+
+function renderQuestions() {
+  const container = document.getElementById("questions-container");
+
+  if (!questions.length) {
+    container.innerHTML = `<div class="empty">No questions yet. Click “+ Add Question” to begin.</div>`;
+    return;
+  }
+
+  container.innerHTML = "";
+
+  questions.forEach(q => {
+
+    const card = document.createElement("div");
+    card.className = `question-card ${q.collapsed ? "collapsed" : ""}`;
+
+
+    const tagsHtml = q.tags.length
+      ? q.tags.map(tag => `
+          <span class="tag">
+            ${tag}
+            <button type="button" title="Remove ${tag}" onclick="removeTag(${q.uid}, '${tag}')">×</button>
+          </span>
+        `).join("")
+      : `<span class="empty">No curriculum outcomes tagged yet.</span>`;
+
+
+    card.innerHTML = `
+      <div class="question-head">
+        <strong>${escapeHtml(q.label || `Question ${q.uid}`)}</strong>
+        <div class="question-head-actions">
+          <button class="question-collapse-btn"
+                  type="button"
+                  onclick="toggleQuestionCollapse(${q.uid})">
+            ${q.collapsed ? "Expand" : "Minimize"}
+          </button>
+          <button class="delete-question"
+                  type="button"
+                  onclick="deleteQuestion(${q.uid})">
+            Remove Question
+          </button>
+        </div>
+      </div>
+
+      <div class="question-body">
+        <div class="question-grid">
+          <div>
+            <label class="field-label">Question label</label>
+            <input type="text" value="${escapeHtml(q.label)}"
+                   oninput="updateQuestion(${q.uid}, 'label', this.value)">
+          </div>
+
+          <div>
+            <label class="field-label">Marks</label>
+            <input type="number" min="0" step="1" value="${q.marks}"
+                   onchange="updateQuestion(${q.uid}, 'marks', this.value)">
+          </div>
+
+          <div>
+            <label class="field-label">Difficulty</label>
+            <div class="difficulty-group">
+              <button type="button" class="difficulty-btn level1 ${q.difficulty === 1 ? "active" : ""}"
+                      onclick="setDifficulty(${q.uid}, 1)">1</button>
+              <button type="button" class="difficulty-btn level2 ${q.difficulty === 2 ? "active" : ""}"
+                      onclick="setDifficulty(${q.uid}, 2)">2</button>
+              <button type="button" class="difficulty-btn level3 ${q.difficulty === 3 ? "active" : ""}"
+                      onclick="setDifficulty(${q.uid}, 3)">3</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tag-section">
+          <div class="tag-section-title">
+            <strong>Curriculum outcomes assessed</strong>
+            <span class="subtle">${q.tags.length} tagged</span>
+          </div>
+
+          <div class="drop-zone"
+               data-drop-question="${q.uid}">
+            Drag a curriculum outcome from the left and drop it here
+          </div>
+
+          <div class="tag-list" style="margin-top:10px;">${tagsHtml}</div>
+
+
+        </div>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+
+  document.querySelectorAll("[data-drop-question]").forEach(zone => {
+    zone.addEventListener("dragover", event => {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "copy";
+      zone.classList.add("drag-over");
+    });
+
+    zone.addEventListener("dragleave", () => {
+      zone.classList.remove("drag-over");
+    });
+
+    zone.addEventListener("drop", event => {
+      event.preventDefault();
+      zone.classList.remove("drag-over");
+      const tag = event.dataTransfer.getData("text/plain");
+      const uid = Number(zone.dataset.dropQuestion);
+      addTagToQuestion(uid, tag);
+    });
+  });
+}
+
+function updateSummary() {
+  const totalMarks = questions.reduce((sum, q) => sum + (Number(q.marks) || 0), 0);
+  document.getElementById("total-marks").textContent = totalMarks.toFixed(2).replace(".00","");
+
+  const difficultyMarks = {1:0, 2:0, 3:0};
+  questions.forEach(q => {
+    difficultyMarks[q.difficulty] += Number(q.marks) || 0;
+  });
+
+  document.getElementById("difficulty-summary").innerHTML = [1,2,3].map(level => {
+    const marks = difficultyMarks[level];
+    const pct = totalMarks ? marks / totalMarks * 100 : 0;
+    return `
+      <div class="progress-row">
+        <div class="progress-label">
+          <span>Level ${level}</span>
+          <span>${marks.toFixed(2).replace(".00","")} — ${pct.toFixed(1)}%</span>
+        </div>
+        <div class="bar"><div style="width:${pct}%"></div></div>
+      </div>
+    `;
+  }).join("");
+
+  const knowledgeQuestions = {};
+  knowledgeItems.forEach(item => knowledgeQuestions[item.id] = []);
+
+  questions.forEach((q, index) => {
+    const questionLabel = (q.label || `Q${index + 1}`).trim();
+    q.tags.forEach(tag => {
+      knowledgeQuestions[tag].push(questionLabel);
+    });
+  });
+
+  const taggedIds = knowledgeItems
+    .filter(item => knowledgeQuestions[item.id].length > 0)
+    .map(item => item.id);
+
+  const knowledgeSummary = document.getElementById("knowledge-summary");
+
+  if (!taggedIds.length) {
+    knowledgeSummary.innerHTML = `<div class="empty">Tag curriculum outcomes to questions to see distribution.</div>`;
+  } else {
+    knowledgeSummary.innerHTML = taggedIds.map(id => {
+      const questionLabels = knowledgeQuestions[id].join(", ");
+      return `
+        <div class="progress-row">
+          <div class="progress-label">
+            <span><strong>${id}</strong> — ${knowledgeById[id].text}</span>
+            <span style="white-space:nowrap; font-weight:800; color:#12355b;">${questionLabels}</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  const coveredSet = new Set();
+  questions.forEach(q => q.tags.forEach(tag => coveredSet.add(tag)));
+
+  const coverage = document.getElementById("coverage-summary");
+  coverage.innerHTML = curriculum.map(unit => {
+    const unitItems = knowledgeItems.filter(item => item.unit === unit.unit);
+    const chips = unitItems.map(item => `
+      <span class="coverage-chip ${coveredSet.has(item.id) ? "covered" : ""}">${item.id}</span>
+    `).join("");
+
+    return `
+      <div class="coverage-unit">
+        <div class="coverage-unit-title">${unit.unit}</div>
+        <div class="coverage-chips">${chips}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+function latexEscape(value) {
+  let text = String(value ?? "");
+
+  const placeholders = [];
+
+  function protect(latex) {
+    const token = `@@SAFE${placeholders.length}@@`;
+    placeholders.push(latex);
+    return token;
+  }
+
+  // Common complete math fragments first.
+  text = text
+    .replace(/√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$\\sqrt{${radicand}}$`))
+    .replace(/−√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$-\\sqrt{${radicand}}$`))
+    .replace(/±√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$\\pm\\sqrt{${radicand}}$`))
+    .replace(/([A-Za-z0-9])²/g, (_, base) => protect(`$${base}^{2}$`))
+    .replace(/([A-Za-z0-9])³/g, (_, base) => protect(`$${base}^{3}$`))
+    .replace(/([A-Za-z0-9])¹/g, (_, base) => protect(`$${base}^{1}$`))
+    .replace(/([A-Za-z0-9])⁰/g, (_, base) => protect(`$${base}^{0}$`));
+
+  const replacements = [
+    ["π", "$\\pi$"],
+    ["×", "$\\times$"],
+    ["⋅", "$\\cdot$"],
+    ["−", "$-$"],
+    ["√", "$\\sqrt{\\phantom{x}}$"],
+    ["∛", "$\\sqrt[3]{\\phantom{x}}$"],
+    ["≤", "$\\leq$"],
+    ["≥", "$\\geq$"],
+    ["≠", "$\\neq$"],
+    ["±", "$\\pm$"],
+    ["≅", "$\\cong$"],
+    ["⊥", "$\\perp$"],
+    ["∥", "$\\parallel$"],
+    ["°", "$^{\\circ}$"],
+    ["○", "$\\circ$"],
+    ["●", "$\\bullet$"]
+  ];
+
+  replacements.forEach(([unicode, latex]) => {
+    text = text.split(unicode).join(protect(latex));
+  });
+
+  text = text
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/–/g, "--")
+    .replace(/—/g, "---")
+    .replace(/\u00A0/g, " ");
+
+  text = text
+    .replaceAll("\\", "\\textbackslash{}")
+    .replaceAll("&", "\\&")
+    .replaceAll("%", "\\%")
+    .replaceAll("$", "\\$")
+    .replaceAll("#", "\\#")
+    .replaceAll("_", "\\_")
+    .replaceAll("{", "\\{")
+    .replaceAll("}", "\\}")
+    .replaceAll("~", "\\textasciitilde{}")
+    .replaceAll("^", "\\textasciicircum{}");
+
+  placeholders.forEach((latex, index) => {
+    text = text.split(`@@SAFE${index}@@`).join(latex);
+  });
+
+  return text;
+}
+
+function buildLatexBlueprint() {
+  const assignmentTitle = document.getElementById("assignment-title").value.trim() || "Math 20-1 Test Blueprint";
+  const latexAssignmentTitle = latexEscape(assignmentTitle);
+  const totalMarks = questions.reduce((sum, q) => sum + (Number(q.marks) || 0), 0);
+
+  const difficultyMarks = {1: 0, 2: 0, 3: 0};
+  questions.forEach(q => {
+    difficultyMarks[q.difficulty] += Number(q.marks) || 0;
+  });
+
+  const knowledgeQuestions = {};
+  knowledgeItems.forEach(item => knowledgeQuestions[item.id] = []);
+
+  questions.forEach((q, index) => {
+    const qLabel = (q.label || `Q${index + 1}`).trim();
+    q.tags.forEach(tag => {
+      knowledgeQuestions[tag].push(qLabel);
+    });
+  });
+
+  const coveredKnowledge = knowledgeItems.filter(item => knowledgeQuestions[item.id].length > 0);
+
+  const questionRows = questions.map((q, index) => {
+    const qLabel = latexEscape((q.label || `Q${index + 1}`).trim());
+    const tags = q.tags.length ? q.tags.map(latexEscape).join(", ") : "---";
+    return `${qLabel} & ${Number(q.marks) || 0} & Level ${q.difficulty} & ${tags} \\\\`;
+  }).join("\n");
+
+  const knowledgeRows = coveredKnowledge.map(item => {
+    const refs = knowledgeQuestions[item.id].map(latexEscape).join(", ");
+    return `${latexEscape(item.id)} & ${latexEscape(item.text)} & ${refs} \\\\`;
+  }).join("\n");
+
+  const coverageByUnit = curriculum.map(unit => {
+    const items = knowledgeItems.filter(item => item.unit === unit.unit);
+    const covered = items.filter(item => knowledgeQuestions[item.id].length > 0);
+    const missing = items.filter(item => knowledgeQuestions[item.id].length === 0);
+
+    return `
+\\subsection*{${latexEscape(unit.unit)}}
+\\textbf{Covered:} ${covered.length ? covered.map(item => latexEscape(item.id)).join(", ") : "None"}\\\\
+\\textbf{Not represented:} ${missing.length ? missing.map(item => latexEscape(item.id)).join(", ") : "None"}
+`;
+  }).join("\n");
+
+  const difficultyRows = [1,2,3].map(level => {
+    const marks = difficultyMarks[level];
+    const pct = totalMarks ? (marks / totalMarks * 100) : 0;
+    return `Level ${level} & ${marks} & ${pct.toFixed(1)}\\% \\\\`;
+  }).join("\n");
+
+  return `\\documentclass[11pt]{article}
+
+\\usepackage[margin=0.75in]{geometry}
+\\usepackage{array}
+\\usepackage{booktabs}
+\\usepackage{longtable}
+\\usepackage{xcolor}
+\\usepackage{tabularx}
+\\usepackage{enumitem}
+\\usepackage{fancyhdr}
+\\usepackage{titlesec}
+
+\\definecolor{blueprintblue}{HTML}{12355B}
+\\definecolor{lightblue}{HTML}{EEF4FB}
+\\definecolor{lightgray}{HTML}{F5F7FA}
+
+\\pagestyle{fancy}
+\\fancyhf{}
+\\lhead{Math 20-1 Blueprint}
+\\rhead{${latexAssignmentTitle}}
+\\cfoot{\\thepage}
+
+\\titleformat{\\section}
+  {\\large\\bfseries\\color{blueprintblue}}
+  {}
+  {0pt}
+  {}
+
+\\titleformat{\\subsection}
+  {\\normalsize\\bfseries\\color{blueprintblue}}
+  {}
+  {0pt}
+  {}
+
+\\setlength{\\parindent}{0pt}
+\\setlength{\\parskip}{4pt}
+
+\\begin{document}
+
+\\begin{center}
+    {\\LARGE\\bfseries\\color{blueprintblue} ${latexAssignmentTitle}}\\\\[4pt]
+    {\\large Math 20-1 Curriculum Coverage Overview}
+\\end{center}
+
+\\vspace{0.5em}
+
+\\section*{Assessment Summary}
+
+\\begin{tabular}{@{}lr@{}}
+\\toprule
+\\textbf{Assignment} & ${latexAssignmentTitle} \\\\
+\\textbf{Total Questions} & ${questions.length} \\\\
+\\textbf{Total Marks} & ${totalMarks} \\\\
+\\bottomrule
+\\end{tabular}
+
+\\vspace{1em}
+
+\\section*{Difficulty Distribution}
+
+\\begin{tabular}{@{}lrr@{}}
+\\toprule
+\\textbf{Difficulty} & \\textbf{Marks} & \\textbf{Percent} \\\\
+\\midrule
+${difficultyRows}
+\\bottomrule
+\\end{tabular}
+
+\\vspace{1em}
+
+\\section*{Questions}
+
+\\begin{longtable}{>{\\bfseries}p{0.12\\textwidth} p{0.10\\textwidth} p{0.13\\textwidth} p{0.52\\textwidth}}
+\\toprule
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Curriculum References} \\\\
+\\midrule
+\\endfirsthead
+\\toprule
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Curriculum References} \\\\
+\\midrule
+\\endhead
+${questionRows || "\\multicolumn{4}{l}{No questions entered.} \\\\"}
+\\bottomrule
+\\end{longtable}
+
+\\section*{Curriculum Distribution}
+
+\\begin{longtable}{>{\\bfseries}p{0.08\\textwidth} p{0.70\\textwidth} p{0.14\\textwidth}}
+\\toprule
+\\textbf{Ref.} & \\textbf{Specific Outcome} & \\textbf{Questions} \\\\
+\\midrule
+\\endfirsthead
+\\toprule
+\\textbf{Ref.} & \\textbf{Specific Outcome} & \\textbf{Questions} \\\\
+\\midrule
+\\endhead
+${knowledgeRows || "\\multicolumn{3}{l}{No curriculum references tagged.} \\\\"}
+\\bottomrule
+\\end{longtable}
+
+\\section*{Curriculum Coverage by Topic}
+
+${coverageByUnit}
+
+\\end{document}
+`;
+}
+
+function generateOverleafCode() {
+  const modal = document.getElementById("latex-modal");
+  const output = document.getElementById("latex-output");
+
+  output.value = buildLatexBlueprint();
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+}
+
+function closeLatexModal() {
+  const modal = document.getElementById("latex-modal");
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+}
+
+async function copyLatexCode() {
+  const output = document.getElementById("latex-output");
+  const button = document.getElementById("copy-latex-btn");
+
+  try {
+    await navigator.clipboard.writeText(output.value);
+  } catch (err) {
+    output.select();
+    document.execCommand("copy");
+  }
+
+  if (button) {
+    const originalText = button.textContent;
+    button.textContent = "Copied ✓";
+    button.disabled = true;
+
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.disabled = false;
+    }, 1400);
+  }
+}
+
+function downloadLatexFile() {
+  const code = document.getElementById("latex-output").value || buildLatexBlueprint();
+  const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  const assignmentTitle = document.getElementById("assignment-title").value.trim() || "Math 20-1 Test Blueprint";
+  const safeFilename = assignmentTitle
+    .replace(/[^a-z0-9]+/gi, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+  link.download = `${safeFilename || "math20-1-test-blueprint"}.tex`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById("latex-modal").addEventListener("click", event => {
+  if (event.target.id === "latex-modal") closeLatexModal();
+});
+
+renderCurriculum();
+renderQuestions();
+updateSummary();
+</script>
+</body>
+</html>
