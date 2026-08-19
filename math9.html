@@ -72,6 +72,59 @@
       font-size: .93rem;
     }
 
+
+
+
+    .unit-selector-box {
+      margin: 14px 0 10px;
+      padding: 12px;
+      border: 1px solid #d8dee8;
+      border-radius: 10px;
+      background: #f8fafc;
+    }
+
+    .unit-selector-box label {
+      display: block;
+      margin-bottom: 6px;
+      color: #12355b;
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    .unit-selector-box select {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid #cfd6df;
+      border-radius: 8px;
+      background: #fff;
+      font-weight: 700;
+      color: #12355b;
+    }
+
+    .unit-focus-note {
+      margin-top: 8px;
+      color: #667085;
+      font-size: .8rem;
+      line-height: 1.4;
+    }
+
+    .unit-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 30px;
+      height: 30px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #12355b;
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
     .curriculum-toolbar {
       display: flex;
       gap: 8px;
@@ -760,9 +813,9 @@
   <div class="header-inner">
     <div>
       <h1>Math 9 Test Blueprint</h1>
-      <p>Question-first blueprinting with multiple Knowledge tags</p>
+      <p>Unit-based blueprinting aligned to the Alberta Mathematics K–9 Program of Studies (2007, updated 2016)</p>
     </div>
-    <a class="back-link" href="index.html">← Back to Courses</a>
+    <a class="back-link" href="blueprintmain.html">← Back to Courses</a>
   </div>
 </header>
 
@@ -772,13 +825,24 @@
     <section class="panel">
       <h2>Curriculum Reference</h2>
       <p class="subtle">
-        Specific Outcomes are numbered permanently. Drag any curriculum outcome onto a test question. Collapse topics while working, and open
-        Curriculum context only when you need the related Understanding or Skills &amp; Procedures.
+        Choose a teaching unit to show only the Grade 9 outcomes used in that unit. Curriculum tags stay tied to Alberta's original strands,
+        not to the teaching-unit order: <strong>N</strong> = Number, <strong>PR</strong> = Patterns &amp; Relations,
+        <strong>SS</strong> = Shape &amp; Space, and <strong>SP</strong> = Statistics &amp; Probability. This makes the tags easy to compare
+        directly with the Alberta Program of Studies even when one teaching unit contains outcomes from several strands.
       </p>
+
+      <div class="unit-selector-box">
+        <label for="unit-filter">Unit</label>
+        <select id="unit-filter" onchange="setActiveUnit(this.value)">
+          <option value="all">All Grade 9 Units</option>
+        </select>
+        <div id="unit-focus-note" class="unit-focus-note"></div>
+      </div>
 
       <div class="curriculum-toolbar">
         <button class="toolbar-btn" type="button" onclick="collapseAllUnits()">Collapse All</button>
         <button class="toolbar-btn" type="button" onclick="expandAllUnits()">Expand All</button>
+        <button class="toolbar-btn" type="button" onclick="showAllUnits()">Show All Units</button>
       </div>
 
       <div id="curriculum-container"></div>
@@ -789,7 +853,7 @@
         <label for="assignment-title">Assignment / Test Title</label>
         <input id="assignment-title"
                type="text"
-               placeholder="e.g. Math 9 Number Unit Test"
+               placeholder="e.g. Math 9 Polynomials Unit Test"
                oninput="updateSummary()">
       </div>
 
@@ -797,7 +861,7 @@
         <div>
           <h2 style="margin-bottom:5px;">Test Questions</h2>
           <p class="subtle" style="margin:0;">
-            Create each question once, then drag Knowledge outcomes from the curriculum column onto the question. If a question assesses multiple outcomes, each tagged curriculum reference lists the question numbers that assess it in the Curriculum Distribution. Adding a new question automatically minimizes the questions above it.
+            Create each question once, then drag Knowledge outcomes from the curriculum column onto the question. If a question assesses multiple outcomes, each tagged curriculum reference lists the question numbers that assess it in the Curriculum Outcome Distribution. Adding a new question automatically minimizes the questions above it.
           </p>
         </div>
         <button class="add-question-btn" type="button" onclick="addQuestion()">+ Add Question</button>
@@ -824,14 +888,14 @@
       </div>
 
       <div class="summary-card">
-        <strong>Curriculum Distribution</strong>
+        <strong>Curriculum Outcome Distribution</strong>
         <div id="knowledge-summary">
           <div class="empty">Tag curriculum outcomes to questions to see distribution.</div>
         </div>
       </div>
 
       <div class="summary-card">
-        <strong>Curriculum Coverage</strong>
+        <strong>Curriculum Outcome Coverage</strong>
         <div id="coverage-summary"></div>
       </div>
 
@@ -866,336 +930,413 @@
 <script>
 const curriculum = [
   {
-    "unit": "Number",
-    "prefix": "N",
-    "clusters": [
+    unitNumber: 1,
+    unit: "Rational Numbers & Square Roots",
+    focus: "Rational-number comparison and operations, order of operations where useful, and perfect/non-perfect square roots.",
+    outcomes: [
       {
-        "understanding": [
-          "Strand: Number",
-          "General Outcome: Develop number sense."
+        id: "N3",
+        strand: "Number",
+        text: "Demonstrate an understanding of rational numbers by comparing and ordering rational numbers and solving problems that involve arithmetic operations on rational numbers.",
+        details: [
+          "Compare and order rational numbers.",
+          "Solve problems involving arithmetic operations on positive and negative fractions and decimals.",
+          "Maintain and refine prior fraction and integer operations as needed."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R]"
-        ],
-        "knowledge": [
-          "Demonstrate an understanding of powers with integral bases (excluding base 0) and whole number exponents by: representing repeated multiplication, using powers; using patterns to show that a power with an exponent of zero is equal to one; solving problems involving powers."
-        ]
+        processes: "C, CN, PS, R, T, V"
       },
       {
-        "understanding": [
-          "Strand: Number",
-          "General Outcome: Develop number sense."
+        id: "N5",
+        strand: "Number",
+        text: "Determine the square root of positive rational numbers that are perfect squares.",
+        details: [
+          "Determine exact square roots of positive rational perfect squares."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, T]"
-        ],
-        "knowledge": [
-          "Demonstrate an understanding of operations on powers with integral bases (excluding base 0) and whole number exponents: (a^m)(a^n) = a^(m+n); a^m ÷ a^n = a^(m−n), m > n; (a^m)^n = a^(mn); (ab)^m = a^m b^m; (a/b)^n = a^n/b^n, b ≠ 0."
-        ]
+        processes: "C, CN, PS, R, T"
       },
       {
-        "understanding": [
-          "Strand: Number",
-          "General Outcome: Develop number sense."
+        id: "N6",
+        strand: "Number",
+        text: "Determine an approximate square root of positive rational numbers that are non-perfect squares.",
+        details: [
+          "Estimate and approximate square roots of positive rational non-perfect squares."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, T, V]"
-        ],
-        "knowledge": [
-          "Demonstrate an understanding of rational numbers by: comparing and ordering rational numbers; solving problems that involve arithmetic operations on rational numbers."
-        ]
-      },
-      {
-        "understanding": [
-          "Strand: Number",
-          "General Outcome: Develop number sense."
-        ],
-        "skills": [
-          "Mathematical Processes: [PS, T]"
-        ],
-        "knowledge": [
-          "Explain and apply the order of operations, including exponents, with and without technology."
-        ]
-      },
-      {
-        "understanding": [
-          "Strand: Number",
-          "General Outcome: Develop number sense."
-        ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, T]"
-        ],
-        "knowledge": [
-          "Determine the square root of positive rational numbers that are perfect squares."
-        ]
-      },
-      {
-        "understanding": [
-          "Strand: Number",
-          "General Outcome: Develop number sense."
-        ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, T]"
-        ],
-        "knowledge": [
-          "Determine an approximate square root of positive rational numbers that are non-perfect squares."
-        ]
+        processes: "C, CN, PS, R, T"
       }
     ]
   },
+
   {
-    "unit": "Patterns and Relations",
-    "prefix": "PR",
-    "clusters": [
+    unitNumber: 2,
+    unit: "Powers & Exponents",
+    focus: "Powers with integral bases, exponent laws, zero exponents, and order of operations involving exponents.",
+    outcomes: [
       {
-        "understanding": [
-          "Substrand: Patterns",
-          "General Outcome: Use patterns to describe the world and to solve problems."
+        id: "N1",
+        strand: "Number",
+        text: "Demonstrate an understanding of powers with integral bases (excluding base 0) and whole-number exponents.",
+        details: [
+          "Represent repeated multiplication using powers.",
+          "Use patterns to show that a power with exponent zero equals one.",
+          "Solve problems involving powers."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, V]"
-        ],
-        "knowledge": [
-          "Generalize a pattern arising from a problem-solving context, using a linear equation, and verify by substitution."
-        ]
+        processes: "C, CN, PS, R"
       },
       {
-        "understanding": [
-          "Substrand: Patterns",
-          "General Outcome: Use patterns to describe the world and to solve problems."
+        id: "N2",
+        strand: "Number",
+        text: "Demonstrate an understanding of operations on powers with integral bases (excluding base 0) and whole-number exponents.",
+        details: [
+          "Apply the product law for powers with the same base.",
+          "Apply the quotient law for powers with the same base.",
+          "Apply the power-of-a-power law.",
+          "Apply powers to products and quotients."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, T, V]"
-        ],
-        "knowledge": [
-          "Graph a linear relation, analyze the graph, and interpolate or extrapolate to solve problems."
-        ]
+        processes: "C, CN, PS, R, T"
       },
       {
-        "understanding": [
-          "Substrand: Variables and Equations",
-          "General Outcome: Represent algebraic expressions in multiple ways."
+        id: "N4",
+        strand: "Number",
+        text: "Explain and apply the order of operations, including exponents, with and without technology.",
+        details: [
+          "Evaluate numerical expressions using the conventional order of operations.",
+          "Include exponents within multi-operation expressions.",
+          "Use technology appropriately where permitted."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, V]"
-        ],
-        "knowledge": [
-          "Model and solve problems, using linear equations of the form: ax = b; x/a = b, a ≠ 0; ax + b = c; (x + b)/a = c, a ≠ 0; ax = b + cx; a(x + b) = c; ax + b = cx + d; a(bx + c) = d(ex + f); a/x = b, x ≠ 0, where a, b, c, d, e and f are rational numbers."
-        ]
-      },
-      {
-        "understanding": [
-          "Substrand: Variables and Equations",
-          "General Outcome: Represent algebraic expressions in multiple ways."
-        ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, V]"
-        ],
-        "knowledge": [
-          "Explain and illustrate strategies to solve single variable linear inequalities with rational coefficients within a problem-solving context."
-        ]
-      },
-      {
-        "understanding": [
-          "Substrand: Variables and Equations",
-          "General Outcome: Represent algebraic expressions in multiple ways."
-        ],
-        "skills": [
-          "Mathematical Processes: [C, CN, R, V]"
-        ],
-        "knowledge": [
-          "Demonstrate an understanding of polynomials (limited to polynomials of degree less than or equal to 2)."
-        ]
-      },
-      {
-        "understanding": [
-          "Substrand: Variables and Equations",
-          "General Outcome: Represent algebraic expressions in multiple ways."
-        ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, V]"
-        ],
-        "knowledge": [
-          "Model, record and explain the operations of addition and subtraction of polynomial expressions, concretely, pictorially and symbolically (limited to polynomials of degree less than or equal to 2)."
-        ]
-      },
-      {
-        "understanding": [
-          "Substrand: Variables and Equations",
-          "General Outcome: Represent algebraic expressions in multiple ways."
-        ],
-        "skills": [
-          "Mathematical Processes: [C, CN, R, V]"
-        ],
-        "knowledge": [
-          "Model, record and explain the operations of multiplication and division of polynomial expressions (limited to polynomials of degree less than or equal to 2) by monomials, concretely, pictorially and symbolically."
-        ]
+        processes: "PS, T"
       }
     ]
   },
+
   {
-    "unit": "Shape and Space",
-    "prefix": "SS",
-    "clusters": [
+    unitNumber: 3,
+    unit: "Operations with Polynomials",
+    focus: "Polynomial vocabulary and degree, followed by addition, subtraction, multiplication, and division by monomials.",
+    outcomes: [
       {
-        "understanding": [
-          "Substrand: Measurement",
-          "General Outcome: Use direct and indirect measurement to solve problems."
+        id: "PR5",
+        strand: "Patterns & Relations",
+        text: "Demonstrate an understanding of polynomials, limited to polynomials of degree less than or equal to 2.",
+        details: [
+          "Identify variables, coefficients, terms, constants, and degree.",
+          "Classify and interpret polynomial expressions of degree 0, 1, or 2."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, T, V]"
-        ],
-        "knowledge": [
-          "Solve problems and justify the solution strategy, using the following circle properties: the perpendicular from the centre of a circle to a chord bisects the chord; the measure of the central angle is equal to twice the measure of the inscribed angle subtended by the same arc; the inscribed angles subtended by the same arc are congruent; a tangent to a circle is perpendicular to the radius at the point of tangency."
-        ]
+        processes: "C, CN, R, V"
       },
       {
-        "understanding": [
-          "Substrand: 3-D Objects and 2-D Shapes",
-          "General Outcome: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them."
+        id: "PR6",
+        strand: "Patterns & Relations",
+        text: "Model, record and explain the operations of addition and subtraction of polynomial expressions, concretely, pictorially and symbolically, limited to degree less than or equal to 2.",
+        details: [
+          "Add polynomial expressions.",
+          "Subtract polynomial expressions.",
+          "Combine like terms and represent equivalent expressions."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, V]"
-        ],
-        "knowledge": [
-          "Determine the surface area of composite 3-D objects to solve problems."
-        ]
+        processes: "C, CN, PS, R, V"
       },
       {
-        "understanding": [
-          "Substrand: 3-D Objects and 2-D Shapes",
-          "General Outcome: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them."
+        id: "PR7",
+        strand: "Patterns & Relations",
+        text: "Model, record and explain multiplication and division of polynomial expressions by monomials, concretely, pictorially and symbolically, limited to degree less than or equal to 2.",
+        details: [
+          "Multiply polynomial expressions by monomials.",
+          "Divide polynomial expressions by monomials.",
+          "Connect symbolic procedures to concrete or pictorial models where appropriate."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R, V]"
-        ],
-        "knowledge": [
-          "Demonstrate an understanding of similarity of polygons."
-        ]
+        processes: "C, CN, R, V"
       },
       {
-        "understanding": [
-          "Substrand: Transformations",
-          "General Outcome: Describe and analyze position and motion of objects and shapes."
+        id: "N2",
+        strand: "Number",
+        text: "Demonstrate an understanding of operations on powers with integral bases and whole-number exponents.",
+        details: [
+          "Apply exponent laws when simplifying polynomial products and quotients."
         ],
-        "skills": [
-          "Mathematical Processes: [CN, R, T, V]"
-        ],
-        "knowledge": [
-          "Draw and interpret scale diagrams of 2-D shapes."
-        ]
-      },
-      {
-        "understanding": [
-          "Substrand: Transformations",
-          "General Outcome: Describe and analyze position and motion of objects and shapes."
-        ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, V]"
-        ],
-        "knowledge": [
-          "Demonstrate an understanding of line and rotation symmetry."
-        ]
+        processes: "C, CN, PS, R, T"
       }
     ]
   },
+
   {
-    "unit": "Statistics and Probability",
-    "prefix": "SP",
-    "clusters": [
+    unitNumber: 4,
+    unit: "Geometry of Polygons & Composite Objects",
+    focus: "Composite surface area, polygon similarity, scale diagrams, and line/rotation symmetry.",
+    outcomes: [
       {
-        "understanding": [
-          "Substrand: Data Analysis",
-          "General Outcome: Collect, display and analyze data to solve problems."
+        id: "SS2",
+        strand: "Shape & Space",
+        text: "Determine the surface area of composite 3-D objects to solve problems.",
+        details: [
+          "Decompose composite 3-D objects into familiar component solids.",
+          "Determine exposed surface area and solve contextual problems."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, R, T]"
-        ],
-        "knowledge": [
-          "Describe the effect of: bias; use of language; ethics; cost; time and timing; privacy; cultural sensitivity; on the collection of data."
-        ]
+        processes: "C, CN, PS, R, V"
       },
       {
-        "understanding": [
-          "Substrand: Data Analysis",
-          "General Outcome: Collect, display and analyze data to solve problems."
+        id: "SS3",
+        strand: "Shape & Space",
+        text: "Demonstrate an understanding of similarity of polygons.",
+        details: [
+          "Identify corresponding sides and angles in similar polygons.",
+          "Use proportional reasoning to solve problems involving similar polygons."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, PS, R]"
-        ],
-        "knowledge": [
-          "Select and defend the choice of using either a population or a sample of a population to answer a question."
-        ]
+        processes: "C, CN, PS, R, V"
       },
       {
-        "understanding": [
-          "Substrand: Data Analysis",
-          "General Outcome: Collect, display and analyze data to solve problems."
+        id: "SS4",
+        strand: "Shape & Space",
+        text: "Draw and interpret scale diagrams of 2-D shapes.",
+        details: [
+          "Use scale factors to create scale diagrams.",
+          "Interpret measurements from scale drawings."
         ],
-        "skills": [
-          "Mathematical Processes: [C, PS, R, T, V]"
-        ],
-        "knowledge": [
-          "Develop and implement a project plan for the collection, display and analysis of data by: formulating a question for investigation; choosing a data collection method that includes social considerations; selecting a population or a sample; collecting the data; displaying the collected data in an appropriate manner; drawing conclusions to answer the question."
-        ]
+        processes: "CN, R, T, V"
       },
       {
-        "understanding": [
-          "Substrand: Chance and Uncertainty",
-          "General Outcome: Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+        id: "SS5",
+        strand: "Shape & Space",
+        text: "Demonstrate an understanding of line and rotation symmetry.",
+        details: [
+          "Identify and describe line symmetry.",
+          "Identify and describe rotational symmetry."
         ],
-        "skills": [
-          "Mathematical Processes: [C, CN, R, T]"
+        processes: "C, CN, PS, V"
+      },
+      {
+        id: "PR1",
+        strand: "Patterns & Relations",
+        text: "Generalize a pattern arising from a problem-solving context, using a linear equation, and verify by substitution.",
+        details: [
+          "Use algebraic generalization where geometric patterns are modelled with linear relationships."
         ],
-        "knowledge": [
-          "Demonstrate an understanding of the role of probability in society."
-        ]
+        processes: "C, CN, PS, R, V"
+      }
+    ]
+  },
+
+  {
+    unitNumber: 5,
+    unit: "Linear Relations & Equations",
+    focus: "Generalizing patterns, graphing linear relations, interpolation/extrapolation, and solving rational-coefficient linear equations.",
+    outcomes: [
+      {
+        id: "PR1",
+        strand: "Patterns & Relations",
+        text: "Generalize a pattern arising from a problem-solving context, using a linear equation, and verify by substitution.",
+        details: [
+          "Develop a linear equation from a pattern or context.",
+          "Verify the equation by substitution."
+        ],
+        processes: "C, CN, PS, R, V"
+      },
+      {
+        id: "PR2",
+        strand: "Patterns & Relations",
+        text: "Graph a linear relation, analyze the graph, and interpolate or extrapolate to solve problems.",
+        details: [
+          "Graph linear relations.",
+          "Analyze graph characteristics.",
+          "Interpolate within a data range.",
+          "Extrapolate beyond a data range and interpret results."
+        ],
+        processes: "C, CN, PS, R, T, V"
+      },
+      {
+        id: "PR3",
+        strand: "Patterns & Relations",
+        text: "Model and solve problems using single-variable linear equations with rational coefficients in the forms specified by the Alberta Program of Studies.",
+        details: [
+          "Solve equations such as ax = b and x/a = b.",
+          "Solve equations such as ax + b = c and x/a + b = c.",
+          "Solve equations with variables on both sides, including ax = b + cx and ax + b = cx + d.",
+          "Solve equations involving distribution, including a(x + b) = c and a(bx + c) = d(ex + f).",
+          "Solve reciprocal-form equations such as a/x = b, with x ≠ 0."
+        ],
+        processes: "C, CN, PS, V"
+      }
+    ]
+  },
+
+  {
+    unitNumber: 6,
+    unit: "Linear Inequalities",
+    focus: "Representing, solving, explaining, and applying single-variable linear inequalities with rational coefficients.",
+    outcomes: [
+      {
+        id: "PR4",
+        strand: "Patterns & Relations",
+        text: "Explain and illustrate strategies to solve single-variable linear inequalities with rational coefficients within a problem-solving context.",
+        details: [
+          "Represent real-world situations with inequalities.",
+          "Solve one-step and multi-step inequalities.",
+          "Explain the effect of multiplying or dividing by a negative value.",
+          "Represent and interpret solution sets."
+        ],
+        processes: "C, CN, PS, R, V"
+      },
+      {
+        id: "N3",
+        strand: "Number",
+        text: "Demonstrate an understanding of rational numbers by comparing and ordering rational numbers and solving problems that involve arithmetic operations on rational numbers.",
+        details: [
+          "Apply rational-number operations accurately while solving inequalities."
+        ],
+        processes: "C, CN, PS, R, T, V"
+      }
+    ]
+  },
+
+  {
+    unitNumber: 7,
+    unit: "Circle Geometry",
+    focus: "Chord, central-angle, inscribed-angle, and tangent properties used to justify and solve circle-geometry problems.",
+    outcomes: [
+      {
+        id: "SS1",
+        strand: "Shape & Space",
+        text: "Solve problems and justify the solution strategy using Grade 9 circle properties.",
+        details: [
+          "A perpendicular from the centre of a circle to a chord bisects the chord.",
+          "A central angle has twice the measure of an inscribed angle subtended by the same arc.",
+          "Inscribed angles subtended by the same arc are congruent.",
+          "A tangent to a circle is perpendicular to the radius at the point of tangency."
+        ],
+        processes: "C, CN, PS, R, T, V"
+      }
+    ]
+  },
+
+  {
+    unitNumber: 8,
+    unit: "Data Analysis & Probability",
+    focus: "Social and practical factors in data collection, population/sample decisions, data-investigation planning, and probability in society.",
+    outcomes: [
+      {
+        id: "SP1",
+        strand: "Statistics & Probability",
+        text: "Describe the effect of bias, use of language, ethics, cost, time and timing, privacy, and cultural sensitivity on the collection of data.",
+        details: [
+          "Analyze how data-collection choices can affect validity, fairness, feasibility, and interpretation."
+        ],
+        processes: "C, CN, R, T"
+      },
+      {
+        id: "SP2",
+        strand: "Statistics & Probability",
+        text: "Select and defend the choice of using either a population or a sample of a population to answer a question.",
+        details: [
+          "Choose an appropriate population or sample.",
+          "Defend the choice using the purpose and constraints of the investigation."
+        ],
+        processes: "C, CN, PS, R"
+      },
+      {
+        id: "SP3",
+        strand: "Statistics & Probability",
+        text: "Develop and implement a project plan for the collection, display and analysis of data.",
+        details: [
+          "Formulate a question for investigation.",
+          "Choose a data-collection method that includes social considerations.",
+          "Select a population or sample.",
+          "Collect the data.",
+          "Display the data appropriately.",
+          "Draw conclusions to answer the investigation question."
+        ],
+        processes: "C, PS, R, T, V"
+      },
+      {
+        id: "SP4",
+        strand: "Statistics & Probability",
+        text: "Demonstrate an understanding of the role of probability in society.",
+        details: [
+          "Interpret and discuss how probability is used to make decisions and communicate risk in society."
+        ],
+        processes: "C, CN, R, T"
       }
     ]
   }
-]
+];
 
 const collapsedUnits = new Set();
 const questions = [];
 let questionCounter = 1;
 
-function getUnitPrefix(unitName) {
-  const unit = curriculum.find(u => u.unit === unitName);
-  return unit?.prefix || "K";
-}
-
 function getAllKnowledgeItems() {
-  const items = [];
+  const unique = new Map();
 
   curriculum.forEach(unit => {
-    let n = 1;
-    const prefix = getUnitPrefix(unit.unit);
-
-    unit.clusters.forEach(cluster => {
-      cluster.knowledge.forEach(text => {
-        items.push({
-          id: `${prefix}${n++}`,
+    unit.outcomes.forEach(outcome => {
+      if (!unique.has(outcome.id)) {
+        unique.set(outcome.id, {
+          id: outcome.id,
           unit: unit.unit,
-          text,
-          understanding: cluster.understanding,
-          skills: cluster.skills
+          units: [unit.unit],
+          strand: outcome.strand,
+          text: outcome.text,
+          understanding: [],
+          skills: outcome.details || [],
+          processes: outcome.processes || ""
         });
-      });
+      } else {
+        unique.get(outcome.id).units.push(unit.unit);
+      }
     });
   });
 
-  return items;
+  return Array.from(unique.values());
 }
 
 const knowledgeItems = getAllKnowledgeItems();
 const knowledgeById = Object.fromEntries(knowledgeItems.map(item => [item.id, item]));
 
+let activeUnit = "all";
+
+function populateUnitFilter() {
+  const select = document.getElementById("unit-filter");
+  if (!select) return;
+
+  curriculum.forEach(unit => {
+    const option = document.createElement("option");
+    option.value = unit.unit;
+    option.textContent = `Unit ${unit.unitNumber}: ${unit.unit}`;
+    select.appendChild(option);
+  });
+}
+
+function setActiveUnit(unitName) {
+  activeUnit = unitName || "all";
+  const selected = curriculum.find(unit => unit.unit === activeUnit);
+  const note = document.getElementById("unit-focus-note");
+
+  if (note) {
+    note.innerHTML = selected
+      ? `<strong>Unit ${selected.unitNumber}:</strong> ${selected.focus}`
+      : `Showing all 8 Grade 9 teaching units.`;
+  }
+
+  renderCurriculum();
+  updateSummary();
+}
+
+function showAllUnits() {
+  const select = document.getElementById("unit-filter");
+  if (select) select.value = "all";
+  setActiveUnit("all");
+}
+
 function renderCurriculum() {
   const container = document.getElementById("curriculum-container");
   container.innerHTML = "";
 
-  curriculum.forEach(unit => {
-    const unitItems = knowledgeItems.filter(x => x.unit === unit.unit);
+  const unitsToRender = activeUnit === "all"
+    ? curriculum
+    : curriculum.filter(unit => unit.unit === activeUnit);
+
+  unitsToRender.forEach(unit => {
+    const unitItems = unit.outcomes.map(outcome => ({
+      ...knowledgeById[outcome.id],
+      ...outcome
+    }));
     const covered = unitItems.filter(item =>
       questions.some(q => q.tags.includes(item.id))
     ).length;
@@ -1207,6 +1348,7 @@ function renderCurriculum() {
       <button class="unit-header" type="button" data-unit="${unit.unit}">
         <span class="unit-title-wrap">
           <span class="unit-chevron">▼</span>
+          <span class="unit-number">U${unit.unitNumber}</span>
           <h3>${unit.unit}</h3>
         </span>
         <span class="unit-count">${covered} of ${unitItems.length} covered</span>
@@ -1232,10 +1374,12 @@ function renderCurriculum() {
           <details class="context-details">
             <summary>Curriculum context</summary>
             <div class="context-content">
-              <h4>Curriculum Context</h4>
-              <ul>${item.understanding.map(x => `<li>${x}</li>`).join("")}</ul>
-              <h4>Process Codes</h4>
-              <ul>${item.skills.map(x => `<li>${x}</li>`).join("")}</ul>
+              <h4>Alberta Curriculum Strand</h4>
+              <div>${item.strand}</div>
+              <h4>Outcome Details</h4>
+              <ul>${(item.details || item.skills || []).map(x => `<li>${x}</li>`).join("")}</ul>
+              <h4>Mathematical Processes</h4>
+              <div>${item.processes || ""}</div>
             </div>
           </details>
         </div>
@@ -1474,7 +1618,7 @@ function renderQuestions() {
 
           <div class="drop-zone"
                data-drop-question="${q.uid}">
-            Drag a curriculum outcome from the left and drop it here
+            Drag a curriculum outcome from the selected unit and drop it here
           </div>
 
           <div class="tag-list" style="margin-top:10px;">${tagsHtml}</div>
@@ -1567,8 +1711,12 @@ function updateSummary() {
   questions.forEach(q => q.tags.forEach(tag => coveredSet.add(tag)));
 
   const coverage = document.getElementById("coverage-summary");
-  coverage.innerHTML = curriculum.map(unit => {
-    const unitItems = knowledgeItems.filter(item => item.unit === unit.unit);
+  const coverageUnits = activeUnit === "all"
+    ? curriculum
+    : curriculum.filter(unit => unit.unit === activeUnit);
+
+  coverage.innerHTML = coverageUnits.map(unit => {
+    const unitItems = unit.outcomes.map(outcome => knowledgeById[outcome.id]);
     const chips = unitItems.map(item => `
       <span class="coverage-chip ${coveredSet.has(item.id) ? "covered" : ""}">${item.id}</span>
     `).join("");
@@ -1595,24 +1743,8 @@ function escapeHtml(str) {
 function latexEscape(value) {
   let text = String(value ?? "");
 
-  const placeholders = [];
-
-  function protect(latex) {
-    const token = `@@SAFE${placeholders.length}@@`;
-    placeholders.push(latex);
-    return token;
-  }
-
-  // Common complete math fragments first.
-  text = text
-    .replace(/√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$\\sqrt{${radicand}}$`))
-    .replace(/−√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$-\\sqrt{${radicand}}$`))
-    .replace(/±√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$\\pm\\sqrt{${radicand}}$`))
-    .replace(/([A-Za-z0-9])²/g, (_, base) => protect(`$${base}^{2}$`))
-    .replace(/([A-Za-z0-9])³/g, (_, base) => protect(`$${base}^{3}$`))
-    .replace(/([A-Za-z0-9])¹/g, (_, base) => protect(`$${base}^{1}$`))
-    .replace(/([A-Za-z0-9])⁰/g, (_, base) => protect(`$${base}^{0}$`));
-
+  // Protect LaTeX math replacements with placeholders so later escaping
+  // does not escape the backslashes/braces we intentionally add.
   const replacements = [
     ["π", "$\\pi$"],
     ["×", "$\\times$"],
@@ -1627,15 +1759,27 @@ function latexEscape(value) {
     ["≅", "$\\cong$"],
     ["⊥", "$\\perp$"],
     ["∥", "$\\parallel$"],
-    ["°", "$^{\\circ}$"],
-    ["○", "$\\circ$"],
-    ["●", "$\\bullet$"]
+    ["°", "$^{\\circ}$"]
   ];
+
+  const placeholders = [];
+
+  function protect(latex) {
+    const token = `@@LATEX${placeholders.length}@@`;
+    placeholders.push(latex);
+    return token;
+  }
+
+  // Handle superscripts in common algebraic notation first.
+  text = text
+    .replace(/([A-Za-z0-9)])²/g, (_, base) => protect(`$${base}^{2}$`))
+    .replace(/([A-Za-z0-9)])³/g, (_, base) => protect(`$${base}^{3}$`));
 
   replacements.forEach(([unicode, latex]) => {
     text = text.split(unicode).join(protect(latex));
   });
 
+  // Replace typography that is unnecessary in the generated LaTeX.
   text = text
     .replace(/[“”]/g, '"')
     .replace(/[‘’]/g, "'")
@@ -1643,6 +1787,7 @@ function latexEscape(value) {
     .replace(/—/g, "---")
     .replace(/\u00A0/g, " ");
 
+  // Escape ordinary LaTeX special characters.
   text = text
     .replaceAll("\\", "\\textbackslash{}")
     .replaceAll("&", "\\&")
@@ -1655,8 +1800,9 @@ function latexEscape(value) {
     .replaceAll("~", "\\textasciitilde{}")
     .replaceAll("^", "\\textasciicircum{}");
 
+  // Restore protected LaTeX math snippets.
   placeholders.forEach((latex, index) => {
-    text = text.split(`@@SAFE${index}@@`).join(latex);
+    text = text.split(`@@LATEX${index}@@`).join(latex);
   });
 
   return text;
@@ -1731,7 +1877,7 @@ function buildLatexBlueprint() {
 
 \\pagestyle{fancy}
 \\fancyhf{}
-\\lhead{Math 9 Blueprint}
+\\lhead{Math 7 Blueprint}
 \\rhead{${latexAssignmentTitle}}
 \\cfoot{\\thepage}
 
@@ -1754,7 +1900,7 @@ function buildLatexBlueprint() {
 
 \\begin{center}
     {\\LARGE\\bfseries\\color{blueprintblue} ${latexAssignmentTitle}}\\\\[4pt]
-    {\\large Math 9 Curriculum Coverage Overview}
+    {\\large Math 7 Curriculum Coverage Overview}
 \\end{center}
 
 \\vspace{0.5em}
@@ -1787,33 +1933,33 @@ ${difficultyRows}
 
 \\begin{longtable}{>{\\bfseries}p{0.12\\textwidth} p{0.10\\textwidth} p{0.13\\textwidth} p{0.52\\textwidth}}
 \\toprule
-\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Curriculum References} \\\\
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Knowledge References} \\\\
 \\midrule
 \\endfirsthead
 \\toprule
-\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Curriculum References} \\\\
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Knowledge References} \\\\
 \\midrule
 \\endhead
 ${questionRows || "\\multicolumn{4}{l}{No questions entered.} \\\\"}
 \\bottomrule
 \\end{longtable}
 
-\\section*{Curriculum Distribution}
+\\section*{Curriculum Outcome Distribution}
 
 \\begin{longtable}{>{\\bfseries}p{0.08\\textwidth} p{0.70\\textwidth} p{0.14\\textwidth}}
 \\toprule
-\\textbf{Ref.} & \\textbf{Specific Outcome} & \\textbf{Questions} \\\\
+\\textbf{Ref.} & \\textbf{Knowledge Statement} & \\textbf{Questions} \\\\
 \\midrule
 \\endfirsthead
 \\toprule
-\\textbf{Ref.} & \\textbf{Specific Outcome} & \\textbf{Questions} \\\\
+\\textbf{Ref.} & \\textbf{Knowledge Statement} & \\textbf{Questions} \\\\
 \\midrule
 \\endhead
-${knowledgeRows || "\\multicolumn{3}{l}{No curriculum references tagged.} \\\\"}
+${knowledgeRows || "\\multicolumn{3}{l}{No Knowledge references tagged.} \\\\"}
 \\bottomrule
 \\end{longtable}
 
-\\section*{Curriculum Coverage by Topic}
+\\section*{Curriculum Coverage by Teaching Unit}
 
 ${coverageByUnit}
 
@@ -1883,7 +2029,8 @@ document.getElementById("latex-modal").addEventListener("click", event => {
   if (event.target.id === "latex-modal") closeLatexModal();
 });
 
-renderCurriculum();
+populateUnitFilter();
+setActiveUnit("all");
 renderQuestions();
 updateSummary();
 </script>
