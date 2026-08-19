@@ -811,7 +811,7 @@
   <div class="header-inner">
     <div>
       <h1>Math 7 Test Blueprint</h1>
-      <p>Unit-based blueprinting aligned to the 2026 Alberta Grade 7 Mathematics draft curriculum</p>
+      <p>Unit-based blueprinting aligned to the Alberta Mathematics K–9 Program of Studies (2007, updated 2016)</p>
     </div>
     <a class="back-link" href="blueprintmain.html">← Back to Courses</a>
   </div>
@@ -823,10 +823,16 @@
     <section class="panel">
       <h2>Curriculum Reference</h2>
       <p class="subtle">
-        Choose a unit to show only the curriculum statements for that assessment. Knowledge statements keep permanent unit-based tags, so
-        teachers can build a focused unit test without searching through the entire Grade 7 curriculum. Open Curriculum context when you need
-        the related Understanding or Skills &amp; Procedures.
+        Choose a unit to show only the curriculum statements for that assessment. Specific outcomes keep permanent unit-based tags, so teachers can build a focused unit test without searching through the entire Grade 7 curriculum. Open Curriculum context when you need the strand, general outcome, or mathematical process codes.
       </p>
+
+      <div style="margin:10px 0 14px; padding:10px 12px; border:1px solid #d8dee8; border-radius:8px; background:#f8fafc; font-size:0.8rem; line-height:1.55;">
+        <strong style="color:#12355b;">Curriculum Reference Key</strong><br>
+        <strong>N</strong> = Number &nbsp;&bull;&nbsp;
+        <strong>PR</strong> = Patterns and Relations &nbsp;&bull;&nbsp;
+        <strong>SS</strong> = Shape and Space &nbsp;&bull;&nbsp;
+        <strong>SP</strong> = Statistics and Probability
+      </div>
 
       <div class="unit-selector-box">
         <label for="unit-filter">Unit</label>
@@ -858,7 +864,7 @@
         <div>
           <h2 style="margin-bottom:5px;">Test Questions</h2>
           <p class="subtle" style="margin:0;">
-            Create each question once, then drag Knowledge outcomes from the curriculum column onto the question. If a question assesses multiple outcomes, each tagged curriculum reference lists the question numbers that assess it in the Knowledge Distribution. Adding a new question automatically minimizes the questions above it.
+            Create each question once, then drag Specific Outcomes from the curriculum column onto the question. If a question assesses multiple outcomes, each tagged curriculum reference lists the question numbers that assess it in the Curriculum Distribution. Adding a new question automatically minimizes the questions above it.
           </p>
         </div>
         <button class="add-question-btn" type="button" onclick="addQuestion()">+ Add Question</button>
@@ -885,14 +891,14 @@
       </div>
 
       <div class="summary-card">
-        <strong>Knowledge Distribution</strong>
+        <strong>Curriculum Distribution</strong>
         <div id="knowledge-summary">
-          <div class="empty">Tag curriculum Knowledge statements to questions to see distribution.</div>
+          <div class="empty">Tag curriculum Specific Outcomes to questions to see distribution.</div>
         </div>
       </div>
 
       <div class="summary-card">
-        <strong>Unit Knowledge Coverage</strong>
+        <strong>Unit Curriculum Coverage</strong>
         <div id="coverage-summary"></div>
       </div>
 
@@ -927,606 +933,271 @@
 <script>
 const curriculum = [
   {
-    unitNumber: 1,
-    unit: "Integers & Rational Numbers",
-    prefix: "NR",
-    focus: "Positive and negative numbers, number-line reasoning, absolute value, fraction-decimal connections, and integer operations.",
-    clusters: [
+    "unitNumber": 1,
+    "unit": "Coordinate Geometry and Design",
+    "focus": "Geometric constructions, Cartesian coordinates, and transformations of 2-D shapes.",
+    "clusters": [
       {
-        understanding: [
-          "Every fraction and decimal number has an additive inverse with the same absolute value and opposite sign."
-        ],
-        skills: [
-          "Relate the absolute value of positive and negative numbers, including decimal numbers and fractions, to their positions on the number line.",
-          "Convert between fractions and decimal numbers, including negative numbers.",
-          "Compare and order positive and negative numbers, including decimal numbers and fractions.",
-          "Discuss real-world situations involving negative decimal numbers."
-        ],
-        knowledge: [
-          "Absolute value represents the magnitude of any number from zero.",
-          "A negative fraction can be expressed equivalently with the negative sign in the numerator, denominator, or in front of the fraction.",
-          "Negative decimal numbers can be found in real-world situations, such as debt, change in stock prices, sea levels, and temperature."
+        "id": "SS3",
+        "generalOutcome": "Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them.",
+        "processes": "[CN, R, V]",
+        "knowledge": [
+          "Perform geometric constructions, including: perpendicular line segments; parallel line segments; perpendicular bisectors; angle bisectors."
         ]
       },
       {
-        understanding: [
-          "Addition and subtraction of integers can be represented as numerical expressions."
-        ],
-        skills: [
-          "Distinguish the meaning of the symbol − when it is represented in a numerical expression.",
-          "Add and subtract any two integers.",
-          "Assess the reasonableness of a sum or difference of two integers.",
-          "Solve problems involving addition and subtraction of integers."
-        ],
-        knowledge: [
-          "The symbol − can indicate a negative number or the subtraction operation.",
-          "Addition does not always result in a greater number, and subtraction does not always result in a smaller number.",
-          "Subtraction can be expressed as addition, a − b = a + (−b).",
-          "Addition and subtraction of positive and negative numbers can be supported by standard algorithms, common denominators, and related addition."
+        "id": "SS4",
+        "generalOutcome": "Describe and analyze position and motion of objects and shapes.",
+        "processes": "[C, CN, V]",
+        "knowledge": [
+          "Identify and plot points in the four quadrants of a Cartesian plane, using integral ordered pairs."
         ]
       },
       {
-        understanding: [
-          "Products and quotients can be represented as numerical expressions in infinitely many ways."
-        ],
-        skills: [
-          "Multiply and divide any two integers.",
-          "Investigate whether a product or quotient of three or more integers will be positive or negative.",
-          "Create various expressions of the same product, using positive and negative factors.",
-          "Assess the reasonableness of a product or quotient of integers.",
-          "Solve problems involving multiplication and division of integers."
-        ],
-        knowledge: [
-          "The product or quotient of two numbers is positive when the signs are the same and negative when the signs are different.",
-          "Multiplication can be represented symbolically in various ways, including a × b, a · b, a(b), and (a)(b).",
-          "Any negative number can be expressed as the product of its opposite positive value and −1."
+        "id": "SS5",
+        "generalOutcome": "Describe and analyze position and motion of objects and shapes.",
+        "processes": "[C, CN, PS, T, V] [ICT: C6–3.4]",
+        "knowledge": [
+          "Perform and describe transformations (translations, rotations or reflections) of a 2-D shape in all four quadrants of a Cartesian plane (limited to integral number vertices)."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 2,
-    unit: "Fractions, Decimals & Order of Operations",
-    prefix: "FD",
-    focus: "Multiplication and division of positive fractions and decimals, reciprocals, equivalent expressions, and order of operations.",
-    clusters: [
+    "unitNumber": 2,
+    "unit": "Operations on Decimals",
+    "focus": "Divisibility and addition, subtraction, multiplication, and division of decimals.",
+    "clusters": [
       {
-        understanding: [
-          "The product of two fractions can be interpreted as part of a part."
-        ],
-        skills: [
-          "Model multiplication of fractions.",
-          "Relate the product of a fraction by a fraction to part of a part.",
-          "Multiply two fractions.",
-          "Compare products of fractions in various equivalent forms, including simplest form.",
-          "Solve problems involving multiplication of two fractions."
-        ],
-        knowledge: [
-          "The product of two fractions results from multiplying the numerators and multiplying the denominators.",
-          "Multiplication of two fractions can be represented by a model, such as an area model.",
-          "The product of two proper fractions is less than its factors.",
-          "A proper fraction has a numerator less than its denominator.",
-          "The product of two fractions is equivalent to the product of any equivalent forms of those fractions."
+        "id": "N1",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, R]",
+        "knowledge": [
+          "Determine and explain why a number is divisible by 2, 3, 4, 5, 6, 8, 9 or 10, and why a number cannot be divided by 0."
         ]
       },
       {
-        understanding: [
-          "The quotient of any quantity and a fraction can be interpreted as the number of fraction-sized groups that compose the quantity."
-        ],
-        skills: [
-          "Relate a number to its reciprocal.",
-          "Prove that multiplication of a fraction and its reciprocal is 1.",
-          "Divide a natural number by a fraction and vice versa.",
-          "Divide a fraction by a fraction.",
-          "Investigate the composition of a quantity by fraction-sized groups.",
-          "Solve problems involving division of two fractions."
-        ],
-        knowledge: [
-          "Division by a fraction is equivalent to multiplication by its reciprocal.",
-          "A reciprocal is the multiplicative inverse of a fraction.",
-          "The product of a fraction and its reciprocal is 1.",
-          "The quotient of a number and a proper fraction is greater than the number.",
-          "Division of two fractions can be facilitated by representing the fractions with common denominators.",
-          "The quotient of two fractions with common denominators is the quotient of the two numerators."
-        ]
-      },
-      {
-        understanding: [
-          "Equivalent expressions can facilitate multiplication and division of decimal numbers."
-        ],
-        skills: [
-          "Multiply and divide decimal numbers, including dividing a natural number by a decimal number.",
-          "Solve problems involving decimal numbers, including in real-world situations."
-        ],
-        knowledge: [
-          "Multiplication and division of decimal numbers can be supported by fractions, standard algorithms, and area models.",
-          "Equivalent division expressions can be created by multiplying the divisor and dividend by the same factor."
-        ]
-      },
-      {
-        understanding: [
-          "Equivalent forms of mathematical expressions can facilitate evaluation."
-        ],
-        skills: [
-          "Evaluate numerical expressions according to the order of operations."
-        ],
-        knowledge: [
-          "The conventional order of operations applies to integers, fractions, and decimal numbers."
+        "id": "N2",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[ME, PS, T] [ICT: P2–3.4]",
+        "knowledge": [
+          "Demonstrate an understanding of the addition, subtraction, multiplication and division of decimals to solve problems (for more than 1-digit divisors or 2-digit multipliers, the use of technology is expected)."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 3,
-    unit: "Ratios, Proportions & Percents",
-    prefix: "RP",
-    focus: "Equivalent ratios, multiplicative relationships, percentages, and proportional reasoning in real-world situations.",
-    clusters: [
+    "unitNumber": 3,
+    "unit": "Integers",
+    "focus": "Addition and subtraction of integers using concrete, pictorial, and symbolic representations.",
+    "clusters": [
       {
-        understanding: [
-          "Multiplicative relationships are foundational to proportional reasoning."
-        ],
-        skills: [
-          "Generate equivalent ratios by iterating or partitioning a ratio.",
-          "Determine the factor that relates equivalent ratios.",
-          "Determine an unknown value in given equivalent ratios.",
-          "Generate an equivalent ratio, using two existing equivalent ratios.",
-          "Compare two ratios that have common first or second terms.",
-          "Determine a percentage of a natural number by iterating or partitioning benchmark percentages.",
-          "Determine percentages of natural numbers less than 1% and greater than 100%.",
-          "Solve problems involving proportional reasoning in real-world situations."
-        ],
-        knowledge: [
-          "The terms of a ratio can be integers, decimal numbers, or fractions.",
-          "A ratio can be iterated by multiplying both terms by the same factor or partitioned by dividing both terms by the same factor.",
-          "Equivalent ratios are related by a factor that may be a natural number, decimal number, or fraction.",
-          "A proportional relationship a/b = c/d is equivalent to ad = bc.",
-          "Equivalent ratios can be generated by combining the corresponding terms of existing equivalent ratios.",
-          "Equal first terms or equal second terms can facilitate comparison of ratios.",
-          "A percentage can be represented as a ratio out of 100.",
-          "A ratio can be converted to a percentage by multiplying by 100.",
-          "A percentage can be interpreted as a sum of benchmark percentages, including 1%, 5%, 10%, 25%, and 50%.",
-          "A percentage can be less than 1% or greater than 100%.",
-          "Proportional reasoning applies to discounts, percent increase/decrease, taxes, scaling recipes, unit rates, and unit conversions."
+        "id": "N6",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, CN, PS, R, V]",
+        "knowledge": [
+          "Demonstrate an understanding of addition and subtraction of integers, concretely, pictorially and symbolically."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 4,
-    unit: "Powers, Squares & Cubes",
-    prefix: "PC",
-    focus: "Perfect squares, square roots, perfect cubes, cube roots, and geometric interpretations of powers.",
-    clusters: [
+    "unitNumber": 4,
+    "unit": "Fraction Operations",
+    "focus": "Adding and subtracting positive fractions and mixed numbers with like and unlike denominators.",
+    "clusters": [
       {
-        understanding: [
-          "A square can be interpreted as a number and as a shape."
-        ],
-        skills: [
-          "Identify the base and exponent in a perfect square.",
-          "Model a given perfect square as a square region.",
-          "Express perfect squares and square roots symbolically.",
-          "Recall perfect squares within 144 and their square roots, limited to natural numbers.",
-          "Solve problems involving perimeter and area of squares, limited to side lengths that are natural numbers."
-        ],
-        knowledge: [
-          "The product of two identical factors is a perfect square.",
-          "A perfect square can be expressed as repeated multiplication or as a power with exponent two.",
-          "The square root of a perfect square is one of its two identical factors and can be expressed with a radical sign.",
-          "A perfect square can represent the area of a square, while the side length can be expressed as a square root."
-        ]
-      },
-      {
-        understanding: [
-          "A cube can be interpreted as a number and as a shape."
-        ],
-        skills: [
-          "Identify the base and exponent in a perfect cube.",
-          "Model a given perfect cube as a cubic region.",
-          "Express perfect cubes and cube roots symbolically.",
-          "Recall perfect cubes within 125 and their cube roots, limited to natural numbers.",
-          "Solve problems involving volume of cubes, limited to edge lengths that are natural numbers."
-        ],
-        knowledge: [
-          "The product of three identical positive factors is a perfect cube.",
-          "A perfect cube can be expressed as repeated multiplication or as a power with exponent three.",
-          "The cube root of a perfect cube is one of its three identical natural-number factors and can be expressed using a cube-root symbol.",
-          "The volume of a cube can be represented by a perfect cube, while the edge length can be expressed as a cube root."
+        "id": "N5",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, CN, ME, PS, R, V]",
+        "knowledge": [
+          "Demonstrate an understanding of adding and subtracting positive fractions and mixed numbers, with like and unlike denominators, concretely, pictorially and symbolically (limited to positive sums and differences)."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 5,
-    unit: "Algebraic Expressions & Polynomials",
-    prefix: "AE",
-    focus: "Single-variable algebraic terms, powers, polynomial vocabulary, degree, conventional notation, and combining like terms.",
-    clusters: [
+    "unitNumber": 5,
+    "unit": "Probability",
+    "focus": "Probability representations, sample spaces, and theoretical versus experimental probability for independent events.",
+    "clusters": [
       {
-        understanding: [
-          "A polynomial is built by using operations of addition, subtraction, and multiplication."
-        ],
-        skills: [
-          "Express an algebraic term as multiplication of a coefficient and variable factors and vice versa.",
-          "Justify that an algebraic expression is a polynomial.",
-          "Express algebraic terms using conventional representations.",
-          "Classify a polynomial according to number of terms.",
-          "Relate the value of the exponent in an algebraic term to the degree of the algebraic term.",
-          "Name algebraic terms according to degree.",
-          "Determine the degree of a polynomial.",
-          "Express a polynomial with terms in descending or ascending order according to degree.",
-          "Add and subtract monomials by combining like terms."
-        ],
-        knowledge: [
-          "An algebraic term is the product of a coefficient and a power and is also called a monomial.",
-          "A polynomial is the sum of monomials with real-number coefficients and natural-number exponents on the variable.",
-          "A power of a variable represents a product of several copies of the variable.",
-          "A coefficient of one, an exponent of one, and an exponent of zero are conventionally omitted where appropriate.",
-          "Polynomials can be classified as monomials, binomials, and trinomials according to the number of terms.",
-          "The degree of an algebraic term is the value of its exponent; the degree of a polynomial is its greatest term degree.",
-          "Polynomial degree names include linear, quadratic, cubic, and polynomial of degree n.",
-          "A constant term is equivalent to an algebraic term with degree zero.",
-          "Algebraic terms with the same variable and the same degree are like terms.",
-          "The conventional representation of a polynomial places terms in descending order of degree.",
-          "Adding and subtracting polynomials involves combining like terms, and subtracting a polynomial is equivalent to adding its additive inverse."
+        "id": "SP4",
+        "generalOutcome": "Use experimental or theoretical probabilities to represent and solve problems involving uncertainty.",
+        "processes": "[C, CN, R, T, V] [ICT: P2–3.4]",
+        "knowledge": [
+          "Express probabilities as ratios, fractions and percents."
+        ]
+      },
+      {
+        "id": "SP5",
+        "generalOutcome": "Use experimental or theoretical probabilities to represent and solve problems involving uncertainty.",
+        "processes": "[C, ME, PS]",
+        "knowledge": [
+          "Identify the sample space (where the combined sample space has 36 or fewer elements) for a probability experiment involving two independent events."
+        ]
+      },
+      {
+        "id": "SP6",
+        "generalOutcome": "Use experimental or theoretical probabilities to represent and solve problems involving uncertainty.",
+        "processes": "[C, PS, R, T] [ICT: C7–3.2, P2–3.4]",
+        "knowledge": [
+          "Conduct a probability experiment to compare the theoretical probability (determined using a tree diagram, table or other graphic organizer) and experimental probability of two independent events."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 6,
-    unit: "Linear Equations & Inequalities",
-    prefix: "EI",
-    focus: "Equivalent equations, simplifying expressions, distributive property, variables on both sides, solution verification, and inequalities.",
-    clusters: [
+    "unitNumber": 6,
+    "unit": "Fractions, Decimals and Percents",
+    "focus": "Percents, fraction-decimal relationships, and comparing and ordering fractions, decimals, and whole numbers.",
+    "clusters": [
       {
-        understanding: [
-          "Equations can be expressed in infinitely many equivalent ways."
-        ],
-        skills: [
-          "Simplify algebraic expressions on one or both sides of an equation, using algebraic properties, including the distributive property.",
-          "Solve linear equations with algebraic terms on both sides of the equation.",
-          "Verify the solution to a linear equation by substituting the solution into any equivalent equation.",
-          "Solve problems involving real-world situations, using linear equations."
-        ],
-        knowledge: [
-          "Simplifying algebraic expressions on one or both sides of an equation results in an equivalent equation.",
-          "Algebraic expressions can be simplified by applying algebraic properties and by combining like terms.",
-          "Adding or subtracting the same algebraic or constant term on both sides of an equation results in an equivalent equation.",
-          "A solution is a value that, when substituted into the equation, satisfies the equation."
+        "id": "N3",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, CN, PS, R, T] [ICT: P2–3.4]",
+        "knowledge": [
+          "Solve problems involving percents from 1% to 100%."
         ]
       },
       {
-        understanding: [
-          "An inequality can describe the unequal relationship between all possible values of a variable and a number."
-        ],
-        skills: [
-          "Identify an inequality as strict or non-strict.",
-          "Model inequalities on the number line.",
-          "Verify, by substitution, whether a number is a solution of an inequality.",
-          "Represent a real-world situation as an inequality."
-        ],
-        knowledge: [
-          "An inequality is a relation that compares two numbers or expressions and may include a variable.",
-          "The solution of an inequality is a range of values that satisfies the inequality.",
-          "Strict inequalities use < or >, while non-strict inequalities use ≤ or ≥.",
-          "An inequality can be modelled on a number line using a ray, with open dots for strict and closed dots for non-strict inequalities.",
-          "Inequalities can describe real-world situations such as speed limits, height restrictions, and age restrictions."
+        "id": "N4",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, CN, R, T] [ICT: P2–3.4]",
+        "knowledge": [
+          "Demonstrate an understanding of the relationship between positive terminating decimals and positive fractions and between positive repeating decimals and positive fractions."
+        ]
+      },
+      {
+        "id": "N7",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[CN, R, V]",
+        "knowledge": [
+          "Compare and order positive fractions, positive decimals (to thousandths) and whole numbers by using: benchmarks; place value; equivalent fractions and/or decimals."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 7,
-    unit: "Functions & Graphing",
-    prefix: "FG",
-    focus: "Relations and functions, independent/dependent variables, domain and range, discrete/continuous functions, tables, and graphs.",
-    clusters: [
+    "unitNumber": 7,
+    "unit": "Geometry and Measurements",
+    "focus": "Circle relationships and area formulas for triangles, parallelograms, and circles.",
+    "clusters": [
       {
-        understanding: [
-          "Domain and range are attributes of a function."
-        ],
-        skills: [
-          "Distinguish between discrete and continuous functions.",
-          "Describe the domain and range of a function.",
-          "Describe restrictions on the domain and range of a function that models a real-world situation.",
-          "Graph a function that models a real-world situation, given a table of values.",
-          "Determine whether a relation is a function."
-        ],
-        knowledge: [
-          "Independent and dependent variables represent the input and output values of a function.",
-          "A relation is any correspondence between two changing quantities represented by input values and output values.",
-          "A function is a relation where each input value corresponds to exactly one output value.",
-          "The domain of a function is the set of all possible input values.",
-          "The range of a function is the set of all possible output values.",
-          "A function can be discrete or continuous.",
-          "Domain and range can be discrete or continuous and may be restricted to model a real-world situation.",
-          "Domain and range can be interpreted from ordered pairs, tables of values, graphs, and real-world situations.",
-          "The graph of a discrete function is a set of points described by ordered pairs.",
-          "The graph of a continuous function connects all points described by ordered pairs.",
-          "A graph represents a function when any vertical line intersects it at no more than one point."
+        "id": "SS1",
+        "generalOutcome": "Use direct and indirect measurement to solve problems.",
+        "processes": "[C, CN, PS, R, V]",
+        "knowledge": [
+          "Demonstrate an understanding of circles by: describing the relationships among radius, diameter and circumference; relating circumference to pi; determining the sum of the central angles; constructing circles with a given radius or diameter; solving problems involving the radii, diameters and circumferences of circles."
+        ]
+      },
+      {
+        "id": "SS2",
+        "generalOutcome": "Use direct and indirect measurement to solve problems.",
+        "processes": "[CN, PS, R, V]",
+        "knowledge": [
+          "Develop and apply a formula for determining the area of: triangles; parallelograms; circles."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 8,
-    unit: "Geometry & Triangles",
-    prefix: "GT",
-    focus: "Geometric notation, parallel and perpendicular lines, angle relationships, transversals, congruence, triangle theorems, and Pythagorean theorem.",
-    clusters: [
+    "unitNumber": 8,
+    "unit": "Patterns and Expressions",
+    "focus": "Linear patterns, tables and graphs, expressions versus equations, and evaluating expressions.",
+    "clusters": [
       {
-        understanding: [
-          "Symbols and symbolic notation can be used to represent relationships between geometric objects."
-        ],
-        skills: [
-          "Differentiate between straight lines, rays, line segments, angles, and polygons.",
-          "Model geometric objects using hands-on materials or a digital geometry environment.",
-          "Identify straight lines, rays, line segments, angles, and triangles using symbols and symbolic notation.",
-          "Represent relationships between geometric objects using symbols and symbolic notation."
-        ],
-        knowledge: [
-          "Geometric objects include straight lines, rays, line segments, angles, and polygons.",
-          "A straight line extends infinitely in two opposite directions; a ray extends infinitely in one direction; a line segment lies between two points.",
-          "An angle is formed by two lines, line segments, or rays that share a vertex.",
-          "A polygon is a closed figure made of three or more line segments that intersect only at vertices.",
-          "Symbolic notation can communicate geometric objects and relationships, including perpendicular and parallel lines."
+        "id": "PR1",
+        "generalOutcome": "Use patterns to describe the world and to solve problems.",
+        "processes": "[C, CN, R]",
+        "knowledge": [
+          "Demonstrate an understanding of oral and written patterns and their equivalent linear relations."
         ]
       },
       {
-        understanding: [
-          "Relationships between geometric objects can be found at intersections."
-        ],
-        skills: [
-          "Investigate angle relationships at the intersection of two straight lines.",
-          "Identify corresponding angles at intersections of parallel lines and a transversal.",
-          "Verify that two lines are parallel using angles at intersections of a transversal.",
-          "Model angle relationships using hands-on materials or a digital geometry environment.",
-          "Solve problems involving angle relationships at intersections."
-        ],
-        knowledge: [
-          "A point common to two or more geometric objects is called an intersection.",
-          "Opposite angles are congruent and adjacent angles formed by intersecting lines are supplementary.",
-          "A transversal intersects two or more parallel lines.",
-          "Corresponding angles formed by a transversal across parallel lines are congruent."
+        "id": "PR2",
+        "generalOutcome": "Use patterns to describe the world and to solve problems.",
+        "processes": "[C, CN, PS, R, V] [ICT: C7–3.1]",
+        "knowledge": [
+          "Create a table of values from a linear relation, graph the table of values, and analyze the graph to draw conclusions and solve problems."
         ]
       },
       {
-        understanding: [
-          "Congruence of geometric objects can be verified through symbols and symbolic notation."
-        ],
-        skills: [
-          "Identify corresponding sides and corresponding angles of congruent polygons.",
-          "Identify congruent angles and congruent line segments indicated with symbols in congruent polygons.",
-          "Verify that geometric objects are congruent using symbolic notation.",
-          "Solve problems involving congruent polygons."
-        ],
-        knowledge: [
-          "In congruent polygons, corresponding vertices, sides, and angles are in the same relative position, side lengths are equal, and angle measures are equal.",
-          "Congruent angles and line segments can be marked with matching arcs and hash marks.",
-          "Symbolic notation can communicate congruence of angles, sides, and polygons."
+        "id": "PR4",
+        "generalOutcome": "Represent algebraic expressions in multiple ways.",
+        "processes": "[C, CN]",
+        "knowledge": [
+          "Explain the difference between an expression and an equation."
         ]
       },
       {
-        understanding: [
-          "Theorems are proved and can be applied to solve problems."
-        ],
-        skills: [
-          "Justify unknown interior angle measures in triangles using angle theorems.",
-          "Prove that a geometric object is a triangle, given the three side lengths.",
-          "Prove that a triangle is a right triangle using hands-on materials or a digital geometry environment.",
-          "Determine an unknown side length in a right triangle, given any two side lengths, using the Pythagorean theorem.",
-          "Illustrate a problem involving triangles using hands-on materials or a digital geometry environment.",
-          "Solve problems involving triangles using theorems."
-        ],
-        knowledge: [
-          "A theorem is a fact proved using previously known facts.",
-          "Triangle angle theorems include the interior-angle sum of 180°, congruent base angles in isosceles triangles, and 60° angles in equilateral triangles.",
-          "The triangle inequality theorem states that the sum of any two side lengths of a triangle is greater than the third side.",
-          "The longest side of a right triangle is the hypotenuse and lies opposite the right angle.",
-          "For any right triangle, the Pythagorean theorem is represented by a² + b² = c²."
+        "id": "PR5",
+        "generalOutcome": "Represent algebraic expressions in multiple ways.",
+        "processes": "[CN, R]",
+        "knowledge": [
+          "Evaluate an expression, given the value of the variable(s)."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 9,
-    unit: "Circles, Volume & Surface Area",
-    prefix: "ME",
-    focus: "Circle measurement, volume of prisms and cylinders, surface area, nets, and 2-D representations of 3-D objects.",
-    clusters: [
+    "unitNumber": 9,
+    "unit": "Solving Equations",
+    "focus": "Preservation of equality and solving one-step linear equations concretely, pictorially, and symbolically.",
+    "clusters": [
       {
-        understanding: [
-          "The size of a circle is determined by its radius."
-        ],
-        skills: [
-          "Create circles, given the radius, using a compass or a digital geometry environment.",
-          "Investigate the relationship between the circumference of a circle and its diameter.",
-          "Determine the diameter of a circle, given its circumference and using 3.14 as an approximation for π.",
-          "Derive the symbolic notation to calculate the area of a circle from the area of a parallelogram.",
-          "Calculate the area and circumference of a circle, given its radius or diameter and using 3.14 as an approximation for π.",
-          "Solve problems involving circumference and area of circles."
-        ],
-        knowledge: [
-          "A circle is a 2-D shape whose points are all the same distance from its centre.",
-          "The perimeter of a circle is called circumference.",
-          "The radius is the distance from the centre to the circle, and the diameter is twice the radius.",
-          "Area and circumference are different interpretations of the size of a circle.",
-          "The constant ratio π relates the circumference of any circle to its diameter.",
-          "Circumference can be expressed as C = πD.",
-          "The area of a circle can be derived by rearranging equal sectors to approximate a parallelogram.",
-          "The area of a circle can be expressed as A = πr²."
+        "id": "PR3",
+        "generalOutcome": "Represent algebraic expressions in multiple ways.",
+        "processes": "[C, CN, PS, R, V]",
+        "knowledge": [
+          "Demonstrate an understanding of preservation of equality by: modelling preservation of equality, concretely, pictorially and symbolically; applying preservation of equality to solve equations."
         ]
       },
       {
-        understanding: [
-          "The volume of a prism or cylinder can be explained as a product of dimensions."
-        ],
-        skills: [
-          "Relate the name of a prism to the shape of its base.",
-          "Differentiate the lateral faces and lateral surfaces from the bases of prisms and cylinders oriented in various ways.",
-          "Model volume of rectangular prisms by iterating the volume of a single layer.",
-          "Calculate the volume of rectangular prisms, triangular prisms, and cylinders.",
-          "Determine the area of the base of rectangular prisms, triangular prisms, and cylinders, given volume and height.",
-          "Determine the height of rectangular prisms, triangular prisms, and cylinders, given volume and area of the base.",
-          "Solve problems involving volume of prisms and cylinders."
-        ],
-        knowledge: [
-          "A prism has rectangular lateral faces and two parallel congruent polygonal bases and is named according to the shape of its base.",
-          "A cylinder has one curved lateral surface and two parallel congruent circular bases.",
-          "Dimensions of rectangular prisms and cylinders are used to calculate volume and must use the same units.",
-          "The volume of a prism can be interpreted as the volume of one layer multiplied by the number of layers.",
-          "The volume of any prism or cylinder can be generalized as V = Bh."
+        "id": "PR6",
+        "generalOutcome": "Represent algebraic expressions in multiple ways.",
+        "processes": "[CN, PS, R, V]",
+        "knowledge": [
+          "Model and solve, concretely, pictorially and symbolically, problems that can be represented by one-step linear equations of the form x + a = b, where a and b are integers."
         ]
       },
       {
-        understanding: [
-          "Representing 3-D shapes with 2-D models can facilitate calculation of surface area."
-        ],
-        skills: [
-          "Identify whether a 3-D shape is a polyhedron.",
-          "Calculate the surface area of various polyhedrons and cylinders using a 2-D model.",
-          "Solve problems involving surface area of polyhedrons and cylinders, including real-world situations.",
-          "Predict the 3-D shape modelled by a net.",
-          "Relate each shape on a net to the corresponding face of a 3-D shape.",
-          "Differentiate between examples and non-examples of nets for a cube.",
-          "Justify the choice of net, orthographic drawing, or isometric drawing to represent a 3-D shape.",
-          "Recognize orthographic and isometric drawings related to a given 3-D shape and vice versa.",
-          "Create orthographic drawings for 3-D shapes.",
-          "Model 3-D shapes related to given orthographic and isometric drawings."
-        ],
-        knowledge: [
-          "Polyhedrons include prisms and pyramids; cylinders and spheres are not polyhedrons.",
-          "A pyramid has triangular lateral faces and one polygonal base opposite an apex.",
-          "Surface area is the sum of the areas of the faces and curved surfaces of a 3-D shape.",
-          "The curved lateral surface of a cylinder unfolds to a rectangle whose length is the circumference of the circular base.",
-          "2-D models of 3-D shapes include nets, orthographic drawings, and isometric drawings.",
-          "A net is a 2-D model of the surface of a 3-D shape that can be folded into the 3-D model.",
-          "An orthographic drawing shows front, top, and right-side views separately; an isometric drawing shows a rotated 3-D view."
+        "id": "PR7",
+        "generalOutcome": "Represent algebraic expressions in multiple ways.",
+        "processes": "[CN, PS, R, V]",
+        "knowledge": [
+          "Model and solve, concretely, pictorially and symbolically, problems that can be represented by linear equations of the form ax + b = c, ax = b, and x/a = b, a ≠ 0, where a, b and c are whole numbers."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 10,
-    unit: "Statistics & Data",
-    prefix: "ST",
-    focus: "Populations, samples, representative sampling, quantitative data, statistics, and circle graphs.",
-    clusters: [
+    "unitNumber": 10,
+    "unit": "Working with Data",
+    "focus": "Central tendency and range, effects of outliers, and constructing and interpreting circle graphs.",
+    "clusters": [
       {
-        understanding: [
-          "Samples can represent populations."
-        ],
-        skills: [
-          "Identify the population for a statistical question.",
-          "Justify the use of data from a sample or a census in various situations.",
-          "Describe a representative sample for a population in relation to a statistical question.",
-          "Explain the process for obtaining a representative sample by using a chosen random sampling method."
-        ],
-        knowledge: [
-          "A population is the complete set of elements that are the focus of a statistical question.",
-          "A population is defined by one or more shared characteristics such as age, location, time, or type.",
-          "A census collects data from an entire population.",
-          "A sample is a subset of a population.",
-          "A sample can be used when a census is too costly, too time-consuming, or too difficult.",
-          "A representative sample has the same defining characteristics as the population.",
-          "Representative samples can be obtained by simple random sampling or systematic random sampling."
+        "id": "SP1",
+        "generalOutcome": "Collect, display and analyze data to solve problems.",
+        "processes": "[C, PS, R, T] [ICT: P2–3.4]",
+        "knowledge": [
+          "Demonstrate an understanding of central tendency and range by: determining the measures of central tendency (mean, median, mode) and range; determining the most appropriate measures of central tendency to report findings."
         ]
       },
       {
-        understanding: [
-          "Data collected from a sample can be summarized by using statistics."
-        ],
-        skills: [
-          "Determine mean, median, mode, and range for a set of quantitative data collected from a representative sample.",
-          "Compare statistics from two different samples of the same population.",
-          "Draw conclusions about a population using statistics from a representative sample."
-        ],
-        knowledge: [
-          "Quantitative data are numerical and can be discrete or continuous.",
-          "Discrete data are countable specific values; continuous data are measurable values with infinitely many possible values within a range.",
-          "Statistics used to describe a sample include mean, median, mode, and range.",
-          "The mean is the sum of the data values divided by the number of data values.",
-          "The median is the middle value, or mean of the two middle values, in an ordered data set.",
-          "The range is the difference between the maximum and minimum values."
+        "id": "SP2",
+        "generalOutcome": "Collect, display and analyze data to solve problems.",
+        "processes": "[C, CN, PS, R]",
+        "knowledge": [
+          "Determine the effect on the mean, median and mode when an outlier is included in a data set."
         ]
       },
       {
-        understanding: [
-          "Circle graphs communicate categorical data efficiently."
-        ],
-        skills: [
-          "Represent data using a circle graph.",
-          "Analyze circle graphs to solve problems."
-        ],
-        knowledge: [
-          "A circle graph represents categorical data using proportional sectors of a circle.",
-          "The number of data points in a category corresponds to a proportional section of 360°.",
-          "Circle graphs can use percentages to indicate the proportion of data in each section."
-        ]
-      }
-    ]
-  },
-
-  {
-    unitNumber: 11,
-    unit: "Probability",
-    prefix: "PR",
-    focus: "Likelihood, outcomes and events, sample spaces, theoretical and experimental probability, simulation, and decision making.",
-    clusters: [
-      {
-        understanding: [
-          "Probability quantifies the likelihood that an event occurs."
-        ],
-        skills: [
-          "Describe favourable outcomes for a given event.",
-          "Describe one outcome as more or less likely than another outcome.",
-          "Describe situations where not all events are equally likely.",
-          "Explain certain and impossible events."
-        ],
-        knowledge: [
-          "A set is a collection of objects of any nature.",
-          "An outcome is any possible result of an experiment.",
-          "An event is a set of outcomes, and any outcome that matches the event is called a favourable outcome.",
-          "A simple event is when only one event can occur.",
-          "The probability of an event numerically represents its likelihood.",
-          "Certain events have probability 1 and impossible events have probability 0.",
-          "Equally likely outcomes have the same probability, while some situations have unequal likelihoods."
-        ]
-      },
-      {
-        understanding: [
-          "Over a large number of trials, experimental probability models theoretical probability."
-        ],
-        skills: [
-          "Express, in various ways, the theoretical probability for each possible outcome in a situation.",
-          "Predict the experimental probability of an event using theoretical probability.",
-          "Collect data from multiple trials of an experiment with equally likely outcomes.",
-          "Simulate situations by generating a sample space.",
-          "Determine the experimental probability of an event.",
-          "Compare experimental probability to theoretical probability for a given event.",
-          "Relate probability to decision making in various situations."
-        ],
-        knowledge: [
-          "Theoretical probability is the likelihood of an event under ideal conditions.",
-          "For equally likely outcomes, theoretical probability is the ratio of favourable outcomes to total outcomes.",
-          "Experimental probability is determined from repeated trials and compares favourable outcomes to total trials.",
-          "A sample space lists all possible outcomes and does not include the frequency of each outcome.",
-          "The sum of the probabilities within a sample space is 1.",
-          "A situation can be simulated when the model has the same number of possible outcomes with the same probabilities.",
-          "Probability can be expressed as a ratio, fraction, decimal, or percentage.",
-          "The outcome of a trial is unknown before it occurs except for certain and impossible events.",
-          "Repeated trials have no influence on each other.",
-          "Probability can inform decision making in situations such as games and weather forecasts."
+        "id": "SP3",
+        "generalOutcome": "Collect, display and analyze data to solve problems.",
+        "processes": "[C, CN, PS, R, T, V] [ICT: P2–3.3]",
+        "knowledge": [
+          "Construct, label and interpret circle graphs to solve problems."
         ]
       }
     ]
@@ -1546,17 +1217,14 @@ function getAllKnowledgeItems() {
   const items = [];
 
   curriculum.forEach(unit => {
-    let n = 1;
-    const prefix = getUnitPrefix(unit.unit);
-
     unit.clusters.forEach(cluster => {
       cluster.knowledge.forEach(text => {
         items.push({
-          id: `${prefix}${n++}`,
+          id: cluster.id,
           unit: unit.unit,
           text,
-          understanding: cluster.understanding,
-          skills: cluster.skills
+          generalOutcome: cluster.generalOutcome,
+          processes: cluster.processes
         });
       });
     });
@@ -1650,10 +1318,10 @@ function renderCurriculum() {
           <details class="context-details">
             <summary>Curriculum context</summary>
             <div class="context-content">
-              <h4>Understanding</h4>
-              <ul>${item.understanding.map(x => `<li>${x}</li>`).join("")}</ul>
-              <h4>Skills &amp; Procedures</h4>
-              <ul>${item.skills.map(x => `<li>${x}</li>`).join("")}</ul>
+              <h4>General Outcome</h4>
+              <div>${item.generalOutcome}</div>
+              <h4>Mathematical Processes</h4>
+              <div>${item.processes}</div>
             </div>
           </details>
         </div>
@@ -1837,7 +1505,7 @@ function renderQuestions() {
             <button type="button" title="Remove ${tag}" onclick="removeTag(${q.uid}, '${tag}')">×</button>
           </span>
         `).join("")
-      : `<span class="empty">No Knowledge tagged yet.</span>`;
+      : `<span class="empty">No Specific Outcomes tagged yet.</span>`;
 
 
     card.innerHTML = `
@@ -1886,13 +1554,13 @@ function renderQuestions() {
 
         <div class="tag-section">
           <div class="tag-section-title">
-            <strong>Knowledge assessed</strong>
+            <strong>Specific Outcomes assessed</strong>
             <span class="subtle">${q.tags.length} tagged</span>
           </div>
 
           <div class="drop-zone"
                data-drop-question="${q.uid}">
-            Drag a curriculum Knowledge statement from the selected unit and drop it here
+            Drag a curriculum Specific Outcome from the selected unit and drop it here
           </div>
 
           <div class="tag-list" style="margin-top:10px;">${tagsHtml}</div>
@@ -1966,7 +1634,7 @@ function updateSummary() {
   const knowledgeSummary = document.getElementById("knowledge-summary");
 
   if (!taggedIds.length) {
-    knowledgeSummary.innerHTML = `<div class="empty">Tag curriculum Knowledge statements to questions to see distribution.</div>`;
+    knowledgeSummary.innerHTML = `<div class="empty">Tag curriculum Specific Outcomes to questions to see distribution.</div>`;
   } else {
     knowledgeSummary.innerHTML = taggedIds.map(id => {
       const questionLabels = knowledgeQuestions[id].join(", ");
@@ -2135,7 +1803,7 @@ function buildLatexBlueprint() {
 
   return `\\documentclass[11pt]{article}
 
-\\usepackage[margin=0.75in]{geometry}
+\\usepackage[utf8]{inputenc}\n\\usepackage[T1]{fontenc}\n\\usepackage{amsmath,amssymb}\n\\usepackage[margin=0.75in]{geometry}
 \\usepackage{array}
 \\usepackage{booktabs}
 \\usepackage{longtable}
@@ -2207,29 +1875,29 @@ ${difficultyRows}
 
 \\begin{longtable}{>{\\bfseries}p{0.12\\textwidth} p{0.10\\textwidth} p{0.13\\textwidth} p{0.52\\textwidth}}
 \\toprule
-\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Knowledge References} \\\\
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Curriculum References} \\\\
 \\midrule
 \\endfirsthead
 \\toprule
-\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Knowledge References} \\\\
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Curriculum References} \\\\
 \\midrule
 \\endhead
 ${questionRows || "\\multicolumn{4}{l}{No questions entered.} \\\\"}
 \\bottomrule
 \\end{longtable}
 
-\\section*{Knowledge Distribution}
+\\section*{Curriculum Distribution}
 
 \\begin{longtable}{>{\\bfseries}p{0.08\\textwidth} p{0.70\\textwidth} p{0.14\\textwidth}}
 \\toprule
-\\textbf{Ref.} & \\textbf{Knowledge Statement} & \\textbf{Questions} \\\\
+\\textbf{Ref.} & \\textbf{Specific Outcome} & \\textbf{Questions} \\\\
 \\midrule
 \\endfirsthead
 \\toprule
-\\textbf{Ref.} & \\textbf{Knowledge Statement} & \\textbf{Questions} \\\\
+\\textbf{Ref.} & \\textbf{Specific Outcome} & \\textbf{Questions} \\\\
 \\midrule
 \\endhead
-${knowledgeRows || "\\multicolumn{3}{l}{No Knowledge references tagged.} \\\\"}
+${knowledgeRows || "\\multicolumn{3}{l}{No curriculum references tagged.} \\\\"}
 \\bottomrule
 \\end{longtable}
 

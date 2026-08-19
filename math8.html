@@ -73,73 +73,6 @@
     }
 
 
-
-    .bridge-legend {
-      margin-top: 10px;
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-      color: #7c5b16;
-      font-size: .79rem;
-      line-height: 1.35;
-    }
-
-    .bridge-pill {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 3px 7px;
-      background: #fff3cd;
-      border: 1px solid #e4c46b;
-      color: #7a5500;
-      font-size: .68rem;
-      font-weight: 900;
-      letter-spacing: .04em;
-      white-space: nowrap;
-    }
-
-    .knowledge-card.bridge-card {
-      border-color: #e7c969;
-      background: #fffdf6;
-    }
-
-    .knowledge-card.bridge-card .knowledge-id {
-      color: #8a5d00;
-    }
-
-    .knowledge-card.bridge-card .context-content {
-      background: #fffaf0;
-      border-color: #ead9a0;
-    }
-
-    .tag.bridge-tag {
-      background: #fff3cd;
-      color: #7a5500;
-      border: 1px solid #e4c46b;
-    }
-
-    .tag.bridge-tag button {
-      color: #7a5500;
-    }
-
-    .coverage-chip.bridge-chip {
-      border-color: #e4c46b;
-      background: #fff8df;
-      color: #7a5500;
-    }
-
-    .coverage-chip.bridge-chip.covered {
-      background: #f7e7a9;
-      color: #654800;
-      border-color: #caa63b;
-    }
-
-    .bridge-summary-line {
-      color: #7a5500;
-      font-size: .82rem;
-      line-height: 1.4;
-    }
-
     .unit-selector-box {
       margin: 14px 0 10px;
       padding: 12px;
@@ -878,7 +811,7 @@
   <div class="header-inner">
     <div>
       <h1>Math 8 Test Blueprint</h1>
-      <p>Unit-based blueprinting for the new Alberta Grade 8 Mathematics curriculum with transition-year Grade 7 bridge content</p>
+      <p>Unit-based blueprinting aligned to the Alberta Mathematics K–9 Program of Studies (2007, updated 2016)</p>
     </div>
     <a class="back-link" href="blueprintmain.html">← Back to Courses</a>
   </div>
@@ -890,10 +823,16 @@
     <section class="panel">
       <h2>Curriculum Reference</h2>
       <p class="subtle">
-        Choose a unit to show only the curriculum statements for that assessment. Grade 8 curriculum statements use permanent unit-based tags.
-        Transition-year prerequisite content from the new Grade 7 curriculum is marked <strong>BRIDGE</strong> and uses BR tags so it can be
-        identified and removed from the course next year. Open Curriculum context when you need the related Understanding or Skills &amp; Procedures.
+        Choose a unit to show only the curriculum statements for that assessment. Specific outcomes keep permanent unit-based tags, so teachers can build a focused unit test without searching through the entire Grade 8 curriculum. Open Curriculum context when you need the strand, general outcome, or mathematical process codes.
       </p>
+
+      <div style="margin:10px 0 14px; padding:10px 12px; border:1px solid #d8dee8; border-radius:8px; background:#f8fafc; font-size:0.8rem; line-height:1.55;">
+        <strong style="color:#12355b;">Curriculum Reference Key</strong><br>
+        <strong>N</strong> = Number &nbsp;&bull;&nbsp;
+        <strong>PR</strong> = Patterns and Relations &nbsp;&bull;&nbsp;
+        <strong>SS</strong> = Shape and Space &nbsp;&bull;&nbsp;
+        <strong>SP</strong> = Statistics and Probability
+      </div>
 
       <div class="unit-selector-box">
         <label for="unit-filter">Unit</label>
@@ -901,10 +840,6 @@
           <option value="all">All Grade 8 Units</option>
         </select>
         <div id="unit-focus-note" class="unit-focus-note"></div>
-        <div class="bridge-legend">
-          <span class="bridge-pill">BRIDGE</span>
-          <span>2026–27 transition content: new Grade 7 prerequisite material this cohort did not receive.</span>
-        </div>
       </div>
 
       <div class="curriculum-toolbar">
@@ -921,7 +856,7 @@
         <label for="assignment-title">Assignment / Test Title</label>
         <input id="assignment-title"
                type="text"
-               placeholder="e.g. Math 8 Linear Functions Unit Test"
+               placeholder="e.g. Math 8 Number Unit Test"
                oninput="updateSummary()">
       </div>
 
@@ -929,7 +864,7 @@
         <div>
           <h2 style="margin-bottom:5px;">Test Questions</h2>
           <p class="subtle" style="margin:0;">
-            Create each question once, then drag Knowledge outcomes from the curriculum column onto the question. If a question assesses multiple outcomes, each tagged curriculum reference lists the question numbers that assess it in the Knowledge Distribution. Adding a new question automatically minimizes the questions above it.
+            Create each question once, then drag Specific Outcomes from the curriculum column onto the question. If a question assesses multiple outcomes, each tagged curriculum reference lists the question numbers that assess it in the Curriculum Distribution. Adding a new question automatically minimizes the questions above it.
           </p>
         </div>
         <button class="add-question-btn" type="button" onclick="addQuestion()">+ Add Question</button>
@@ -956,22 +891,15 @@
       </div>
 
       <div class="summary-card">
-        <strong>Knowledge Distribution</strong>
+        <strong>Curriculum Distribution</strong>
         <div id="knowledge-summary">
-          <div class="empty">Tag curriculum Knowledge statements to questions to see distribution.</div>
+          <div class="empty">Tag curriculum Specific Outcomes to questions to see distribution.</div>
         </div>
       </div>
 
       <div class="summary-card">
-        <strong>Unit Knowledge Coverage</strong>
+        <strong>Unit Curriculum Coverage</strong>
         <div id="coverage-summary"></div>
-      </div>
-
-      <div class="summary-card">
-        <strong>Transition Bridge Coverage</strong>
-        <div id="bridge-summary" class="bridge-summary-line">
-          BR tags are temporary Grade 7 prerequisite content for this transition cohort.
-        </div>
       </div>
 
       <div class="difficulty-key">
@@ -1005,512 +933,221 @@
 <script>
 const curriculum = [
   {
-    unitNumber: 1,
-    unit: "Rational Numbers & Number Systems",
-    prefix: "RN",
-    focus: "Rational-number operations, number classification, terminating and repeating decimals, estimation, and real-world applications.",
-    clusters: [
+    "unitNumber": 1,
+    "unit": "Representing Data",
+    "focus": "Critiquing how data is represented in circle graphs, line graphs, bar graphs, and pictographs.",
+    "clusters": [
       {
-        bridge: true,
-        understanding: [
-          "The new Grade 8 curriculum assumes students can already multiply and divide integers, fractions, and decimal numbers and can evaluate mixed numerical expressions."
-        ],
-        skills: [
-          "Multiply and divide integers.",
-          "Multiply and divide positive fractions, including division using reciprocals.",
-          "Multiply and divide decimal numbers.",
-          "Evaluate numerical expressions involving integers, fractions, and decimals according to the order of operations."
-        ],
-        knowledge: [
-          "Integer multiplication and division follow sign rules: same signs give a positive result and different signs give a negative result.",
-          "Division by a fraction is equivalent to multiplication by its reciprocal.",
-          "The product of a fraction and its reciprocal is 1.",
-          "Multiplication and division of decimal numbers can be supported by equivalent fractions, standard algorithms, and equivalent division expressions.",
-          "The conventional order of operations applies to integers, fractions, and decimal numbers."
-        ]
-      },
-      {
-        understanding: [
-          "The set of rational numbers includes natural numbers and integers, and rational numbers can be represented as fractions or terminating or repeating decimals."
-        ],
-        skills: [
-          "Express rational numbers as fractions and decimal numbers.",
-          "Classify natural numbers, integers, and rational numbers.",
-          "Relate a rational number to its position on the number line.",
-          "Compare and order rational numbers.",
-          "Determine a rational number between any two given rational numbers.",
-          "Investigate fractions that result in repeating decimals.",
-          "Add, subtract, multiply, and divide any two rational numbers.",
-          "Assess the reasonableness of a sum, difference, product, or quotient using estimation.",
-          "Evaluate numerical expressions involving rational numbers according to the order of operations.",
-          "Solve problems involving rational numbers in real-world situations."
-        ],
-        knowledge: [
-          "A rational number can be expressed as the quotient of two integers with a non-zero denominator.",
-          "Rational numbers have terminating or repeating decimal representations.",
-          "A repeating decimal contains a digit or group of digits that repeats endlessly.",
-          "There are infinitely many rational numbers between any two rational numbers on the number line.",
-          "The conventional order of operations applies to rational numbers."
+        "id": "SP1",
+        "generalOutcome": "Collect, display and analyze data to solve problems.",
+        "processes": "[C, R, T, V] [ICT: C7–3.1, C7–3.2, F4–3.3]",
+        "knowledge": [
+          "Critique ways in which data is presented in circle graphs, line graphs, bar graphs and pictographs."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 2,
-    unit: "Square Roots & Irrational Numbers",
-    prefix: "SR",
-    focus: "Irrational numbers, exact and approximate values, perfect and non-perfect squares, and square roots.",
-    clusters: [
+    "unitNumber": 2,
+    "unit": "Ratios, Rates, and Proportional Reasoning",
+    "focus": "Understanding ratios and rates and solving problems using proportional reasoning.",
+    "clusters": [
       {
-        understanding: [
-          "Irrational numbers extend the real number system beyond rational numbers and can be represented exactly or approximately."
-        ],
-        skills: [
-          "Distinguish between rational and irrational numbers.",
-          "Classify an expression of an irrational number as exact or approximate.",
-          "Approximate an irrational number as a rounded decimal.",
-          "Express an irrational number as an exact value.",
-          "Relate an irrational number to its approximate position on the number line.",
-          "Compare and order real numbers."
-        ],
-        knowledge: [
-          "The set of real numbers includes rational and irrational numbers.",
-          "An irrational number cannot be expressed as the quotient of two integers.",
-          "Irrational numbers are non-terminating, non-repeating decimals.",
-          "An irrational number can be represented approximately with a rounded decimal or exactly with notation such as a radical or π.",
-          "Irrational numbers fill the gaps between rational numbers on the real number line."
+        "id": "N4",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, CN, V]",
+        "knowledge": [
+          "Demonstrate an understanding of ratio and rate."
         ]
       },
       {
-        understanding: [
-          "Square roots can be explained using rational and irrational numbers and can be expressed exactly or approximately."
-        ],
-        skills: [
-          "Classify positive rational numbers as perfect squares or non-perfect squares.",
-          "Express perfect and non-perfect squares as repeated multiplication and as powers.",
-          "Justify the number of square roots of real numbers, including zero.",
-          "Approximate square roots of non-perfect squares within 144.",
-          "Determine the area of a square given the side length.",
-          "Determine the side length of a square given its area.",
-          "Solve problems involving perimeter and area of squares."
-        ],
-        knowledge: [
-          "A non-perfect square can have irrational square roots.",
-          "Every positive real number has two square roots, one positive and one negative; zero has one real square root.",
-          "Negative real numbers do not have square roots that are real numbers.",
-          "The equation x² = a has a positive and a negative solution when a is positive.",
-          "The radical sign indicates the principal square root, while ± communicates both square roots.",
-          "A radical can express an exact value and a rounded decimal can express an approximate value.",
-          "Perfect squares can be used as benchmarks to approximate square roots of non-perfect squares."
+        "id": "N5",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, CN, PS, R]",
+        "knowledge": [
+          "Solve problems that involve rates, ratios and proportional reasoning."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 3,
-    unit: "Ratios, Rates & Proportional Reasoning",
-    prefix: "RP",
-    focus: "Multiplicative comparisons, constants of proportionality, direct and inverse relationships, unit rates, and real-world proportional problems.",
-    clusters: [
+    "unitNumber": 3,
+    "unit": "Pythagorean Relationship",
+    "focus": "Perfect squares, square roots, estimating square roots, and applying the Pythagorean theorem.",
+    "clusters": [
       {
-        bridge: true,
-        understanding: [
-          "The new Grade 8 outcome assumes fluency with equivalent ratios and percentages developed in the new Grade 7 curriculum."
-        ],
-        skills: [
-          "Generate equivalent ratios by multiplying or dividing both terms by the same factor.",
-          "Determine an unknown value in equivalent ratios.",
-          "Compare ratios with common first or second terms.",
-          "Determine percentages of natural numbers, including percentages below 1% and above 100%.",
-          "Solve proportional problems involving discounts, taxes, percent change, unit rates, and unit conversions."
-        ],
-        knowledge: [
-          "Equivalent ratios are related by a multiplicative factor.",
-          "A proportional relationship a/b = c/d is equivalent to ad = bc.",
-          "A percentage can be represented as a ratio out of 100.",
-          "Proportional reasoning applies to discounts, percent increase/decrease, taxes, scaling recipes, unit rates, and unit conversions."
+        "id": "N1",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, CN, R, V]",
+        "knowledge": [
+          "Demonstrate an understanding of perfect squares and square roots, concretely, pictorially and symbolically (limited to whole numbers)."
         ]
       },
       {
-        understanding: [
-          "A ratio can be interpreted as a multiplicative comparison, and a constant of proportionality describes the multiplicative relationship between quantities."
-        ],
-        skills: [
-          "Describe one quantity in a ratio as a multiple of the other.",
-          "Determine the constant of proportionality for a given ratio.",
-          "Generate equivalent ratios for a given constant of proportionality.",
-          "Determine a missing quantity in a ratio given the constant of proportionality.",
-          "Solve problems involving quantities related by a constant of proportionality, including real-world situations."
-        ],
-        knowledge: [
-          "A multiplicative comparison describes the multiplicative relationship between one quantity and another.",
-          "Either quantity in a multiplicative comparison can be described as a multiple of the other.",
-          "The factor relating two quantities in a ratio is the constant of proportionality, k.",
-          "A constant of proportionality can be expressed as a decimal or ratio and remains constant across equivalent ratios.",
-          "Depending on context, a constant of proportionality may be called slope, unit rate, or scale factor.",
-          "Direct and inverse proportional relationships can be characterized by their constants of proportionality."
+        "id": "N2",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, CN, ME, R, T] [ICT: P2–3.4]",
+        "knowledge": [
+          "Determine the approximate square root of numbers that are not perfect squares (limited to whole numbers)."
+        ]
+      },
+      {
+        "id": "SS1",
+        "generalOutcome": "Use direct and indirect measurement to solve problems.",
+        "processes": "[CN, PS, R, T, V] [ICT: P2–3.4]",
+        "knowledge": [
+          "Develop and apply the Pythagorean theorem to solve problems."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 4,
-    unit: "Algebraic Foundations & Linear Equations",
-    prefix: "EQ",
-    focus: "Polynomial foundations needed for transition, followed by Grade 8 equations with rational coefficients, parentheses, and variables on both sides.",
-    clusters: [
+    "unitNumber": 4,
+    "unit": "Understanding Percent",
+    "focus": "Representing percents, connecting fractions/decimals/percents, and working with percents above 100%.",
+    "clusters": [
       {
-        bridge: true,
-        understanding: [
-          "The new Grade 8 equation work assumes the algebraic vocabulary and simplification skills introduced in the new Grade 7 curriculum."
-        ],
-        skills: [
-          "Identify coefficients, variables, exponents, terms, and constants.",
-          "Classify monomials, binomials, and trinomials.",
-          "Determine the degree of an algebraic term or polynomial.",
-          "Identify like terms and combine like terms.",
-          "Simplify expressions using algebraic properties, including the distributive property."
-        ],
-        knowledge: [
-          "An algebraic term is the product of a coefficient and a power and is also called a monomial.",
-          "A polynomial is a sum of monomials.",
-          "Polynomials can be classified by number of terms and by degree.",
-          "Algebraic terms with the same variable and the same degree are like terms.",
-          "Adding and subtracting polynomials involves combining like terms.",
-          "Subtracting an expression is equivalent to adding its additive inverse."
-        ]
-      },
-      {
-        bridge: true,
-        understanding: [
-          "Equivalent equations can be created by performing the same operation on both sides."
-        ],
-        skills: [
-          "Solve linear equations with integer coefficients and algebraic terms on both sides.",
-          "Use the distributive property while solving equations.",
-          "Verify a solution by substitution.",
-          "Solve real-world problems using linear equations."
-        ],
-        knowledge: [
-          "Adding or subtracting the same algebraic or constant term on both sides produces an equivalent equation.",
-          "A solution is a value that satisfies an equation when substituted.",
-          "Equations can be expressed in infinitely many equivalent ways."
-        ]
-      },
-      {
-        understanding: [
-          "Flexibility with equivalent equations supports solving single-variable linear equations involving rational numbers."
-        ],
-        skills: [
-          "Express an equation with rational coefficients as an equivalent equation with integers.",
-          "Solve equations with rational coefficients.",
-          "Solve problems using equations with rational coefficients.",
-          "Solve linear equations including parentheses and variables on both sides."
-        ],
-        knowledge: [
-          "Multiplying or dividing both sides of an equation by the same non-zero number results in an equivalent equation.",
-          "An equation containing rational numbers can be transformed into an equivalent equation with integer coefficients.",
-          "Any non-zero factor or multiple of an equation can be used to form an equivalent equation."
+        "id": "N3",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[CN, PS, R, V]",
+        "knowledge": [
+          "Demonstrate an understanding of percents greater than or equal to 0%, including greater than 100%."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 5,
-    unit: "Triangles & Pythagorean Theorem — Transition Bridge",
-    prefix: "TB",
-    focus: "Transition-year Grade 7 geometry that this cohort would otherwise miss. This entire unit is BRIDGE content and can be removed next year.",
-    clusters: [
+    "unitNumber": 5,
+    "unit": "Surface Area",
+    "focus": "Nets, views of 3-D objects, and surface area of rectangular prisms, triangular prisms, and cylinders.",
+    "clusters": [
       {
-        bridge: true,
-        understanding: [
-          "Triangle theorems are proved relationships that can be applied to determine unknown measures and solve geometric problems."
-        ],
-        skills: [
-          "Justify unknown interior angle measures in triangles using angle theorems.",
-          "Determine whether three side lengths can form a triangle using the triangle inequality theorem.",
-          "Verify whether a triangle is a right triangle.",
-          "Determine an unknown side length in a right triangle using the Pythagorean theorem.",
-          "Solve problems involving triangles using theorems."
-        ],
-        knowledge: [
-          "The interior angles of a triangle sum to 180°.",
-          "The angles opposite equal sides in an isosceles triangle are congruent, and all angles in an equilateral triangle are 60°.",
-          "The triangle inequality theorem states that the sum of any two side lengths of a triangle is greater than the third side.",
-          "The longest side of a right triangle is the hypotenuse and lies opposite the right angle.",
-          "For a right triangle, the Pythagorean theorem is represented by a² + b² = c²."
+        "id": "SS2",
+        "generalOutcome": "Use direct and indirect measurement to solve problems.",
+        "processes": "[C, CN, PS, V]",
+        "knowledge": [
+          "Draw and construct nets for 3-D objects."
+        ]
+      },
+      {
+        "id": "SS3",
+        "generalOutcome": "Use direct and indirect measurement to solve problems.",
+        "processes": "[C, CN, PS, R, V]",
+        "knowledge": [
+          "Determine the surface area of: right rectangular prisms; right triangular prisms; right cylinders; to solve problems."
+        ]
+      },
+      {
+        "id": "SS5",
+        "generalOutcome": "Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them.",
+        "processes": "[C, CN, R, T, V] [ICT: C6–3.4]",
+        "knowledge": [
+          "Draw and interpret top, front and side views of 3-D objects composed of right rectangular prisms."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 6,
-    unit: "Similarity, Scale & Dilations",
-    prefix: "SS",
-    focus: "Similarity, scale factor, area scale factor, scale drawings, and dilations on the Cartesian plane.",
-    clusters: [
+    "unitNumber": 6,
+    "unit": "Fraction Operations",
+    "focus": "Multiplying and dividing positive fractions and mixed numbers in concrete, pictorial, and symbolic forms.",
+    "clusters": [
       {
-        understanding: [
-          "Similarity is explained through proportional relationships and scale factor."
-        ],
-        skills: [
-          "Determine the scale factor of similar geometric objects.",
-          "Determine whether geometric objects are similar given a scale factor.",
-          "Apply a scale factor to geometric objects.",
-          "Solve problems involving areas of similar geometric objects.",
-          "Solve real-world problems involving scale factor."
-        ],
-        knowledge: [
-          "Similar geometric objects have corresponding lengths in a constant ratio.",
-          "All circles are similar and all squares are similar; rectangles are similar when their side-length ratios match.",
-          "Scale factor is the ratio of a scale-drawing length to the corresponding original length when units are the same.",
-          "A scale factor greater than 1 enlarges, between 0 and 1 reduces, and equal to 1 preserves size.",
-          "The scale factor relating areas of similar objects is the square of the scale factor relating corresponding side lengths.",
-          "Scale factors occur in maps, blueprints, and scale drawings."
-        ]
-      },
-      {
-        understanding: [
-          "A dilation is a transformation of size that creates a similar figure."
-        ],
-        skills: [
-          "Dilate a geometric object on the Cartesian plane using centre (0, 0) and a scale factor.",
-          "Determine coordinates of the vertices of a dilated polygon.",
-          "Verify that geometric objects are similar using the Cartesian plane or straight lines."
-        ],
-        knowledge: [
-          "A dilation is determined by a scale factor and a dilation centre.",
-          "When the dilation centre is the origin, vertex coordinates can be multiplied by the scale factor to determine the image.",
-          "Corresponding points of a figure and its dilation lie on straight lines through the dilation centre."
+        "id": "N6",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, CN, ME, PS]",
+        "knowledge": [
+          "Demonstrate an understanding of multiplying and dividing positive fractions and mixed numbers, concretely, pictorially and symbolically."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 7,
-    unit: "Surface Area & 3-D Modelling",
-    prefix: "SA",
-    focus: "Transition-year circle and volume prerequisites, followed by Grade 8 surface area, nets, orthographic drawings, and isometric drawings.",
-    clusters: [
+    "unitNumber": 7,
+    "unit": "Volume",
+    "focus": "Developing and applying volume formulas for rectangular prisms, triangular prisms, and cylinders.",
+    "clusters": [
       {
-        bridge: true,
-        understanding: [
-          "Circle measurement from the new Grade 7 curriculum is required for work with cylinders."
-        ],
-        skills: [
-          "Calculate circumference of a circle given radius or diameter.",
-          "Calculate area of a circle given radius or diameter.",
-          "Determine diameter from circumference.",
-          "Solve problems involving circumference and area of circles."
-        ],
-        knowledge: [
-          "Circumference is the perimeter of a circle.",
-          "The diameter is twice the radius.",
-          "The constant π relates circumference to diameter.",
-          "Circumference can be expressed as C = πD and circle area as A = πr²."
-        ]
-      },
-      {
-        bridge: true,
-        understanding: [
-          "Volume of prisms and cylinders is a new Grade 7 expectation that this transition cohort would otherwise miss."
-        ],
-        skills: [
-          "Calculate volume of rectangular prisms, triangular prisms, and cylinders.",
-          "Determine base area given volume and height.",
-          "Determine height given volume and base area.",
-          "Solve problems involving volume of prisms and cylinders."
-        ],
-        knowledge: [
-          "The volume of a prism or cylinder can be generalized as V = Bh.",
-          "The base of a prism or cylinder and the perpendicular height determine its volume.",
-          "Dimensions must be measured using compatible units when calculating volume."
-        ]
-      },
-      {
-        understanding: [
-          "Representing 3-D shapes with 2-D models can facilitate calculation of surface area."
-        ],
-        skills: [
-          "Identify whether a 3-D shape is a polyhedron.",
-          "Calculate surface area of polyhedrons and cylinders using a 2-D model.",
-          "Solve real-world problems involving surface area of polyhedrons and cylinders.",
-          "Predict the 3-D shape modelled by a net.",
-          "Relate each shape on a net to the corresponding face of a 3-D shape.",
-          "Differentiate examples and non-examples of cube nets.",
-          "Justify the choice of net, orthographic drawing, or isometric drawing to represent a 3-D shape.",
-          "Recognize orthographic and isometric drawings related to a given 3-D shape and vice versa.",
-          "Create orthographic drawings for 3-D shapes.",
-          "Model 3-D shapes related to orthographic and isometric drawings."
-        ],
-        knowledge: [
-          "Polyhedrons are 3-D shapes with polygonal faces and include prisms and pyramids; cylinders and spheres are not polyhedrons.",
-          "A pyramid has triangular lateral faces and one polygonal base opposite an apex.",
-          "Surface area is the sum of the areas of all faces and curved surfaces of a 3-D shape.",
-          "The curved lateral surface of a cylinder unfolds to a rectangle whose length equals the circumference of the circular base.",
-          "2-D models of 3-D shapes include nets, orthographic drawings, and isometric drawings.",
-          "A net can be folded to model the surface of a 3-D shape.",
-          "An orthographic drawing shows separate front, top, and side views; an isometric drawing shows a rotated 3-D representation."
+        "id": "SS4",
+        "generalOutcome": "Use direct and indirect measurement to solve problems.",
+        "processes": "[C, CN, PS, R, V]",
+        "knowledge": [
+          "Develop and apply formulas for determining the volume of right rectangular prisms, right triangular prisms and right cylinders."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 8,
-    unit: "Linear Functions",
-    prefix: "LF",
-    focus: "Transition-year function foundations followed by slope, rate of change, slope-intercept form, intercepts, and graphing.",
-    clusters: [
+    "unitNumber": 8,
+    "unit": "Integers",
+    "focus": "Multiplication and division of integers and applying integer operations to problems.",
+    "clusters": [
       {
-        bridge: true,
-        understanding: [
-          "The new Grade 8 linear-functions outcome assumes the function, domain, and range concepts introduced in the new Grade 7 curriculum."
-        ],
-        skills: [
-          "Distinguish between a relation and a function.",
-          "Identify independent and dependent variables.",
-          "Distinguish between discrete and continuous functions.",
-          "Describe domain and range and contextual restrictions.",
-          "Graph a function from a table of values.",
-          "Use the vertical line test to determine whether a relation is a function."
-        ],
-        knowledge: [
-          "A function is a relation in which each input corresponds to exactly one output.",
-          "Independent and dependent variables represent input and output values.",
-          "Domain is the set of possible input values and range is the set of possible output values.",
-          "Functions and their domains and ranges can be discrete or continuous.",
-          "Functions can be represented by ordered pairs, tables, graphs, and real-world situations."
-        ]
-      },
-      {
-        understanding: [
-          "Slope represents steepness and rate of change, and attributes of a linear function connect its graph and equation."
-        ],
-        skills: [
-          "Calculate the slope of a line given two points.",
-          "Compare slopes of parallel lines.",
-          "Compare slopes of perpendicular lines.",
-          "Investigate how m and b in y = mx + b affect a graph.",
-          "Explain why the slope of a vertical line is undefined.",
-          "Distinguish between linear and non-linear graphs.",
-          "Interpret how slope and y-intercept affect a real-world rate-of-change context.",
-          "Graph a linear function given slope and one point.",
-          "Solve problems involving rate of change from multiple representations.",
-          "Identify x- and y-intercepts from graphs and equations.",
-          "Express a linear function in slope-intercept form from a graph.",
-          "Graph a linear function given its equation.",
-          "Express horizontal and vertical lines as equations and graph them."
-        ],
-        knowledge: [
-          "Slope has magnitude and direction: increasing lines have positive slope, decreasing lines have negative slope, horizontal lines have slope zero, and vertical lines have undefined slope.",
-          "Slope is the ratio of vertical change to horizontal change between two points.",
-          "A linear function has a constant rate of change.",
-          "A linear function can be represented by a non-vertical straight line or aligned discrete points.",
-          "Slope-intercept form is y = mx + b, where m is slope and b is the y-intercept.",
-          "Horizontal lines have equations of the form y = b and vertical lines have equations of the form x = a.",
-          "The x-intercept occurs where y = 0 and the y-intercept occurs where x = 0."
+        "id": "N7",
+        "generalOutcome": "Develop number sense.",
+        "processes": "[C, CN, PS, R, V]",
+        "knowledge": [
+          "Demonstrate an understanding of multiplication and division of integers, concretely, pictorially and symbolically."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 9,
-    unit: "Statistics & Distributions",
-    prefix: "ST",
-    focus: "Transition-year sampling foundations followed by histograms, distribution shape, measures of centre, and comparison of samples.",
-    clusters: [
+    "unitNumber": 9,
+    "unit": "Linear Relations",
+    "focus": "Graphing and analyzing two-variable linear relations.",
+    "clusters": [
       {
-        bridge: true,
-        understanding: [
-          "The new Grade 8 statistics outcome assumes students understand populations, samples, representative sampling, and basic sample statistics."
-        ],
-        skills: [
-          "Identify a population for a statistical question.",
-          "Distinguish between a census and a sample.",
-          "Describe a representative sample.",
-          "Explain simple random and systematic random sampling.",
-          "Determine mean, median, mode, and range for quantitative data."
-        ],
-        knowledge: [
-          "A population is the complete set being studied and a sample is a subset of that population.",
-          "A representative sample reflects the defining characteristics of the population.",
-          "Representative samples can be obtained through random sampling methods.",
-          "Mean, median, mode, and range are statistics used to summarize quantitative data."
-        ]
-      },
-      {
-        understanding: [
-          "The shape of a distribution helps determine which statistic best represents a data set."
-        ],
-        skills: [
-          "Describe the shape of distributions.",
-          "Explain how changing histogram interval size can affect interpretation of distribution shape.",
-          "Represent distributions using histograms with equal intervals.",
-          "Compare distribution shapes from two different samples of the same population.",
-          "Justify the choice of mean, median, or mode to typify data sets with different distribution shapes."
-        ],
-        knowledge: [
-          "A distribution is an ordered data set in which frequencies of values are evident.",
-          "Bar graphs represent discrete data and histograms represent continuous data grouped into intervals.",
-          "Distribution shape can be symmetric, uniform, left-skewed, or right-skewed and may be unimodal or bimodal.",
-          "In symmetric quantitative distributions, mean and median coincide; skew can pull the mean toward the tail.",
-          "Measures of central tendency describe the centre of a distribution.",
-          "The shape of a distribution can determine which measure of centre best typifies the data."
+        "id": "PR1",
+        "generalOutcome": "Use patterns to describe the world and to solve problems.",
+        "processes": "[C, ME, PS, R, T, V] [ICT: P2–3.3]",
+        "knowledge": [
+          "Graph and analyze two-variable linear relations."
         ]
       }
     ]
   },
-
   {
-    unitNumber: 10,
-    unit: "Probability of Multiple Events",
-    prefix: "PB",
-    focus: "Transition-year theoretical/experimental probability foundations followed by independent and dependent compound events.",
-    clusters: [
+    "unitNumber": 10,
+    "unit": "Solving Linear Equations",
+    "focus": "Modelling and solving one-step and two-step linear equations with integer coefficients.",
+    "clusters": [
       {
-        bridge: true,
-        understanding: [
-          "The new Grade 8 probability outcome assumes the theoretical and experimental probability foundations developed in the new Grade 7 curriculum."
-        ],
-        skills: [
-          "Construct and interpret sample spaces.",
-          "Express theoretical probability as a ratio, fraction, decimal, or percentage.",
-          "Determine experimental probability from repeated trials.",
-          "Compare experimental and theoretical probability.",
-          "Use simulation to model probability situations."
-        ],
-        knowledge: [
-          "Theoretical probability describes likelihood under ideal conditions.",
-          "For equally likely outcomes, theoretical probability is the ratio of favourable outcomes to total outcomes.",
-          "Experimental probability is based on favourable outcomes observed across repeated trials.",
-          "The probabilities in a complete sample space sum to 1.",
-          "Over many trials, experimental probability tends to model theoretical probability."
+        "id": "PR2",
+        "generalOutcome": "Represent algebraic expressions in multiple ways.",
+        "processes": "[C, CN, PS, V]",
+        "knowledge": [
+          "Model and solve problems concretely, pictorially and symbolically, using linear equations of the form: ax = b; x/a = b, a ≠ 0; ax + b = c; x/a + b = c, a ≠ 0; a(x + b) = c; where a, b and c are integers."
         ]
-      },
+      }
+    ]
+  },
+  {
+    "unitNumber": 11,
+    "unit": "Probability",
+    "focus": "Solving probability problems involving independent events.",
+    "clusters": [
       {
-        understanding: [
-          "The occurrence of one event can affect the probability of another event."
-        ],
-        skills: [
-          "Represent sample spaces for compound events using tree diagrams, area models, or set notation.",
-          "Determine whether two events are independent or dependent.",
-          "Determine the probability of two or more independent events by modelling the sample space.",
-          "Determine the probability of two dependent events by modelling the sample space."
-        ],
-        knowledge: [
-          "A compound event consists of two or more events.",
-          "The sample space of compound events can be represented with tree diagrams, area models, and set notation.",
-          "Two events are independent when occurrence of one does not affect occurrence of the other.",
-          "Two events are dependent when occurrence of one affects occurrence of the other.",
-          "The occurrence of one event can change the probability of another."
+        "id": "SP2",
+        "generalOutcome": "Use experimental or theoretical probabilities to represent and solve problems involving uncertainty.",
+        "processes": "[C, CN, PS, T] [ICT: P2–3.4]",
+        "knowledge": [
+          "Solve problems involving the probability of independent events."
+        ]
+      }
+    ]
+  },
+  {
+    "unitNumber": 12,
+    "unit": "Tessellations",
+    "focus": "Exploring and constructing tessellations as an application of polygon congruence and transformations.",
+    "clusters": [
+      {
+        "id": "SS6",
+        "generalOutcome": "Describe and analyze position and motion of objects and shapes.",
+        "processes": "[CN, R, V]",
+        "knowledge": [
+          "Demonstrate an understanding of the congruence of polygons."
         ]
       }
     ]
@@ -1528,22 +1165,16 @@ function getUnitPrefix(unitName) {
 
 function getAllKnowledgeItems() {
   const items = [];
-  let bridgeNumber = 1;
 
   curriculum.forEach(unit => {
-    let n = 1;
-    const prefix = getUnitPrefix(unit.unit);
-
     unit.clusters.forEach(cluster => {
       cluster.knowledge.forEach(text => {
-        const isBridge = Boolean(cluster.bridge);
         items.push({
-          id: isBridge ? `BR${bridgeNumber++}` : `${prefix}${n++}`,
+          id: cluster.id,
           unit: unit.unit,
           text,
-          understanding: cluster.understanding,
-          skills: cluster.skills,
-          bridge: isBridge
+          generalOutcome: cluster.generalOutcome,
+          processes: cluster.processes
         });
       });
     });
@@ -1577,7 +1208,7 @@ function setActiveUnit(unitName) {
   if (note) {
     note.innerHTML = selected
       ? `<strong>Unit ${selected.unitNumber}:</strong> ${selected.focus}`
-      : `Showing all 10 units. BR tags identify temporary transition-year Grade 7 prerequisite content.`;
+      : `Showing all 11 units. Choose one unit to create a focused unit assessment.`;
   }
 
   renderCurriculum();
@@ -1623,24 +1254,24 @@ function renderCurriculum() {
 
     unitItems.forEach(item => {
       const card = document.createElement("div");
-      card.className = `knowledge-card ${item.bridge ? "bridge-card" : ""}`;
+      card.className = "knowledge-card";
       card.setAttribute("draggable", "true");
       card.dataset.knowledgeId = item.id;
 
       card.innerHTML = `
         <div class="knowledge-main">
           <div class="knowledge-text">
-            <span class="knowledge-id">${item.id}</span>${item.bridge ? '<span class="bridge-pill" style="margin-right:6px;">BRIDGE</span>' : ''}${item.text}
+            <span class="knowledge-id">${item.id}</span>${item.text}
           </div>
         </div>
         <div class="context-wrap">
           <details class="context-details">
             <summary>Curriculum context</summary>
             <div class="context-content">
-              <h4>Understanding</h4>
-              <ul>${item.understanding.map(x => `<li>${x}</li>`).join("")}</ul>
-              <h4>Skills &amp; Procedures</h4>
-              <ul>${item.skills.map(x => `<li>${x}</li>`).join("")}</ul>
+              <h4>General Outcome</h4>
+              <div>${item.generalOutcome}</div>
+              <h4>Mathematical Processes</h4>
+              <div>${item.processes}</div>
             </div>
           </details>
         </div>
@@ -1819,12 +1450,12 @@ function renderQuestions() {
 
     const tagsHtml = q.tags.length
       ? q.tags.map(tag => `
-          <span class="tag ${knowledgeById[tag]?.bridge ? "bridge-tag" : ""}">
-            ${tag}${knowledgeById[tag]?.bridge ? " · BRIDGE" : ""}
+          <span class="tag">
+            ${tag}
             <button type="button" title="Remove ${tag}" onclick="removeTag(${q.uid}, '${tag}')">×</button>
           </span>
         `).join("")
-      : `<span class="empty">No Knowledge tagged yet.</span>`;
+      : `<span class="empty">No Specific Outcomes tagged yet.</span>`;
 
 
     card.innerHTML = `
@@ -1873,13 +1504,13 @@ function renderQuestions() {
 
         <div class="tag-section">
           <div class="tag-section-title">
-            <strong>Knowledge assessed</strong>
+            <strong>Specific Outcomes assessed</strong>
             <span class="subtle">${q.tags.length} tagged</span>
           </div>
 
           <div class="drop-zone"
                data-drop-question="${q.uid}">
-            Drag a curriculum Knowledge statement from the selected unit and drop it here
+            Drag a curriculum Specific Outcome from the selected unit and drop it here
           </div>
 
           <div class="tag-list" style="margin-top:10px;">${tagsHtml}</div>
@@ -1953,14 +1584,14 @@ function updateSummary() {
   const knowledgeSummary = document.getElementById("knowledge-summary");
 
   if (!taggedIds.length) {
-    knowledgeSummary.innerHTML = `<div class="empty">Tag curriculum Knowledge statements to questions to see distribution.</div>`;
+    knowledgeSummary.innerHTML = `<div class="empty">Tag curriculum Specific Outcomes to questions to see distribution.</div>`;
   } else {
     knowledgeSummary.innerHTML = taggedIds.map(id => {
       const questionLabels = knowledgeQuestions[id].join(", ");
       return `
         <div class="progress-row">
           <div class="progress-label">
-            <span><strong>${id}</strong>${knowledgeById[id].bridge ? ' <span class="bridge-pill">BRIDGE</span>' : ''} — ${knowledgeById[id].text}</span>
+            <span><strong>${id}</strong> — ${knowledgeById[id].text}</span>
             <span style="white-space:nowrap; font-weight:800; color:#12355b;">${questionLabels}</span>
           </div>
         </div>
@@ -1979,7 +1610,7 @@ function updateSummary() {
   coverage.innerHTML = coverageUnits.map(unit => {
     const unitItems = knowledgeItems.filter(item => item.unit === unit.unit);
     const chips = unitItems.map(item => `
-      <span class="coverage-chip ${item.bridge ? "bridge-chip" : ""} ${coveredSet.has(item.id) ? "covered" : ""}">${item.id}</span>
+      <span class="coverage-chip ${coveredSet.has(item.id) ? "covered" : ""}">${item.id}</span>
     `).join("");
 
     return `
@@ -1989,16 +1620,6 @@ function updateSummary() {
       </div>
     `;
   }).join("");
-
-  const bridgeItems = knowledgeItems.filter(item => item.bridge);
-  const coveredBridge = bridgeItems.filter(item => coveredSet.has(item.id)).length;
-  const bridgeSummary = document.getElementById("bridge-summary");
-  if (bridgeSummary) {
-    bridgeSummary.innerHTML = `
-      <strong>${coveredBridge} of ${bridgeItems.length}</strong> transition bridge statements are represented on this blueprint.<br>
-      <span>BR tags are not permanent Grade 8 outcomes. They flag new Grade 7 prerequisite content that this transition cohort did not receive and can be removed next year.</span>
-    `;
-  }
 }
 
 function escapeHtml(str) {
@@ -2132,7 +1753,7 @@ function buildLatexBlueprint() {
 
   return `\\documentclass[11pt]{article}
 
-\\usepackage[margin=0.75in]{geometry}
+\\usepackage[utf8]{inputenc}\n\\usepackage[T1]{fontenc}\n\\usepackage{amsmath,amssymb}\n\\usepackage[margin=0.75in]{geometry}
 \\usepackage{array}
 \\usepackage{booktabs}
 \\usepackage{longtable}
@@ -2204,29 +1825,29 @@ ${difficultyRows}
 
 \\begin{longtable}{>{\\bfseries}p{0.12\\textwidth} p{0.10\\textwidth} p{0.13\\textwidth} p{0.52\\textwidth}}
 \\toprule
-\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Knowledge References} \\\\
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Curriculum References} \\\\
 \\midrule
 \\endfirsthead
 \\toprule
-\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Knowledge References} \\\\
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Curriculum References} \\\\
 \\midrule
 \\endhead
 ${questionRows || "\\multicolumn{4}{l}{No questions entered.} \\\\"}
 \\bottomrule
 \\end{longtable}
 
-\\section*{Knowledge Distribution}
+\\section*{Curriculum Distribution}
 
 \\begin{longtable}{>{\\bfseries}p{0.08\\textwidth} p{0.70\\textwidth} p{0.14\\textwidth}}
 \\toprule
-\\textbf{Ref.} & \\textbf{Knowledge Statement} & \\textbf{Questions} \\\\
+\\textbf{Ref.} & \\textbf{Specific Outcome} & \\textbf{Questions} \\\\
 \\midrule
 \\endfirsthead
 \\toprule
-\\textbf{Ref.} & \\textbf{Knowledge Statement} & \\textbf{Questions} \\\\
+\\textbf{Ref.} & \\textbf{Specific Outcome} & \\textbf{Questions} \\\\
 \\midrule
 \\endhead
-${knowledgeRows || "\\multicolumn{3}{l}{No Knowledge references tagged.} \\\\"}
+${knowledgeRows || "\\multicolumn{3}{l}{No curriculum references tagged.} \\\\"}
 \\bottomrule
 \\end{longtable}
 
