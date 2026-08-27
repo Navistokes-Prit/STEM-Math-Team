@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Me | STEM Math</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --navy: #12355b;
+      --navy-dark: #0d2948;
+      --blue-soft: #eef4fb;
+      --blue-mid: #dce9f7;
+      --border: #d8dee8;
+      --text: #1f2937;
+      --muted: #667085;
+      --bg: #f4f6f8;
+      --white: #ffffff;
+      --green: #13795b;
+      --green-soft: #e7f6ef;
+      --amber: #9a6700;
+      --amber-soft: #fff4d6;
+      --grey-soft: #f1f3f5;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      color: white;
+      padding: 26px 20px;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .7rem;
+      font-weight: 600;
+      opacity: .75;
+      margin-bottom: 5px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      opacity: .86;
+      font-size: .9rem;
+    }
+
+    .day-status {
+      min-width: 165px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 12px;
+      background: rgba(255,255,255,.09);
+      text-align: center;
+    }
+
+    .day-status .small {
+      display: block;
+      font-size: .65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      opacity: .75;
+    }
+
+    .day-status .big {
+      display: block;
+      margin-top: 3px;
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    .day-status .date {
+      display: block;
+      margin-top: 3px;
+      font-size: .68rem;
+      opacity: .76;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px 55px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .topbar h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.2rem;
+    }
+
+    .updated {
+      color: var(--muted);
+      font-size: .78rem;
+      text-align: right;
+    }
+
+    .teacher-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+      align-items: start;
+    }
+
+    .teacher-card {
+      position: relative;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(18,53,91,.06);
+      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+    }
+
+    .teacher-card:hover,
+    .teacher-card:focus-within {
+      transform: translateY(-2px);
+      border-color: #9eb8d3;
+      box-shadow: 0 8px 24px rgba(18,53,91,.12);
+      z-index: 5;
+    }
+
+    .teacher-summary {
+      padding: 14px 14px 12px;
+    }
+
+    .teacher-name-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .teacher-name {
+      color: var(--navy);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .teacher-level {
+      color: var(--muted);
+      font-size: .62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      white-space: nowrap;
+    }
+
+    .current-label {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .66rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .current-location {
+      margin-top: 3px;
+      color: var(--text);
+      font-size: .93rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .current-course {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: .74rem;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .status-pill {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: .63rem;
+      font-weight: 600;
+    }
+
+    .status-class {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .status-prep {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .status-other {
+      background: var(--grey-soft);
+      color: #5d6570;
+    }
+
+    /* Expands on hover/focus */
+    .teacher-details {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height .22s ease, opacity .18s ease;
+      border-top: 1px solid transparent;
+    }
+
+    .teacher-card:hover .teacher-details,
+    .teacher-card:focus-within .teacher-details {
+      max-height: 620px;
+      opacity: 1;
+      border-top-color: var(--border);
+    }
+
+    .schedule-wrap {
+      padding: 10px 12px 13px;
+      background: #fbfcfe;
+    }
+
+    .schedule-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--navy);
+      font-size: .72rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 34px 108px minmax(0, 1fr);
+      gap: 6px;
+      align-items: center;
+      padding: 6px 5px;
+      border-radius: 6px;
+      font-size: .67rem;
+      line-height: 1.4;
+    }
+
+    .schedule-row + .schedule-row {
+      border-top: 1px solid #edf0f4;
+    }
+
+    .schedule-row.active {
+      background: var(--blue-mid);
+      border-top-color: transparent;
+      outline: 1px solid #abc6e3;
+    }
+
+    .schedule-block {
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .schedule-time {
+      color: var(--muted);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .schedule-course {
+      color: #334155;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+
+    .room {
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .page-note {
+      margin-top: 18px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--muted);
+      background: #fbfcfe;
+      font-size: .74rem;
+      line-height: 1.45;
+    }
+
+    .back-link {
+      color: white;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 600;
+      opacity: .82;
+    }
+
+    .back-link:hover { opacity: 1; }
+
+    @media (max-width: 760px) {
+      .teacher-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .header-inner {
+        align-items: flex-start;
+      }
+
+      .day-status {
+        min-width: 125px;
+      }
+
+      .subtitle {
+        display: none;
+      }
+
+      .teacher-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .updated { text-align: left; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <div>
+        <div class="eyebrow">STEM Math</div>
+        <h1>Find Me</h1>
+        <p class="subtitle">See where the Math Team should be right now.</p>
+        <div style="margin-top:8px;">
+          <a class="back-link" href="index.html">← Back to STEM Math</a>
+        </div>
+      </div>
+
+      <div class="day-status">
+        <span class="small">School Schedule</span>
+        <span class="big" id="day-status-big">Checking...</span>
+        <span class="date" id="day-status-date"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="topbar">
+      <h2>Math Teachers</h2>
+      <div class="updated" id="current-time"></div>
+    </div>
+
+    <div class="teacher-grid" id="teacher-grid"></div>
+
+    <div class="page-note">
+      Hover over a teacher to see their full schedule for today's Day 1 / Day 2 rotation.
+      The highlighted row is the block currently in progress. Passing time, lunch, prep,
+      weekends, and non-instructional days are handled automatically.
+    </div>
+  </main>
+
+  <script>
+    /* =========================================================
+       FIND ME — TERM 1 MASTER SCHEDULE
+
+       Data transcribed from "Staff Schedules T1" in the
+       2026–2027 Master Schedule.
+
+       JH = 6-block schedule
+       HS = 4-block schedule
+       ========================================================== */
+
+    const teachers = [
+      {
+        name: "Aarts",
+        level: "JH",
+        day1: [
+          "Math 8B — Rm 115",
+          "Math 7C — Rm 115",
+          "Math 7C — Rm 115",
+          "Math 8B — Rm 115",
+          "PREP",
+          "Math 8C — Rm 115"
+        ],
+        day2: [
+          "Math 8B — Rm 115",
+          "Math 8C — Rm 115",
+          "PREP",
+          "Math 8C — Rm 115",
+          "PREP",
+          "Math 7C — Rm 115"
+        ]
+      },
+
+      {
+        name: "Arnold",
+        level: "JH",
+        day1: [
+          "Science 7C — Rm 114",
+          "PREP",
+          "Science 9B — Rm 203",
+          "PREP",
+          "Science 9A — Rm 203",
+          "PREP"
+        ],
+        day2: [
+          "PREP",
+          "PREP",
+          "Science 7C — Rm 114",
+          "Science 9B — Rm 203",
+          "Science 9A — Rm 203",
+          "PREP"
+        ]
+      },
+
+      {
+        name: "Feragen",
+        level: "JH",
+        day1: [
+          "PE 9A/9B",
+          "PE 7A/7B",
+          "Math 8A — Rm 113",
+          "PREP",
+          "Math 7B — Rm 113",
+          "Math 8A — Rm 113"
+        ],
+        day2: [
+          "PREP",
+          "Math 7B — Rm 113",
+          "PREP",
+          "Math 8A — Rm 113",
+          "PREP",
+          "Math 7B — Rm 113"
+        ]
+      },
+
+      {
+        name: "Jjakubowski",
+        level: "HS",
+        day1: [
+          "PREP",
+          "Math 20-1 — Rm 215",
+          "PREP",
+          "Math 10C — Rm 215"
+        ],
+        day2: [
+          "Math 20-1 — Rm 215",
+          "PREP",
+          "PREP",
+          "Math 10C — Rm 215"
+        ]
+      },
+
+      {
+        name: "Kuffour",
+        level: "JH",
+        day1: [
+          "Math 9C — Rm 116",
+          "Math 9D — Rm 116",
+          "Math 9D — Rm 116",
+          "Math 8D — Rm 116",
+          "Math 9C — Rm 116",
+          "PREP"
+        ],
+        day2: [
+          "Math 8D — Rm 116",
+          "PREP",
+          "Math 8D — Rm 116",
+          "Math 9D — Rm 116",
+          "Math 9C — Rm 116",
+          "PREP"
+        ]
+      },
+
+      {
+        name: "Li",
+        level: "HS",
+        day1: [
+          "Science 10 — Rm 216",
+          "PREP",
+          "Chemistry 20 — Rm 216",
+          "Math 10C — Rm 216"
+        ],
+        day2: [
+          "PREP",
+          "Science 10 — Rm 214",
+          "Chemistry 20 — Rm 216",
+          "Math 10C — Rm 216"
+        ]
+      },
+
+      {
+        name: "MacDonald",
+        level: "JH",
+        day1: [
+          "PREP",
+          "PE 7A/7B",
+          "PE 8C/8D",
+          "Math 9A — Rm 113",
+          "Math 9B — Rm 115",
+          "PREP"
+        ],
+        day2: [
+          "Math 9B — Rm 113",
+          "PREP",
+          "Math 9A — Rm 109",
+          "Math 9A — Rm 109",
+          "Math 9B — Rm 115",
+          "PREP"
+        ]
+      },
+
+      {
+        name: "Pritchard",
+        level: "HS",
+        day1: [
+          "Math 31 — Rm 213",
+          "PREP",
+          "Math 30-1 — Rm 213",
+          "PREP"
+        ],
+        day2: [
+          "PREP",
+          "Math 31 — Rm 213",
+          "Math 30-1 — Rm 213",
+          "PREP"
+        ]
+      },
+
+      {
+        name: "Riar",
+        level: "JH",
+        day1: [
+          "PE 9A/9B",
+          "PE 7A/7B",
+          "PE 8C/8D",
+          "PREP",
+          "Math 7A — Rm 106",
+          "PREP"
+        ],
+        day2: [
+          "PREP",
+          "PREP",
+          "PREP",
+          "PREP",
+          "Math 7A — Rm 106",
+          "Math 7A — Rm 106"
+        ]
+      }
+    ];
+
+    /* =========================================================
+       BELL TIMES
+       ========================================================== */
+
+    const JH_MON_THU = [
+      { block: "B1", start: "08:25", end: "09:25" },
+      { block: "B2", start: "09:30", end: "10:25" },
+      { block: "B3", start: "10:30", end: "11:25" },
+      { block: "B4", start: "12:05", end: "13:00" },
+      { block: "B5", start: "13:05", end: "14:00" },
+      { block: "B6", start: "14:05", end: "15:00" }
+    ];
+
+    // Friday JH bell times supplied from the JH teacher schedule.
+    const JH_FRIDAY = [
+      { block: "B1", start: "08:25", end: "09:15" },
+      { block: "B2", start: "09:20", end: "10:05" },
+      { block: "B3", start: "10:10", end: "10:55" },
+      { block: "B4", start: "11:20", end: "12:05" },
+      { block: "B5", start: "12:10", end: "12:55" },
+      { block: "B6", start: "13:00", end: "13:45" }
+    ];
+
+    const HS_MON_THU = [
+      { block: "B1", start: "08:25", end: "09:55" },
+      { block: "B2", start: "10:00", end: "11:25" },
+      { block: "B3", start: "12:05", end: "13:30" },
+      { block: "B4", start: "13:35", end: "15:00" }
+    ];
+
+    /*
+      IMPORTANT:
+      The uploaded master schedule supplies Mon–Thu HS times but does
+      not contain a separate Friday HS bell schedule.
+
+      Until the Friday HS times are supplied, Friday uses the regular
+      HS block times below. Edit this array if your Friday HS bell
+      schedule is different.
+    */
+    const HS_FRIDAY = [
+      { block: "B1", start: "08:25", end: "09:55" },
+      { block: "B2", start: "10:00", end: "11:25" },
+      { block: "B3", start: "12:05", end: "13:30" },
+      { block: "B4", start: "13:35", end: "15:00" }
+    ];
+
+    /* =========================================================
+       DAY 1 / DAY 2 ROTATION
+       Same anchor used by the STEM Math calendar.
+       ========================================================== */
+
+    const ROTATION_ANCHOR_DATE = "2026-08-25";
+    const ROTATION_ANCHOR_DAY = 1;
+
+    const calendarEvents = {};
+
+    function addEvent(date, type) {
+      if (!calendarEvents[date]) calendarEvents[date] = [];
+      calendarEvents[date].push(type);
+    }
+
+    function addRange(startDate, endDate, type, weekdaysOnly = false) {
+      const start = new Date(startDate + "T12:00:00");
+      const end = new Date(endDate + "T12:00:00");
+
+      for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        if (weekdaysOnly && (d.getDay() === 0 || d.getDay() === 6)) continue;
+
+        const key = dateKey(d.getFullYear(), d.getMonth(), d.getDate());
+        addEvent(key, type);
+      }
+    }
+
+    // Non-instructional dates from the STEM Collegiate 2026–27 calendar.
+    addRange("2026-08-03", "2026-08-19", "no-school", true);
+    addEvent("2026-08-20", "operational");
+    addEvent("2026-08-21", "operational");
+    addEvent("2026-08-24", "operational");
+
+    addEvent("2026-09-07", "no-school");
+    addEvent("2026-09-18", "operational");
+    addEvent("2026-09-30", "no-school");
+
+    addEvent("2026-10-12", "no-school");
+    addEvent("2026-10-23", "operational");
+    addEvent("2026-10-30", "day-lieu");
+
+    addRange("2026-11-09", "2026-11-13", "no-school", true);
+
+    addEvent("2026-12-04", "operational");
+    addRange("2026-12-21", "2027-01-01", "winter-break");
+
+    addEvent("2027-01-28", "operational");
+    addEvent("2027-01-29", "operational");
+
+    addEvent("2027-02-15", "no-school");
+    addEvent("2027-02-25", "operational");
+    addEvent("2027-02-26", "operational");
+
+    addEvent("2027-03-19", "day-lieu");
+    addRange("2027-03-22", "2027-04-02", "spring-break");
+
+    addEvent("2027-04-23", "operational");
+
+    addEvent("2027-05-21", "operational");
+    addEvent("2027-05-24", "no-school");
+
+    addEvent("2027-06-30", "operational");
+    addRange("2027-07-01", "2027-07-30", "no-school", true);
+
+    const NON_INSTRUCTION_TYPES = new Set([
+      "no-school",
+      "operational",
+      "day-lieu",
+      "winter-break",
+      "spring-break"
+    ]);
+
+    function dateKey(year, monthIndex, day) {
+      return `${year}-${String(monthIndex + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    }
+
+    function isInstructionalDay(key) {
+      const [year, month, day] = key.split("-").map(Number);
+      const d = new Date(year, month - 1, day);
+
+      if (d.getDay() === 0 || d.getDay() === 6) return false;
+
+      const events = calendarEvents[key] || [];
+      return !events.some(type => NON_INSTRUCTION_TYPES.has(type));
+    }
+
+    function nextCycle(day) {
+      return day === 1 ? 2 : 1;
+    }
+
+    function getSchoolDayNumber(key) {
+      if (!isInstructionalDay(key)) return null;
+
+      const anchor = new Date(ROTATION_ANCHOR_DATE + "T12:00:00");
+      const [year, month, day] = key.split("-").map(Number);
+      const target = new Date(year, month - 1, day, 12, 0, 0);
+
+      let cycle = ROTATION_ANCHOR_DAY;
+
+      if (target.getTime() === anchor.getTime()) return cycle;
+
+      if (target > anchor) {
+        const cursor = new Date(anchor);
+        cursor.setDate(cursor.getDate() + 1);
+
+        while (cursor <= target) {
+          const cursorKey = dateKey(
+            cursor.getFullYear(),
+            cursor.getMonth(),
+            cursor.getDate()
+          );
+
+          if (isInstructionalDay(cursorKey)) cycle = nextCycle(cycle);
+          if (cursor.getTime() === target.getTime()) return cycle;
+
+          cursor.setDate(cursor.getDate() + 1);
+        }
+      } else {
+        const cursor = new Date(anchor);
+        cursor.setDate(cursor.getDate() - 1);
+
+        while (cursor >= target) {
+          const cursorKey = dateKey(
+            cursor.getFullYear(),
+            cursor.getMonth(),
+            cursor.getDate()
+          );
+
+          if (isInstructionalDay(cursorKey)) cycle = nextCycle(cycle);
+          if (cursor.getTime() === target.getTime()) return cycle;
+
+          cursor.setDate(cursor.getDate() - 1);
+        }
+      }
+
+      return null;
+    }
+
+    /* =========================================================
+       LOCATION / TIME HELPERS
+       ========================================================== */
+
+    function minutes(time) {
+      const [h, m] = time.split(":").map(Number);
+      return h * 60 + m;
+    }
+
+    function currentMinutes(now) {
+      return now.getHours() * 60 + now.getMinutes();
+    }
+
+    function displayTime(time) {
+      let [h, m] = time.split(":").map(Number);
+      const suffix = h >= 12 ? "PM" : "AM";
+      h = h % 12 || 12;
+      return `${h}:${String(m).padStart(2, "0")} ${suffix}`;
+    }
+
+    function bellTimes(level, now) {
+      const friday = now.getDay() === 5;
+      if (level === "JH") return friday ? JH_FRIDAY : JH_MON_THU;
+      return friday ? HS_FRIDAY : HS_MON_THU;
+    }
+
+    function roomFromAssignment(assignment) {
+      const match = assignment.match(/Rm\s+([A-Za-z0-9]+)/i);
+      return match ? `Room ${match[1]}` : null;
+    }
+
+    function assignmentType(assignment) {
+      if (!assignment || assignment === "PREP") return "prep";
+      if (/Math|Science|Chemistry|Physics|PE/i.test(assignment)) return "class";
+      return "other";
+    }
+
+    function getCurrentState(teacher, now, schoolDay) {
+      const date = dateKey(now.getFullYear(), now.getMonth(), now.getDate());
+
+      if (!schoolDay) {
+        return {
+          status: "other",
+          location: "No Classes Today",
+          course: "Non-instructional day",
+          activeIndex: -1
+        };
+      }
+
+      const schedule = teacher[`day${schoolDay}`];
+      const bells = bellTimes(teacher.level, now);
+      const nowMin = currentMinutes(now);
+
+      if (nowMin < minutes(bells[0].start)) {
+        return {
+          status: "other",
+          location: "Before School",
+          course: `Day ${schoolDay}`,
+          activeIndex: -1
+        };
+      }
+
+      for (let i = 0; i < bells.length; i++) {
+        const start = minutes(bells[i].start);
+        const end = minutes(bells[i].end);
+
+        if (nowMin >= start && nowMin <= end) {
+          const assignment = schedule[i] || "PREP";
+          const room = roomFromAssignment(assignment);
+          const type = assignmentType(assignment);
+
+          return {
+            status: type,
+            location: room || (assignment === "PREP" ? "PREP" : "Location not listed"),
+            course: assignment === "PREP"
+              ? `${bells[i].block} — Prep / Unscheduled`
+              : `${bells[i].block} — ${assignment}`,
+            activeIndex: i
+          };
+        }
+
+        if (i < bells.length - 1) {
+          const nextStart = minutes(bells[i + 1].start);
+
+          if (nowMin > end && nowMin < nextStart) {
+            // The large break between B3/B4 is lunch.
+            const isLunch =
+              (teacher.level === "JH" && i === 2) ||
+              (teacher.level === "HS" && i === 1);
+
+            return {
+              status: "other",
+              location: isLunch ? "Lunch" : "Passing Time",
+              course: `Next: ${bells[i + 1].block} at ${displayTime(bells[i + 1].start)}`,
+              activeIndex: -1
+            };
+          }
+        }
+      }
+
+      return {
+        status: "other",
+        location: "After School",
+        course: `Day ${schoolDay} complete`,
+        activeIndex: -1
+      };
+    }
+
+    /* =========================================================
+       RENDER
+       ========================================================== */
+
+    function renderTeachers() {
+      const now = new Date();
+      const key = dateKey(now.getFullYear(), now.getMonth(), now.getDate());
+      const schoolDay = getSchoolDayNumber(key);
+      const grid = document.getElementById("teacher-grid");
+
+      grid.innerHTML = "";
+
+      teachers.forEach(teacher => {
+        const state = getCurrentState(teacher, now, schoolDay);
+        const bells = bellTimes(teacher.level, now);
+        const schedule = schoolDay ? teacher[`day${schoolDay}`] : teacher.day1;
+
+        const card = document.createElement("article");
+        card.className = "teacher-card";
+        card.tabIndex = 0;
+
+        const rows = bells.map((bell, index) => {
+          const assignment = schedule[index] || "PREP";
+          const room = roomFromAssignment(assignment);
+          const activeClass = index === state.activeIndex ? " active" : "";
+
+          return `
+            <div class="schedule-row${activeClass}">
+              <div class="schedule-block">${bell.block}</div>
+              <div class="schedule-time">${displayTime(bell.start)}–${displayTime(bell.end)}</div>
+              <div class="schedule-course">
+                ${assignment === "PREP" ? "PREP" : assignment}
+                
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        const pillText =
+          state.status === "class" ? "In Class" :
+          state.status === "prep" ? "Prep" :
+          state.location;
+
+        card.innerHTML = `
+          <div class="teacher-summary">
+            <div class="teacher-name-row">
+              <div class="teacher-name">${teacher.name}</div>
+              <div class="teacher-level">${teacher.level === "JH" ? "Junior High" : "High School"}</div>
+            </div>
+
+            <div class="current-label">Currently</div>
+            <div class="current-location">${state.location}</div>
+            <div class="current-course">${state.course}</div>
+
+            <span class="status-pill status-${state.status}">${pillText}</span>
+          </div>
+
+          <div class="teacher-details">
+            <div class="schedule-wrap">
+              <div class="schedule-title">
+                <span>${schoolDay ? `Day ${schoolDay}` : "Schedule"}</span>
+                <span>${now.getDay() === 5 ? "Friday Times" : "Mon–Thu Times"}</span>
+              </div>
+              ${rows}
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    function updateHeader() {
+      const now = new Date();
+      const key = dateKey(now.getFullYear(), now.getMonth(), now.getDate());
+      const schoolDay = getSchoolDayNumber(key);
+
+      document.getElementById("day-status-big").textContent =
+        schoolDay ? `Day ${schoolDay}` : "No Classes";
+
+      document.getElementById("day-status-date").textContent =
+        now.toLocaleDateString("en-CA", {
+          weekday: "short",
+          month: "short",
+          day: "numeric"
+        });
+
+      document.getElementById("current-time").textContent =
+        `Current time: ${now.toLocaleTimeString("en-CA", {
+          hour: "numeric",
+          minute: "2-digit"
+        })}`;
+    }
+
+    function refreshPage() {
+      updateHeader();
+      renderTeachers();
+    }
+
+    refreshPage();
+
+    // Refresh every 30 seconds so locations change automatically
+    // as the bell schedule advances.
+    setInterval(refreshPage, 30000);
+  </script>
+</body>
+</html>
