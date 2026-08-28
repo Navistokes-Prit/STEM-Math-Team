@@ -403,8 +403,14 @@
     {block:"B4",start:"13:35",end:"15:00"}
   ];
 
-  // Replace here if HS Friday has different bell times.
-  const HS_FRIDAY = HS_MON_THU;
+  // High School Friday bell times.
+  // Friday uses four shortened periods and ends at 1:30 PM.
+  const HS_FRIDAY = [
+    {block:"B1",start:"08:25",end:"09:40"},
+    {block:"B2",start:"09:45",end:"10:55"},
+    {block:"B3",start:"11:20",end:"12:30"},
+    {block:"B4",start:"12:35",end:"13:45"}
+  ];
 
   /* ---------- Day 1 / Day 2 calendar ---------- */
   const ROTATION_ANCHOR_DATE = "2026-08-25";
@@ -549,11 +555,19 @@
       }
     }
 
-    const allBells = teacher.level==="HS" ? bellsFor("HS",now) : bellsFor("JH",now);
-    if(nowMin < mins(allBells[0].start))
+    // Determine the actual school-day bounds from every schedule this teacher uses.
+    // This is important for Mixed teachers, whose JH and HS Friday schedules end at different times.
+    const applicableBells = [];
+    if (teacher.level === "JH" || teacher.level === "Mixed") applicableBells.push(...bellsFor("JH",now));
+    if (teacher.level === "HS" || teacher.level === "Mixed") applicableBells.push(...bellsFor("HS",now));
+
+    const firstStart = Math.min(...applicableBells.map(b=>mins(b.start)));
+    const lastEnd = Math.max(...applicableBells.map(b=>mins(b.end)));
+
+    if(nowMin < firstStart)
       return {status:"other",location:"Before School",course:`Day ${schoolDay}`,active:null};
 
-    if(nowMin > mins(allBells[allBells.length-1].end))
+    if(nowMin > lastEnd)
       return {status:"other",location:"After School",course:`Day ${schoolDay} complete`,active:null};
 
     // If there is no scheduled assignment at the current time, treat it as prep/free.
