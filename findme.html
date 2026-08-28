@@ -622,12 +622,28 @@
     document.getElementById("current-time").textContent=`Current time: ${now.toLocaleTimeString("en-CA",{hour:"numeric",minute:"2-digit"})}`;
 
     const host=document.getElementById("subject-sections");
+
+    // Preserve whichever subject dropdowns the user currently has open.
+    const openSubjects=new Set(
+      [...host.querySelectorAll(".subject-section[open]")]
+        .map(section=>section.dataset.subject)
+    );
+
+    // On the very first render only, default to opening the first subject.
+    const firstRender=host.children.length===0;
+
     host.innerHTML="";
 
     Object.entries(subjectGroups).forEach(([subject,names],idx)=>{
       const details=document.createElement("details");
       details.className="subject-section";
-      if(idx===0) details.open=true;
+      details.dataset.subject=subject;
+
+      if(firstRender) {
+        if(idx===0) details.open=true;
+      } else {
+        details.open=openSubjects.has(subject);
+      }
 
       details.innerHTML=`
         <summary>
