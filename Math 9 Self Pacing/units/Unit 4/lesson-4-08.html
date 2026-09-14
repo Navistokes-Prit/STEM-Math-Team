@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alberta Math 9 self-paced learning - Unit 4 Geometry of Polygons, Lesson 4.08 Surface Area of Prisms.">
+    <title>Math 9 | 4.08 Surface Area of Prisms</title>
+
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="unit4-math.css">
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [["\\(", "\\)"]],
+                displayMath: [["\\[", "\\]"]]
+            },
+            chtml: { scale: 1 },
+            startup: { typeset: true }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+<body data-lesson="lesson408" data-lesson-id="4.08">
+
+<header class="site-header">
+    <div class="brand">
+        <div class="brand-icon" aria-hidden="true">M</div>
+        <div>
+            <h1>Math 9</h1>
+            <p>Alberta Self-Paced Learning</p>
+        </div>
+    </div>
+
+    <nav class="top-nav" aria-label="Main navigation">
+        <a href="../index.html" class="active">Home</a>
+        <a href="#progress-card">Progress</a>
+        <a href="#lesson-notes">Resources</a>
+    </nav>
+</header>
+
+<div class="app-shell">
+
+    <aside class="sidebar">
+        <div class="unit-label">
+            <span class="eyebrow">Unit 04</span>
+            <h2>Geometry of Polygons</h2>
+        </div>
+
+        <nav class="lesson-nav" aria-label="Unit 4 lessons">
+            <a href="lesson-4-01.html" class="lesson-link">
+                <span class="lesson-status">1</span>
+                <span>
+                    <strong>4.01</strong>
+                    <small>Angles in Parallel Lines</small>
+                </span>
+            </a>
+<a href="lesson-4-02.html" class="lesson-link">
+                <span class="lesson-status">2</span>
+                <span>
+                    <strong>4.02</strong>
+                    <small>Triangles and Congruent Shapes</small>
+                </span>
+            </a>
+<a href="lesson-4-03.html" class="lesson-link">
+                <span class="lesson-status">3</span>
+                <span>
+                    <strong>4.03</strong>
+                    <small>Transformations</small>
+                </span>
+            </a>
+<a href="lesson-4-04.html" class="lesson-link">
+                <span class="lesson-status">4</span>
+                <span>
+                    <strong>4.04</strong>
+                    <small>Line and Rotational Symmetry</small>
+                </span>
+            </a>
+<a href="lesson-4-05.html" class="lesson-link">
+                <span class="lesson-status">5</span>
+                <span>
+                    <strong>4.05</strong>
+                    <small>Similar Shapes</small>
+                </span>
+            </a>
+<a href="lesson-4-06.html" class="lesson-link">
+                <span class="lesson-status">6</span>
+                <span>
+                    <strong>4.06</strong>
+                    <small>Scale Diagrams</small>
+                </span>
+            </a>
+<a href="lesson-4-07.html" class="lesson-link">
+                <span class="lesson-status">7</span>
+                <span>
+                    <strong>4.07</strong>
+                    <small>Area and Composite Shapes</small>
+                </span>
+            </a>
+<a href="lesson-4-08.html" class="lesson-link current" aria-current="page">
+                <span class="lesson-status">8</span>
+                <span>
+                    <strong>4.08</strong>
+                    <small>Surface Area of Prisms</small>
+                </span>
+            </a>
+<a href="lesson-4-09.html" class="lesson-link">
+                <span class="lesson-status">9</span>
+                <span>
+                    <strong>4.09</strong>
+                    <small>Surface Area of Cylinders</small>
+                </span>
+            </a>
+<button type="button" class="quiz-lock" id="quizLockButton">
+            <span class="lesson-status">🔒</span>
+            <span>
+                <strong>Unit Quiz</strong>
+                <small>Teacher password required</small>
+            </span>
+        </button>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="breadcrumb">
+            Unit 4: Geometry of Polygons
+            <span>›</span>
+            Lesson 4.08
+        </div>
+
+        <section class="lesson-hero">
+            <div>
+                <span class="eyebrow">Lesson 4.08</span>
+                <h2>Surface Area of Prisms</h2>
+                <p>Use nets and face areas to calculate the total surface area of cuboids, triangular prisms, and composite prisms.</p>
+            </div>
+
+            <div class="hero-badge">
+                <span>Practice Level</span>
+                <strong id="difficultyLabel">Foundation</strong>
+            </div>
+        </section>
+
+        <div class="tabs" role="tablist" aria-label="Lesson sections">
+            <button type="button" class="tab active" data-tab="learn" role="tab" aria-selected="true">Learn</button>
+            <button type="button" class="tab" data-tab="practice" role="tab" aria-selected="false">Practice</button>
+        </div>
+
+        <section id="learn" class="tab-panel active" role="tabpanel">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">Quick Review</span>
+                    <h3>Nets and Prism Vocabulary</h3>
+                </div>
+            </div>
+
+            <div class="card-grid two-col">
+                <article class="content-card">
+            <h4>Prism</h4>
+            <p>A prism has flat faces, two parallel polygon bases, and a uniform cross-section.</p>
+            <div class="math-example">
+                <span>base • lateral faces • height</span>
+                <p>A prism is named for the shape of its uniform cross-section.</p>
+            </div>
+        </article>
+<article class="content-card">
+            <h4>Surface Area</h4>
+            <p>Surface area is the total area of every outside face of a 3D object.</p>
+            <div class="math-example">
+                <span>SA = sum of face areas</span>
+                <p>A net helps make sure each face is counted exactly once.</p>
+            </div>
+        </article>
+            </div>
+
+            <div class="section-heading spaced" id="lesson-notes">
+                <div>
+                    <span class="eyebrow">New Learning</span>
+                    <h3>Surface Area Strategies</h3>
+                </div>
+            </div>
+
+            <article class="rule-card">
+            <div class="rule-number">1</div>
+            <div>
+                <h4>For a rectangular prism, count the three pairs of equal faces.</h4>
+                <p>SA = 2lw + 2lh + 2wh.</p>
+            </div>
+        </article>
+<article class="rule-card">
+            <div class="rule-number">2</div>
+            <div>
+                <h4>For a triangular prism, find both triangular ends and all three rectangular lateral faces.</h4>
+                <p>The lateral rectangles use the three side lengths of the triangular base.</p>
+            </div>
+        </article>
+<article class="rule-card">
+            <div class="rule-number">3</div>
+            <div>
+                <h4>For composite prism bases, find the cross-sectional area and perimeter carefully.</h4>
+                <p>The middle surface area can be found from cross-section perimeter × prism length.</p>
+            </div>
+        </article>
+
+            <article class="worked-example">
+            <div class="worked-header">
+                <span>Worked Example</span>
+                <strong>Rectangular Prism</strong>
+            </div>
+            <div class="worked-body">
+                <div class="big-math">2 cm × 3 cm × 5 cm</div>
+                <ol>
+                    <li>SA = 2(2×3) + 2(2×5) + 2(3×5).</li><li>SA = 12 + 20 + 30.</li><li>SA = 62 cm².</li>
+                </ol>
+            </div>
+        </article>
+<article class="worked-example">
+            <div class="worked-header">
+                <span>Worked Example</span>
+                <strong>Triangular Prism</strong>
+            </div>
+            <div class="worked-body">
+                <div class="big-math">Right triangle sides 6, 8, 10 cm; prism length 7.2 cm</div>
+                <ol>
+                    <li>Two triangular ends: 2(½×6×8) = 48 cm².</li><li>Lateral area = (6+8+10)(7.2) = 172.8 cm².</li><li>Total SA = 220.8 cm².</li>
+                </ol>
+            </div>
+        </article>
+
+            <div class="lesson-callout">
+                <div>
+                    <strong>Ready to practise?</strong>
+                    <p>Generate as many fresh questions as you need.</p>
+                </div>
+                <button type="button" class="primary-button" id="startPracticeButton">Start Practice →</button>
+            </div>
+        </section>
+
+        <section id="practice" class="tab-panel" role="tabpanel">
+            <div class="practice-layout">
+
+                <div class="practice-main">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Generated Practice</span>
+                            <h3 id="questionSkill">Practice</h3>
+                        </div>
+                        <div class="question-count">
+                            <span>Question</span>
+                            <strong id="questionNumber">1</strong>
+                        </div>
+                    </div>
+
+                    <article class="problem-card">
+
+                        <div class="problem-topline">
+                            <span class="difficulty-pill" id="difficultyPill">Foundation</span>
+                            <span id="questionInstruction">Solve.</span>
+                        </div>
+
+                        <div class="problem-text" id="problemText" aria-live="polite"></div>
+
+                        <label for="answerInput" class="answer-label">Your Answer</label>
+
+                        <div class="answer-row">
+                            <input type="text"
+                                   id="answerInput"
+                                   autocomplete="off"
+                                   placeholder="Enter your answer"
+                                   aria-describedby="answerPreviewHelp feedback">
+
+                            <button type="button" class="primary-button" id="checkAnswerButton">Check Answer</button>
+                        </div>
+
+                        <div class="answer-preview-card">
+                            <div class="answer-preview-header">
+                                <strong>Live Answer Preview</strong>
+                                <span>Math renders as you type</span>
+                            </div>
+
+                            <div id="answerPreview" class="answer-preview-math" aria-live="polite">
+                                <span class="answer-preview-placeholder">Your formatted answer will appear here.</span>
+                            </div>
+
+                            <div id="answerPreviewHelp" class="answer-preview-help">
+                                Numbers, words, coordinate pairs, and LaTeX are accepted where appropriate.
+                            </div>
+                        </div>
+
+                        <div id="feedback" class="feedback" aria-live="polite"></div>
+
+                        <div class="problem-actions">
+                            <button type="button" class="secondary-button" id="hintButton">Hint</button>
+                            <button type="button" class="secondary-button" id="solutionButton">Show Solution</button>
+                            <button type="button" class="generate-button" id="newQuestionButton">New Problem</button>
+                        </div>
+
+                        <div id="hintBox" class="reveal-box" hidden></div>
+                        <div id="solutionBox" class="reveal-box solution" hidden></div>
+
+                    </article>
+                </div>
+
+                <aside class="progress-card" id="progress-card">
+                    <span class="eyebrow">Lesson Progress</span>
+                    <h3>Your Practice</h3>
+
+                    <div class="progress-ring-wrap">
+                        <div class="progress-ring" id="progressRing">
+                            <span id="accuracyPercent">0%</span>
+                        </div>
+                        <p>Accuracy</p>
+                    </div>
+
+                    <dl class="stats">
+                        <div><dt>Attempted</dt><dd id="attemptedStat">0</dd></div>
+                        <div><dt>Correct</dt><dd id="correctStat">0</dd></div>
+                        <div><dt>Current streak</dt><dd id="streakStat">0</dd></div>
+                    </dl>
+
+                    <div class="mastery">
+                        <div class="mastery-label">
+                            <span>Mastery</span>
+                            <strong id="masteryText">0 / 10</strong>
+                        </div>
+
+                        <div class="mastery-bar"><span id="masteryBar"></span></div>
+
+                        <small>Complete at least 10 questions with 80% accuracy.</small>
+                    </div>
+
+                    <button type="button" class="reset-button" id="resetProgressButton">Reset Progress</button>
+                </aside>
+
+            </div>
+        </section>
+
+        <div class="lesson-footer-nav">
+            <button type="button" onclick="location.href='lesson-4-07.html'">← 4.07</button>
+            <button type="button" onclick="location.href='lesson-4-09.html'">4.09 →</button>
+        </div>
+
+    </main>
+</div>
+
+<dialog class="quiz-dialog" id="quizDialog">
+    <form method="dialog">
+        <button type="submit" value="cancel" class="dialog-close" aria-label="Close">×</button>
+        <div class="dialog-lock">🔒</div>
+        <h2>Unit Quiz Locked</h2>
+        <p>The Unit 4 quiz requires a teacher password.</p>
+        <a href="unit-quiz.html" class="primary-button" style="display:inline-flex;align-items:center;text-decoration:none;">Open Quiz Lock</a>
+    </form>
+</dialog>
+
+<script src="unit4-engine.js"></script>
+
+</body>
+</html>
