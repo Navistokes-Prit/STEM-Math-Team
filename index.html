@@ -511,10 +511,79 @@
         padding: 2px 4px;
       }
     }
+
+    /* =================== TODAY EVENT BANNER =================== */
+    .today-event-banner {
+      display: none;
+      width: 100%;
+      overflow: hidden;
+      background: #ffd54f;
+      color: #102a43;
+      border-bottom: 3px solid #e0a800;
+      box-shadow: 0 2px 8px rgba(0,0,0,.14);
+      white-space: nowrap;
+      position: relative;
+      z-index: 10000;
+    }
+
+    .today-event-banner.show {
+      display: block;
+    }
+
+    .today-event-track {
+      display: inline-flex;
+      width: max-content;
+      align-items: center;
+      animation: today-event-scroll 18s linear infinite;
+    }
+
+    .today-event-message {
+      display: inline-block;
+      padding: 10px 70px;
+      font-size: .95rem;
+      font-weight: 900;
+      letter-spacing: .03em;
+    }
+
+    .today-event-banner:hover .today-event-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes today-event-scroll {
+      from {
+        transform: translateX(100vw);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .today-event-track {
+        animation: none;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .today-event-message {
+        white-space: normal;
+        text-align: center;
+      }
+
+      .today-event-message:not(:first-child) {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 
 <body>
+  <div class="today-event-banner" id="today-event-banner" role="status" aria-live="polite">
+    <div class="today-event-track" id="today-event-track"></div>
+  </div>
+
   <header>
     <div class="header-inner">
       <div class="header-copy">
@@ -801,6 +870,7 @@
     // September
     addEvent("2026-09-02", "Meet the Teacher", "");
     addEvent("2026-09-11", "Terry Fox Run", "");
+    
     addEvent("2026-09-23", "Picture Day", "");
     addEvent("2026-09-29", "Truth and Reconcilliation", "");
 
@@ -1051,6 +1121,43 @@
     }
 
 
+
+    function updateTodayEventBanner() {
+      const banner = document.getElementById("today-event-banner");
+      const track = document.getElementById("today-event-track");
+
+      if (!banner || !track) return;
+
+      const today = new Date();
+      const key = dateKey(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+      );
+
+      const events = calendarEvents[key] || [];
+
+      if (!events.length) {
+        banner.classList.remove("show");
+        track.innerHTML = "";
+        return;
+      }
+
+      const eventText = events
+        .map(event => event.text)
+        .join("   •   ");
+
+      const message = `📢 TODAY: ${eventText}`;
+
+      track.innerHTML = `
+        <span class="today-event-message">${message}</span>
+        <span class="today-event-message" aria-hidden="true">${message}</span>
+        <span class="today-event-message" aria-hidden="true">${message}</span>
+      `;
+
+      banner.classList.add("show");
+    }
+
     function updateTodayCycleDisplay() {
       const valueEl = document.getElementById("today-cycle-value");
       const dateEl = document.getElementById("today-cycle-date");
@@ -1213,6 +1320,7 @@ ${text}`;
     document.getElementById("next-month").addEventListener("click", () => changeMonth(1));
 
     updateTodayCycleDisplay();
+    updateTodayEventBanner();
     renderCalendar();
   </script>
 </body>
