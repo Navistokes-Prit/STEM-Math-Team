@@ -1,858 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Math 31 Test Blueprint</title>
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f4f6f8;
-      color: #1f2937;
-    }
-
-    header {
-      background: #12355b;
-      color: #fff;
-      padding: 22px 20px;
-    }
-
-    .header-inner {
-      max-width: 1380px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    header h1 { margin: 0; font-size: 2rem; }
-    header p { margin: 6px 0 0; opacity: .9; }
-
-    .back-link {
-      color: white;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,.45);
-      padding: 10px 14px;
-      border-radius: 8px;
-    }
-
-    main {
-      max-width: 1380px;
-      margin: 28px auto;
-      padding: 0 18px 60px;
-    }
-
-    .page-grid {
-      display: grid;
-      grid-template-columns: minmax(320px, 0.95fr) minmax(430px, 1.35fr) minmax(300px, .8fr);
-      gap: 20px;
-      align-items: start;
-    }
-
-    .panel {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.08);
-      padding: 20px;
-    }
-
-    .panel h2 {
-      margin-top: 0;
-      color: #12355b;
-    }
-
-    .subtle {
-      color: #667085;
-      line-height: 1.5;
-      font-size: .93rem;
-    }
-
-
-    .curriculum-key {
-      margin: 12px 0 14px;
-      padding: 10px 12px;
-      border: 1px solid #d8dee8;
-      border-radius: 8px;
-      background: #f8fafc;
-      color: #516174;
-      font-size: .8rem;
-      line-height: 1.45;
-    }
-
-    .curriculum-key strong {
-      color: #12355b;
-    }
-
-    .gle-parent {
-      margin: 10px 0 6px;
-      padding: 8px 10px;
-      border-left: 3px solid #12355b;
-      background: #f8fafc;
-      border-radius: 0 7px 7px 0;
-      color: #334155;
-      font-size: .84rem;
-      line-height: 1.4;
-    }
-
-    .gle-parent strong {
-      color: #12355b;
-    }
-
-    .curriculum-toolbar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin: 14px 0 8px;
-    }
-
-    .toolbar-btn {
-      border: 1px solid #cfd8e3;
-      background: #fff;
-      color: #12355b;
-      border-radius: 8px;
-      padding: 8px 10px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: .82rem;
-    }
-
-    .toolbar-btn:hover { background: #eef4fb; }
-
-    .unit {
-      margin-top: 12px;
-      border: 1px solid #d8dee8;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .unit-header {
-      width: 100%;
-      border: 0;
-      background: #eef4fb;
-      color: #12355b;
-      padding: 12px 13px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      text-align: left;
-    }
-
-    .unit-header:hover { background: #e4eef9; }
-
-    .unit-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .unit-chevron {
-      width: 16px;
-      font-size: .9rem;
-      transition: transform .15s ease;
-    }
-
-    .unit.collapsed .unit-chevron { transform: rotate(-90deg); }
-
-    .unit-header h3 {
-      margin: 0;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: .02em;
-    }
-
-    .unit-count {
-      font-size: .75rem;
-      color: #516174;
-      font-weight: 700;
-      background: rgba(255,255,255,.8);
-      border-radius: 999px;
-      padding: 4px 8px;
-      white-space: nowrap;
-    }
-
-    .unit-body { padding: 8px; }
-    .unit.collapsed .unit-body { display: none; }
-
-    .knowledge-card {
-      border: 1px solid #e0e5ec;
-      border-radius: 8px;
-      margin-bottom: 7px;
-      background: #fff;
-    }
-
-    .knowledge-main {
-      padding: 9px 10px 6px;
-      display: flex;
-      gap: 9px;
-      align-items: flex-start;
-    }
-
-    .knowledge-id {
-      display: inline-block;
-      min-width: 32px;
-      color: #12355b;
-      font-weight: 800;
-      margin-right: 5px;
-    }
-
-    .knowledge-text {
-      flex: 1;
-      line-height: 1.38;
-      font-size: .88rem;
-    }
-
-    .context-wrap {
-      padding: 0 10px 8px 10px;
-      margin-left: 0;
-    }
-
-    .context-details {
-      border: 0;
-      background: transparent;
-    }
-
-    .context-details summary {
-      cursor: pointer;
-      display: inline-block;
-      color: #64748b;
-      font-size: .77rem;
-      font-weight: 700;
-      list-style: none;
-    }
-
-    .context-details summary::-webkit-details-marker { display: none; }
-    .context-details summary::after { content: " ▾"; }
-    .context-details[open] summary::after { content: " ▴"; }
-
-    .context-content {
-      margin-top: 6px;
-      padding: 9px 10px;
-      border: 1px solid #d8dee8;
-      border-radius: 7px;
-      background: #f8fafc;
-      line-height: 1.4;
-      font-size: .8rem;
-    }
-
-    .context-content h4 {
-      margin: 0 0 4px;
-      color: #12355b;
-      font-size: .8rem;
-    }
-
-    .context-content h4:not(:first-child) { margin-top: 8px; }
-    .context-content ul { margin: 0; padding-left: 17px; }
-
-
-    .assignment-title-box {
-      margin-bottom: 18px;
-      padding: 14px;
-      border: 1px solid #d8dee8;
-      border-radius: 10px;
-      background: #f8fafc;
-    }
-
-    .assignment-title-box label {
-      display: block;
-      margin-bottom: 6px;
-      color: #12355b;
-      font-size: .85rem;
-      font-weight: 800;
-    }
-
-    .assignment-title-box input {
-      width: 100%;
-      padding: 10px 11px;
-      border: 1px solid #cfd6df;
-      border-radius: 8px;
-      background: #fff;
-      font-size: 1rem;
-      font-weight: 700;
-    }
-
-    .question-toolbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-
-    .add-question-btn {
-      border: 0;
-      background: #12355b;
-      color: #fff;
-      border-radius: 8px;
-      padding: 10px 13px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .question-card {
-      border: 1px solid #d8dee8;
-      border-radius: 11px;
-      overflow: hidden;
-      margin-bottom: 14px;
-      background: #fff;
-    }
-
-
-    .question-card.collapsed .question-body {
-      display: none;
-    }
-
-    .question-collapse-btn {
-      border: 1px solid #cfd8e3;
-      background: #fff;
-      color: #12355b;
-      border-radius: 7px;
-      padding: 6px 9px;
-      cursor: pointer;
-      font-size: .8rem;
-      font-weight: 800;
-    }
-
-    .question-head-actions {
-      display: flex;
-      gap: 7px;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .question-head {
-      background: #eef4fb;
-      padding: 12px 13px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .question-head strong {
-      color: #12355b;
-      font-size: 1rem;
-    }
-
-    .delete-question {
-      border: 0;
-      background: #fee2e2;
-      color: #991b1b;
-      border-radius: 7px;
-      padding: 7px 9px;
-      cursor: pointer;
-      font-size: .8rem;
-    }
-
-    .question-body {
-      padding: 13px;
-    }
-
-    .question-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) 90px minmax(150px, .8fr);
-      gap: 10px;
-      align-items: end;
-    }
-
-    label.field-label {
-      display: block;
-      font-size: .76rem;
-      color: #667085;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    input[type="text"],
-    input[type="number"],
-    select {
-      width: 100%;
-      padding: 8px 9px;
-      border: 1px solid #cfd6df;
-      border-radius: 7px;
-      font-size: .9rem;
-      background: #fff;
-    }
-
-    .difficulty-group {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-    }
-
-    .difficulty-btn {
-      border: 1px solid #cfd6df;
-      background: #fff;
-      border-radius: 7px;
-      padding: 7px 9px;
-      cursor: pointer;
-      font-weight: 800;
-      min-width: 34px;
-    }
-
-    .difficulty-btn.active.level1 {
-      background: #e8f5e9;
-      border-color: #2e7d32;
-      color: #1b5e20;
-    }
-
-    .difficulty-btn.active.level2 {
-      background: #fff8e1;
-      border-color: #f9a825;
-      color: #805600;
-    }
-
-    .difficulty-btn.active.level3 {
-      background: #ffebee;
-      border-color: #c62828;
-      color: #991b1b;
-    }
-
-    .tag-section {
-      margin-top: 13px;
-      border-top: 1px solid #e5e7eb;
-      padding-top: 12px;
-    }
-
-    .tag-section-title {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .tag-section-title strong {
-      color: #12355b;
-      font-size: .9rem;
-    }
-
-    .tag-picker {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 7px;
-      margin-bottom: 9px;
-    }
-
-    .tag-add-btn {
-      border: 0;
-      background: #eaf1fb;
-      color: #12355b;
-      border-radius: 7px;
-      padding: 8px 10px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .tag-list {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      border-radius: 999px;
-      background: #eaf1fb;
-      color: #12355b;
-      padding: 5px 8px;
-      font-size: .8rem;
-      font-weight: 800;
-    }
-
-    .tag button {
-      border: 0;
-      background: transparent;
-      color: #12355b;
-      cursor: pointer;
-      padding: 0;
-      font-weight: 900;
-      line-height: 1;
-    }
-
-    .allocation-box {
-      border: 1px solid #d8dee8;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-
-    .allocation-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 88px;
-      gap: 8px;
-      align-items: center;
-      padding: 8px 10px;
-      border-top: 1px solid #edf0f4;
-      font-size: .82rem;
-    }
-
-    .allocation-row:first-child { border-top: 0; }
-
-    .allocation-summary {
-      padding: 8px 10px;
-      background: #f8fafc;
-      border-top: 1px solid #d8dee8;
-      font-size: .8rem;
-      font-weight: 800;
-    }
-
-    .allocation-summary.ok { color: #166534; }
-    .allocation-summary.bad { color: #b42318; }
-
-
-    .knowledge-card[draggable="true"] {
-      cursor: grab;
-    }
-
-    .knowledge-card[draggable="true"]:active {
-      cursor: grabbing;
-    }
-
-    .knowledge-card.dragging {
-      opacity: .45;
-    }
-
-    .drop-zone {
-      margin-top: 12px;
-      border: 2px dashed #b8c7d9;
-      border-radius: 9px;
-      padding: 14px;
-      text-align: center;
-      color: #667085;
-      background: #fbfdff;
-      font-size: .84rem;
-      transition: border-color .15s ease, background .15s ease, color .15s ease;
-    }
-
-    .drop-zone.drag-over {
-      border-color: #12355b;
-      background: #eef4fb;
-      color: #12355b;
-    }
-
-    .questions-panel {
-      position: sticky;
-      top: 18px;
-      max-height: calc(100vh - 36px);
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      scrollbar-gutter: stable;
-    }
-
-
-    .overleaf-btn {
-      width: 100%;
-      border: 0;
-      background: #0f766e;
-      color: #fff;
-      border-radius: 8px;
-      padding: 11px 13px;
-      font-weight: 800;
-      cursor: pointer;
-      margin-bottom: 12px;
-    }
-
-    .overleaf-btn:hover {
-      background: #115e59;
-    }
-
-    .latex-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, .55);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 9999;
-    }
-
-    .latex-modal.open {
-      display: flex;
-    }
-
-    .latex-dialog {
-      width: min(1000px, 96vw);
-      max-height: 90vh;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .latex-dialog-head {
-      padding: 14px 16px;
-      background: #12355b;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .latex-dialog-head h3 {
-      margin: 0;
-      color: #fff;
-      font-size: 1.05rem;
-    }
-
-    .latex-close {
-      border: 1px solid rgba(255,255,255,.45);
-      background: transparent;
-      color: #fff;
-      border-radius: 7px;
-      padding: 6px 9px;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .latex-dialog-body {
-      padding: 14px;
-      overflow: auto;
-    }
-
-    .latex-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .latex-action-btn {
-      border: 1px solid #cfd8e3;
-      background: #fff;
-      color: #12355b;
-      border-radius: 8px;
-      padding: 8px 11px;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .latex-action-btn.primary {
-      background: #12355b;
-      color: #fff;
-      border-color: #12355b;
-    }
-
-    #latex-output {
-      width: 100%;
-      min-height: 520px;
-      resize: vertical;
-      border: 1px solid #cfd8e3;
-      border-radius: 8px;
-      padding: 12px;
-      font-family: Consolas, "Courier New", monospace;
-      font-size: .82rem;
-      line-height: 1.4;
-      white-space: pre;
-    }
-
-    .summary-panel {
-      position: sticky;
-      top: 18px;
-      max-height: calc(100vh - 36px);
-      overflow-y: auto;
-      scrollbar-gutter: stable;
-    }
-
-    .summary-card {
-      border: 1px solid #d8dee8;
-      border-radius: 10px;
-      padding: 13px;
-      background: #fbfcfe;
-      margin-bottom: 12px;
-    }
-
-    .summary-card > strong {
-      display: block;
-      color: #12355b;
-      margin-bottom: 8px;
-    }
-
-    .progress-row { margin: 9px 0; }
-
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: .82rem;
-      margin-bottom: 4px;
-    }
-
-    .progress-label span:first-child { flex: 1; }
-
-    .bar {
-      height: 8px;
-      background: #e5e7eb;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .bar > div {
-      height: 100%;
-      background: #12355b;
-    }
-
-    .coverage-unit {
-      margin-top: 10px;
-    }
-
-    .coverage-unit-title {
-      color: #12355b;
-      font-weight: 800;
-      font-size: .82rem;
-      margin-bottom: 5px;
-    }
-
-    .coverage-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .coverage-chip {
-      font-size: .74rem;
-      border-radius: 999px;
-      padding: 4px 7px;
-      border: 1px solid #d8dee8;
-      background: #fff;
-      color: #667085;
-      font-weight: 800;
-    }
-
-    .coverage-chip.covered {
-      background: #e8f5e9;
-      color: #1b5e20;
-      border-color: #9bc6a0;
-    }
-
-    .difficulty-key { margin-top: 14px; }
-
-    .key {
-      border-radius: 8px;
-      padding: 9px 10px;
-      margin-bottom: 7px;
-      line-height: 1.35;
-      font-size: .82rem;
-    }
-
-    .key1 { background: #e8f5e9; }
-    .key2 { background: #fff8e1; }
-    .key3 { background: #ffebee; }
-
-    .empty {
-      color: #667085;
-      font-style: italic;
-      font-size: .88rem;
-    }
-
-    @media (max-width: 1180px) {
-      .page-grid {
-        grid-template-columns: minmax(300px, .9fr) minmax(420px, 1.2fr);
-      }
-      .questions-panel {
-        position: static;
-        max-height: none;
-        overflow: visible;
-      }
-
-      .summary-panel {
-        grid-column: 1 / -1;
-        position: static;
-        max-height: none;
-        overflow: visible;
-      }
-    }
-
-    @media (max-width: 820px) {
-      .page-grid { grid-template-columns: 1fr; }
-      .question-grid { grid-template-columns: 1fr; }
-      .summary-panel { grid-column: auto; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math 31 Streamlined Test Blueprinter</title>
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --navy:#12355b;--navy2:#1d4f7f;--ink:#1f2937;--muted:#667085;--line:#d8dee8;
+    --bg:#f4f6f8;--soft:#f8fafc;--blueSoft:#eef4fb;--green:#166534;--red:#b42318;
+  }
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+  header{background:var(--navy);color:#fff;padding:18px 20px}
+  .header-inner{max-width:1500px;margin:0 auto;display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap}
+  header h1{margin:0;font-size:1.8rem}
+  header p{margin:5px 0 0;opacity:.9;font-size:.93rem}
+  main{max-width:1500px;margin:22px auto;padding:0 16px 50px}
+  .page-grid{display:grid;grid-template-columns:minmax(310px,.82fr) minmax(500px,1.35fr) minmax(300px,.8fr);gap:18px;align-items:start}
+  .panel{background:#fff;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.08);padding:18px}
+  .panel h2{margin:0 0 8px;color:var(--navy);font-size:1.2rem}
+  .subtle{font-size:.86rem;line-height:1.45;color:var(--muted);margin:0}
+  .sticky{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto;scrollbar-gutter:stable}
+
+  .setup-box{border:1px solid var(--line);background:var(--soft);border-radius:10px;padding:12px;margin:14px 0}
+  .setup-box strong{color:var(--navy);font-size:.9rem}
+  .unit-chip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:9px}
+  .unit-chip{border:1px solid #cfd8e3;background:#fff;border-radius:7px;padding:7px 6px;cursor:pointer;font-weight:800;font-size:.76rem;color:var(--navy)}
+  .unit-chip.active{background:var(--navy);border-color:var(--navy);color:#fff}
+  .scope-actions{display:flex;gap:6px;margin-top:8px}
+  .tiny-btn{border:1px solid #cfd8e3;background:#fff;color:var(--navy);border-radius:7px;padding:6px 8px;font-size:.74rem;font-weight:800;cursor:pointer}
+  .tiny-btn:hover{background:var(--blueSoft)}
+
+  .outcome-unit{border-top:1px solid #e7ebf0;padding-top:12px;margin-top:12px}
+  .outcome-unit:first-of-type{border-top:0;margin-top:6px}
+  .outcome-unit-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:8px}
+  .outcome-unit-title{font-weight:900;color:var(--navy);font-size:.88rem}
+  .sections{font-size:.71rem;color:var(--muted);margin-top:2px}
+  .outcome-card{border:1px solid #e0e5ec;border-radius:9px;padding:9px 10px;margin-bottom:7px;background:#fff}
+  .outcome-card-name{font-size:.85rem;font-weight:900;color:#243b53}
+  .outcome-card-desc{font-size:.76rem;line-height:1.35;color:var(--muted);margin-top:3px}
+  .outcome-card details{margin-top:6px}
+  .outcome-card summary{font-size:.7rem;color:#64748b;font-weight:800;cursor:pointer}
+  .official-tags{font-family:Consolas,"Courier New",monospace;font-size:.68rem;line-height:1.45;color:#475569;background:var(--soft);border-radius:6px;padding:6px;margin-top:5px}
+  .extension-note{font-size:.72rem;color:#805600;background:#fff8e1;border:1px solid #f1dfaa;border-radius:7px;padding:7px;margin-top:7px}
+
+  .title-box{display:grid;grid-template-columns:minmax(0,1fr) 115px;gap:10px;border:1px solid var(--line);background:var(--soft);border-radius:10px;padding:12px;margin-bottom:14px}
+  label{font-size:.73rem;font-weight:800;color:var(--muted);display:block;margin-bottom:4px}
+  input[type=text],input[type=number],select{width:100%;border:1px solid #cfd6df;border-radius:7px;padding:8px 9px;background:#fff;font-size:.88rem}
+  .toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:12px 0;flex-wrap:wrap}
+  .add-btn,.action-btn{border:0;border-radius:8px;padding:9px 11px;font-weight:900;cursor:pointer}
+  .add-btn{background:var(--navy);color:#fff}
+  .action-btn{background:#eaf1fb;color:var(--navy)}
+  .action-btn.danger{background:#fee2e2;color:#991b1b}
+
+  .question-card{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:11px;background:#fff}
+  .question-head{background:var(--blueSoft);padding:10px 11px;display:flex;justify-content:space-between;gap:10px;align-items:center;cursor:pointer}
+  .question-head-left{display:flex;align-items:center;gap:9px;min-width:0}
+  .q-number{font-weight:900;color:var(--navy);white-space:nowrap}
+  .q-mini{font-size:.74rem;color:#516174;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .q-actions{display:flex;gap:5px;align-items:center}
+  .head-btn{border:1px solid #cfd8e3;background:#fff;color:var(--navy);border-radius:6px;padding:5px 7px;font-size:.72rem;font-weight:900;cursor:pointer}
+  .head-btn.remove{background:#fee2e2;border-color:#fecaca;color:#991b1b}
+  .question-card.collapsed .question-body{display:none}
+  .question-body{padding:11px}
+  .question-grid{display:grid;grid-template-columns:minmax(0,1.2fr) 84px 190px;gap:9px;align-items:end}
+  .difficulty{display:flex;gap:5px}
+  .diff-btn{flex:1;border:1px solid #cfd6df;background:#fff;border-radius:7px;padding:7px 4px;font-size:.75rem;font-weight:900;cursor:pointer}
+  .diff-btn.active.l1{background:#e8f5e9;border-color:#2e7d32;color:#1b5e20}
+  .diff-btn.active.l2{background:#fff8e1;border-color:#f9a825;color:#805600}
+  .diff-btn.active.l3{background:#ffebee;border-color:#c62828;color:#991b1b}
+  .mapping-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;margin-top:10px;padding-top:10px;border-top:1px solid #e5e7eb;align-items:end}
+  .mapping-field select{border-color:#7894b3;background:#fbfdff}
+  .outcome-add-btn{white-space:nowrap;height:35px}
+  .mapping-hint{font-size:.69rem;color:var(--muted);margin-top:4px}
+  .selected-map{margin-top:8px;display:flex;flex-wrap:wrap;gap:5px}
+  .map-pill{display:inline-flex;align-items:center;gap:5px;background:#eaf1fb;color:var(--navy);border-radius:999px;padding:4px 7px;font-size:.71rem;font-weight:900}
+  .map-pill button{border:0;background:transparent;color:inherit;cursor:pointer;padding:0;font-size:.9rem;font-weight:900;line-height:1}
+  .empty{font-size:.82rem;color:var(--muted);font-style:italic}
+
+  .summary-card{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fbfcfe;margin-bottom:10px}
+  .summary-card>strong{display:block;color:var(--navy);margin-bottom:7px;font-size:.9rem}
+  .big-number{font-size:1.55rem;font-weight:900;color:var(--navy)}
+  .progress-row{margin:8px 0}
+  .progress-label{display:flex;justify-content:space-between;gap:8px;font-size:.77rem;margin-bottom:4px}
+  .bar{height:7px;background:#e5e7eb;border-radius:999px;overflow:hidden}
+  .bar>div{height:100%;background:var(--navy)}
+  .assessed-row{border-top:1px solid #e5e7eb;padding:8px 0}
+  .assessed-row:first-child{border-top:0;padding-top:0}
+  .assessed-name{font-size:.79rem;font-weight:900;color:#334155}
+  .assessed-q{font-size:.72rem;color:var(--muted);margin-top:2px}
+  .summary-key{font-size:.68rem;color:var(--muted);line-height:1.45;margin-top:6px}
+  .export-btn{width:100%;border:0;background:#0f766e;color:#fff;border-radius:8px;padding:10px 12px;font-weight:900;cursor:pointer;margin-bottom:10px}
+
+  .modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
+  .modal.open{display:flex}
+  .dialog{width:min(1000px,96vw);max-height:90vh;background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .dialog-head{background:var(--navy);color:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+  .dialog-head h3{margin:0;font-size:1rem}
+  .dialog-body{padding:12px;overflow:auto}
+  textarea{width:100%;min-height:520px;border:1px solid #cfd8e3;border-radius:8px;padding:10px;font:12px/1.4 Consolas,"Courier New",monospace;white-space:pre}
+  .modal-actions{display:flex;gap:7px;margin-bottom:8px}
+
+  @media(max-width:1180px){.page-grid{grid-template-columns:minmax(300px,.85fr) minmax(480px,1.2fr)}.right-panel{grid-column:1/-1;position:static;max-height:none}.left-panel{position:static;max-height:none}}
+  @media(max-width:820px){.page-grid{grid-template-columns:1fr}.title-box,.question-grid,.mapping-grid{grid-template-columns:1fr}.unit-chip-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
 </head>
-
 <body>
 <header>
   <div class="header-inner">
     <div>
-      <h1>Math 31 Test Blueprint</h1>
-      <p>Question-first blueprinting with multiple Knowledge tags</p>
+      <h1>Math 31 Test Blueprinter — Streamlined</h1>
+      <p>Teacher-friendly assessment outcomes on the surface; official Math 31 curriculum tags underneath.</p>
     </div>
-    <a class="back-link" href="blueprintmain.html">← Back to Courses</a>
   </div>
 </header>
 
 <main>
   <div class="page-grid">
+    <section class="panel sticky left-panel">
+      <h2>Assessment Outcomes</h2>
+      <p class="subtle">Pick only the teaching units included on this assessment. The list below immediately shrinks to the outcomes you are likely to map.</p>
+
+      <div class="setup-box">
+        <strong>Teaching units included</strong>
+        <div class="unit-chip-grid" id="unit-chips"></div>
+        <div class="scope-actions">
+          <button class="tiny-btn" onclick="selectAllUnits(false)">Clear</button>
+          <button class="tiny-btn" onclick="selectAllUnits(true)">All units</button>
+          <button class="tiny-btn" onclick="loadDemoScope()">Demo: U1–U3</button>
+        </div>
+      </div>
+
+      <div id="outcome-reference"></div>
+    </section>
 
     <section class="panel">
-      <h2>Curriculum Reference</h2>
-      <p class="subtle">
-        Math 31 curriculum sub-outcomes are numbered permanently beneath each Math 31 Sub-outcome. Drag any CU, PK, or PS sub-outcome onto a test question.
-      </p>
-
-      <div class="curriculum-key">
-        <strong>Key:</strong>
-        CU = Conceptual Understanding &nbsp;•&nbsp;
-        PK = Procedural Knowledge &nbsp;•&nbsp;
-        PS = Problem-solving Context
-      </div>
-
-      <div class="curriculum-toolbar">
-        <button class="toolbar-btn" type="button" onclick="collapseAllUnits()">Collapse All</button>
-        <button class="toolbar-btn" type="button" onclick="expandAllUnits()">Expand All</button>
-      </div>
-
-      <div id="curriculum-container"></div>
-    </section>
-
-    <section class="panel questions-panel">
-      <div class="assignment-title-box">
-        <label for="assignment-title">Assignment / Test Title</label>
-        <input id="assignment-title"
-               type="text"
-               placeholder="e.g. Math 31 Number Unit Test"
-               oninput="updateSummary()">
-      </div>
-
-      <div class="question-toolbar">
+      <div class="title-box">
         <div>
-          <h2 style="margin-bottom:5px;">Test Questions</h2>
-          <p class="subtle" style="margin:0;">
-            Create each question once, then drag Knowledge outcomes from the curriculum column onto the question. If a question assesses multiple outcomes, each tagged curriculum reference lists the question numbers that assess it in the Curriculum Distribution. Adding a new question automatically minimizes the questions above it.
-          </p>
+          <label for="assessment-title">Assessment / Test Title</label>
+          <input id="assessment-title" type="text" oninput="state.title=this.value;save();renderSummary()">
         </div>
-        <button class="add-question-btn" type="button" onclick="addQuestion()">+ Add Question</button>
+        <div>
+          <label>Questions</label>
+          <div class="big-number" id="question-count">0</div>
+        </div>
       </div>
 
-      <div id="questions-container"></div>
+      <div class="toolbar">
+        <div>
+          <h2 style="margin-bottom:3px">Questions</h2>
+          <p class="subtle">Add as many assessment outcomes as genuinely apply to each question. Keep the list focused on what the question actually assesses.</p>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="action-btn" onclick="collapseAllQuestions()">Minimize all</button>
+          <button class="add-btn" onclick="addQuestion()">+ Add Question</button>
+        </div>
+      </div>
+      <div id="questions"></div>
     </section>
 
-    <aside class="panel summary-panel">
+    <aside class="panel sticky right-panel">
       <h2>Blueprint Summary</h2>
-
-      <button class="overleaf-btn" type="button" onclick="generateOverleafCode()">
-        Generate Overleaf Code
-      </button>
+      <button class="export-btn" onclick="openExport()">Generate Overleaf Code</button>
 
       <div class="summary-card">
         <strong>Total Test Marks</strong>
-        <span id="total-marks">0</span>
+        <div class="big-number" id="total-marks">0</div>
       </div>
 
       <div class="summary-card">
@@ -861,1231 +174,284 @@
       </div>
 
       <div class="summary-card">
-        <strong>Curriculum Distribution</strong>
-        <div id="knowledge-summary">
-          <div class="empty">Tag curriculum outcomes to questions to see distribution.</div>
-        </div>
-      </div>
-
-      <div class="summary-card">
-        <strong>Curriculum Coverage</strong>
-        <div id="coverage-summary"></div>
-      </div>
-
-      <div class="difficulty-key">
-        <div class="key key1"><strong>Level 1:</strong> direct recall or straightforward one-step work.</div>
-        <div class="key key2"><strong>Level 2:</strong> familiar application or multiple straightforward steps.</div>
-        <div class="key key3"><strong>Level 3:</strong> non-routine reasoning, strategic planning, or synthesis.</div>
+        <strong>Outcomes Assessed</strong>
+        <div id="assessed-summary"></div>
+        <div class="summary-key">Only outcomes you assign to at least one question are shown. Uncovered outcomes are intentionally omitted.</div>
       </div>
     </aside>
-
   </div>
 </main>
 
-<div class="latex-modal" id="latex-modal" aria-hidden="true">
-  <div class="latex-dialog">
-    <div class="latex-dialog-head">
-      <h3>Overleaf / LaTeX Blueprint Code</h3>
-      <button class="latex-close" type="button" onclick="closeLatexModal()">Close</button>
+<div class="modal" id="export-modal">
+  <div class="dialog">
+    <div class="dialog-head">
+      <h3>Overleaf / LaTeX Blueprint</h3>
+      <button class="head-btn" onclick="closeExport()">Close</button>
     </div>
-
-    <div class="latex-dialog-body">
-      <div class="latex-actions">
-        <button class="latex-action-btn primary" id="copy-latex-btn" type="button" onclick="copyLatexCode()">Copy Code</button>
-        <button class="latex-action-btn" type="button" onclick="downloadLatexFile()">Download .tex</button>
+    <div class="dialog-body">
+      <div class="modal-actions">
+        <button class="add-btn" onclick="copyExport()">Copy Code</button>
+        <button class="action-btn" onclick="downloadExport()">Download .tex</button>
       </div>
-
       <textarea id="latex-output" spellcheck="false"></textarea>
     </div>
   </div>
 </div>
 
 <script>
-const curriculum = [
-  {
-    "unit": "Precalculus and Limits (Required)",
-    "prefix": "PL",
-    "clusters": [
-      {
-        "knowledge": [
-          "Understand that functions, as well as variables, can be combined using operations such as addition and multiplication."
-        ],
-        "conceptual": [
-          "Illustrate different notations that describe functions and intervals.",
-          "Express, in interval notation, the domain and range of functions.",
-          "Express the sum, product, difference and quotient algebraically and graphically, given any two functions.",
-          "Express, algebraically and graphically, the composition of two or more functions.",
-          "Illustrate solution sets for linear, quadratic and absolute value inequalities.",
-          "Illustrate the difference between the concepts of equation and identity in trigonometric contexts."
-        ],
-        "procedural": [
-          "Use open, closed and semi-open interval notation.",
-          "Find the sum, difference, product, quotient and composition of functions.",
-          "Solve linear, quadratic, rational and absolute value inequalities of the types specified in the curriculum.",
-          "Use primary, reciprocal, sum and difference, double- and half-angle, and Pythagorean trigonometric identities to simplify expressions, solve equations and rewrite expressions in equivalent forms."
-        ],
-        "problemSolving": [
-          "Model problem situations using sums, differences, products and quotients of functions.",
-          "Investigate connections between the algebraic form of a function f(x) and the symmetries of its graph."
-        ]
-      },
-      {
-        "knowledge": [
-          "Understand that functions can be transformed, and that these transformations can be represented algebraically and geometrically."
-        ],
-        "conceptual": [
-          "Describe similarities and differences between the graphs of y = f(x) and y = a f[k(x + c)] + d.",
-          "Describe the effects of reflections of algebraic and trigonometric functions across y = x, y = 0 and x = 0.",
-          "Describe the effects of parameters on transformed sine functions.",
-          "Describe the relationship between parallel and perpendicular lines.",
-          "Describe conditions for tangent, normal and secant lines to a curve.",
-          "Link two problem conditions to a system of two equations for two unknowns."
-        ],
-        "procedural": [
-          "Sketch graphs and describe algebraically the effects of translations, reflections and dilatations on common functions and their inverses.",
-          "Sketch and describe transformations of sine, cosine and tangent functions.",
-          "Find the equation of a line given any two conditions that define it.",
-          "Solve linear-linear, linear-quadratic and quadratic-quadratic systems."
-        ],
-        "problemSolving": [
-          "Translate problem conditions into equation or inequality form."
-        ]
-      },
-      {
-        "knowledge": [
-          "Understand that final answers may be expressed in different equivalent forms."
-        ],
-        "conceptual": [
-          "Describe what it means for two algebraic or trigonometric expressions to be equivalent."
-        ],
-        "procedural": [
-          "Factor expressions with integral and rational exponents using a variety of techniques.",
-          "Rationalize expressions whose numerator or denominator contains a radical.",
-          "Simplify rational expressions using the four basic operations."
-        ],
-        "problemSolving": [
-          "Illustrate the difference between verification and proof when comparing two algebraic or trigonometric expressions."
-        ]
-      },
-      {
-        "knowledge": [
-          "Understand that descriptions of change require a careful definition of limit and the precise use of limit theorems."
-        ],
-        "conceptual": [
-          "Explain the concept of a limit.",
-          "Give examples of functions with limits, one-sided limits, or no limit.",
-          "Give examples of bounded and unbounded functions, including bounded functions with no limit.",
-          "Explain and give examples of continuous and discontinuous functions.",
-          "Define the limit of an infinite sequence and an infinite series.",
-          "Explain the limit theorems for sum, difference, multiple, product, quotient and power.",
-          "Illustrate the limit theorems using suitable examples."
-        ],
-        "procedural": [
-          "Determine limits of algebraic functions as the independent variable approaches finite or infinite values.",
-          "Sketch continuous and discontinuous functions using limits, intercepts and symmetry.",
-          "Calculate the sum of an infinite convergent geometric series.",
-          "Use definitions and limit theorems to determine limits as the independent variable approaches a fixed value.",
-          "Use definitions and limit theorems to determine limits as the independent variable approaches positive or negative infinity."
-        ],
-        "problemSolving": [
-          "Prove and illustrate geometrically the basic trigonometric limits involving sin(x)/x and (cos(x)-1)/x.",
-          "Use basic trigonometric limits with limit theorems to determine limits of more complex trigonometric expressions.",
-          "Compare numerical and algebraic processes for determining algebraic and trigonometric limits."
-        ]
-      }
-    ]
-  },
-  {
-    "unit": "Derivatives & Derivative Theorems (Required)",
-    "prefix": "DDT",
-    "clusters": [
-      {
-        "knowledge": [
-          "Understand that the derivative of a function is a limit that can be found using first principles."
-        ],
-        "conceptual": [
-          "Show that the slope of a tangent line is a limit.",
-          "Explain how the derivative of a polynomial function can be approximated using a sequence of secant lines.",
-          "Explain how the derivative is connected to the slope of the tangent line.",
-          "Recognize that power functions can be differentiated for real exponents where defined.",
-          "Identify common alternative notations for the first derivative.",
-          "Explain the derivative theorems for sums and differences and their practical meaning."
-        ],
-        "procedural": [
-          "Find slopes and equations of tangent lines at given points using the definition of the derivative.",
-          "Estimate numerical values of derivatives using sequences of secant lines.",
-          "Derive derivatives of polynomial functions up to degree three using the definition.",
-          "Use the definition of the derivative for selected reciprocal and radical functions.",
-          "Use first principles to differentiate x^n for positive integer n.",
-          "Differentiate polynomial functions using sum and difference theorems.",
-          "Differentiate single-term power functions x^n where n is rational."
-        ],
-        "problemSolving": []
-      },
-      {
-        "knowledge": [
-          "Understand that derivatives of more complicated functions can be found from derivatives of simpler functions using derivative theorems."
-        ],
-        "conceptual": [
-          "Demonstrate that the chain, power, product and quotient rules aid differentiation of complicated functions.",
-          "Identify implicit differentiation as a tool when one variable is difficult to isolate.",
-          "Explain the relationship between implicit differentiation and the chain rule.",
-          "Compare sum, difference, product and quotient theorems for limits and derivatives.",
-          "Explain the derivation and practical meaning of product and quotient derivative theorems.",
-          "Illustrate second, third and higher derivatives of algebraic functions.",
-          "Describe the second derivative geometrically."
-        ],
-        "procedural": [
-          "Differentiate polynomial, power, product and quotient functions.",
-          "Apply the chain rule in combination with product and quotient rules.",
-          "Use implicit differentiation.",
-          "Write final derivative answers in factored form when appropriate.",
-          "Find slopes and equations of tangent lines at given points on a curve.",
-          "Find second and third derivatives."
-        ],
-        "problemSolving": [
-          "Derive the quotient rule from the product rule.",
-          "Show that equivalent derivative forms of a rational function can be found using product or quotient rules.",
-          "Differentiate functions expressed as products of more than two factors.",
-          "Determine the second derivative of an implicitly defined function.",
-          "In selected contexts, compare implicit and explicit differentiation or find tangent lines to standard conics."
-        ]
-      },
-      {
-        "knowledge": [
-          "Understand that trigonometric functions have derivatives and that these derivatives obey the same derivative theorems as algebraic functions."
-        ],
-        "conceptual": [
-          "Demonstrate that the three primary trigonometric functions have derivatives at all points where they are defined.",
-          "Explain how the derivative of a trigonometric function can be approximated using a sequence of secant lines."
-        ],
-        "procedural": [
-          "Calculate derivatives of the three primary and three reciprocal trigonometric functions.",
-          "Estimate a numerical derivative of a trigonometric function at a point using secant lines.",
-          "Use power, chain, product and quotient rules to differentiate more complicated trigonometric functions.",
-          "Use a trigonometric derivative to calculate slope and the tangent-line equation at a point."
-        ],
-        "problemSolving": [
-          "Use the definition of the derivative to find derivatives of sine and cosine.",
-          "Explain why radian measure must be used in the calculus of trigonometric functions."
-        ]
-      }
-    ]
-  },
-  {
-    "unit": "Applications of Derivatives (Required)",
-    "prefix": "AD",
-    "clusters": [
-      {
-        "knowledge": [
-          "Understand that calculus is a powerful tool for determining maximum and minimum points and for sketching curves."
-        ],
-        "conceptual": [
-          "Identify from a graph locations at which first and second derivatives are zero.",
-          "Illustrate conditions for symmetry about the x-axis, y-axis or origin.",
-          "Explain how the sign of the first derivative indicates increasing or decreasing behaviour and how the second derivative indicates concavity.",
-          "Illustrate that a first derivative of zero is one possible condition for a maximum or minimum.",
-          "Explain circumstances where maxima or minima occur even when the first derivative is not zero.",
-          "Illustrate that a second derivative of zero is one possible condition for an inflection point.",
-          "Explain local versus absolute maxima and minima.",
-          "Explain when a maximum or minimum value is appropriate."
-        ],
-        "procedural": [
-          "Sketch first and second derivative graphs from an algebraic form or graph.",
-          "Use zeros and intercepts to aid graph sketching.",
-          "Use first and second derivatives to find maxima, minima and inflection points.",
-          "Determine vertical, horizontal and oblique asymptotes, domains and ranges.",
-          "Find intervals where a derivative is positive or negative to determine increasing or decreasing behaviour.",
-          "Verify whether a critical point is a maximum or minimum.",
-          "Use a given model in equation or graph form to find maxima or minima."
-        ],
-        "problemSolving": [
-          "Use a systematic calculus procedure to sketch algebraic and trigonometric functions.",
-          "Compare calculator-generated graphs with graphs obtained through systematic calculus analysis.",
-          "Calculate maxima and minima for quantities such as volume, area, perimeter and cost.",
-          "Connect geometric, economic or motion problems to modelling equations, critical points and derivative-based solutions.",
-          "Construct selected geometric, economic or motion models and use derivatives to optimize them."
-        ]
-      },
-      {
-        "knowledge": [
-          "Understand that complicated rates of change can be related to simpler rates using the chain rule."
-        ],
-        "conceptual": [
-          "Illustrate how the chain rule can represent relationships between two or more rates of change.",
-          "Explain the clarity that Leibniz notation provides in related-rate problems.",
-          "Illustrate the time rate of change of a function or relation."
-        ],
-        "procedural": [
-          "Use the chain rule to differentiate a function with respect to an external variable such as time.",
-          "Use Leibniz notation to illustrate related rates.",
-          "Construct a chain rule of related rates using appropriate variables.",
-          "Calculate related rates for areas, volumes, surface areas and relative motion.",
-          "Calculate related rates from equations modelling electronic circuits or other engineering situations.",
-          "Use the chain rule to derive acceleration in terms of position when velocity is expressed as a function of position."
-        ],
-        "problemSolving": [
-          "Construct mathematical models for time rates of change of linear measures, areas, volumes and surface areas.",
-          "Solve related-rate problems using models that contain primary trigonometric functions."
-        ]
-      }
-    ]
-  },
-  {
-    "unit": "Integrals, Integral Theorems & Integral Applications (Required)",
-    "prefix": "INT",
-    "clusters": [
-      {
-        "knowledge": [
-          "Understand that finding an antiderivative is the inverse operation of finding a derivative."
-        ],
-        "conceptual": [
-          "Explain how differentiation can have an inverse operation.",
-          "Show that many different functions can have the same derivative.",
-          "Represent a family of curves having the same derivative."
-        ],
-        "procedural": [
-          "Find antiderivatives of polynomial, rational algebraic and trigonometric functions.",
-          "Find the family of curves whose first derivative has been given.",
-          "Solve separable first-order differential equations for general and specific solutions."
-        ],
-        "problemSolving": [
-          "Find antiderivatives of rational functions and polynomial powers by comparison and inspection.",
-          "Determine antiderivatives for polynomial, rational and trigonometric functions."
-        ]
-      },
-      {
-        "knowledge": [
-          "Understand that the area under a curve can be expressed as the limit of a sum of smaller rectangles."
-        ],
-        "conceptual": [
-          "Define area under a curve as a limit of sums of rectangular areas.",
-          "Establish the existence of upper and lower bounds for area under a curve."
-        ],
-        "procedural": [
-          "Sketch the area under polynomial, rational or trigonometric curves over a given interval and approximate the area using rectangles."
-        ],
-        "problemSolving": [
-          "Communicate similarities and differences between definite integrals and areas under curves."
-        ]
-      },
-      {
-        "knowledge": [
-          "Understand that area under a curve can be related to an antiderivative and that antiderivatives can be used to determine areas under and between curves."
-        ],
-        "conceptual": [
-          "Identify an indefinite integral as an antiderivative plus a constant.",
-          "Explain a definite integral between fixed limits using antiderivative values.",
-          "Explain the relationship between numerical area and definite integral for functions of constant or changing sign.",
-          "Illustrate linearity properties of integrals.",
-          "Describe the meaning of the fundamental theorem of calculus.",
-          "Explain how the fundamental theorem links area limits and antiderivatives."
-        ],
-        "procedural": [
-          "Calculate definite integrals for polynomial, rational and trigonometric functions.",
-          "Determine area between a curve and the x-axis over a given domain.",
-          "Determine area when a function has constant sign or changes sign.",
-          "Determine area between curves over a given interval.",
-          "Determine area between intersecting curves."
-        ],
-        "problemSolving": [
-          "Relate the value of a definite integral to signed area over an interval.",
-          "Use integral theorems to simplify definite integrals.",
-          "Use integral theorems to simplify more complicated integrals.",
-          "Illustrate conditions necessary for a function to be differentiable or integrable."
-        ]
-      },
-      {
-        "knowledge": [
-          "Understand that velocity and acceleration are the first and second derivatives of displacement with respect to time, and that the three functions are connected by derivatives and antiderivatives."
-        ],
-        "conceptual": [
-          "Describe motion using sketches of first and second derivatives.",
-          "Explain the difference between a stationary point and a turning point in linear motion.",
-          "Illustrate derivative and antiderivative concepts through displacement, velocity and acceleration."
-        ],
-        "procedural": [
-          "Estimate instantaneous velocity using secant slopes representing average velocities.",
-          "Differentiate a position function to obtain instantaneous velocity and acceleration.",
-          "Use antiderivatives of acceleration and velocity to obtain velocity and displacement."
-        ],
-        "problemSolving": [
-          "Solve distance, velocity and acceleration problems from derivative relationships.",
-          "Derive constant-acceleration kinematic equations from a = constant.",
-          "Determine velocity and acceleration equations for simple harmonic motion from a displacement equation."
-        ]
-      }
-    ]
-  },
-  {
-    "unit": "Calculus of Exponential & Logarithmic Functions (Elective)",
-    "prefix": "EL",
-    "clusters": [
-      {
-        "knowledge": [
-          "Understand that exponential and logarithmic functions have limits, derivatives and integrals that obey the same theorems as algebraic and trigonometric functions."
-        ],
-        "conceptual": [
-          "Define exponential and logarithmic functions as inverse functions.",
-          "Explain special properties of the number e, including a definition of e as a limit.",
-          "Illustrate how derivatives of exponential and logarithmic functions may be derived from the definition of the derivative.",
-          "Illustrate why base-e exponential and logarithmic functions form a convenient framework for calculus in any base.",
-          "Illustrate how exponential and logarithmic functions model growth, decay and return to equilibrium."
-        ],
-        "procedural": [
-          "Estimate values of limits involving e and exponential functions.",
-          "Approximate slopes of y = e^x and y = ln(x) at specified values.",
-          "Find derivatives and antiderivatives of the base-e exponential function.",
-          "Use limit theorems for simple exponential and logarithmic functions.",
-          "Differentiate the natural logarithmic function.",
-          "Differentiate logarithmic functions with bases other than e.",
-          "Differentiate and integrate exponential functions with bases other than e.",
-          "Evaluate basic reciprocal and exponential integrals.",
-          "Solve differential equations modelling natural growth, decay and return to equilibrium."
-        ],
-        "problemSolving": [
-          "Evaluate maxima and minima of exponential and logarithmic functions.",
-          "Find areas bounded by exponential, logarithmic or reciprocal functions.",
-          "Relate natural growth, decay and return to equilibrium to differential equations.",
-          "Solve natural growth and decay problems from differential equations.",
-          "Fit exponential models to observed data.",
-          "Apply exponential models to motion with air resistance.",
-          "Connect selected rational-function integrals with the integral of 1/x."
-        ]
-      }
-    ]
-  },
-  {
-    "unit": "Numerical Methods (Elective)",
-    "prefix": "NM",
-    "clusters": [
-      {
-        "knowledge": [
-          "Understand that many limits, derivatives, equation roots and definite integrals can be found numerically."
-        ],
-        "conceptual": [
-          "Describe the difference between exact and approximate solutions.",
-          "Identify when a numerical method is likely to give poor results.",
-          "Explain the difference between iterative and non-iterative procedures.",
-          "Explain the basis of the Newton-Raphson procedure for roots of f(x) = 0.",
-          "Describe numerical limit, derivative, root and integral procedures geometrically.",
-          "Connect the number of subdivisions in numerical integration with accuracy.",
-          "Show how numerical integration formulas interpolate between lower and upper Riemann sums."
-        ],
-        "procedural": [
-          "Estimate a limit by systematic trial and error.",
-          "Calculate a numerical derivative at a point, whether or not the curve has a defining formula.",
-          "Solve f(x) = 0 by systematic trial and error and by the Newton-Raphson method.",
-          "Calculate upper and lower Riemann sums.",
-          "Approximate definite integrals using the midpoint rule.",
-          "Approximate definite integrals using the trapezoidal rule.",
-          "Approximate definite integrals using Simpson's rule."
-        ],
-        "problemSolving": [
-          "Compare errors in definite-integral approximations using different procedures.",
-          "Write software for computation of limits, roots or definite integrals.",
-          "Reconstruct limit processes to improve numerical efficiency and reliability.",
-          "Evaluate the reliability of a numerical procedure for a limit, equation root or definite integral."
-        ]
-      }
-    ]
-  },
-  {
-    "unit": "Volumes of Revolution (Elective)",
-    "prefix": "VR",
-    "clusters": [
-      {
-        "knowledge": [
-          "Understand that volumes of revolution may be considered as limiting sums of smaller volumes and can be related to definite integrals."
-        ],
-        "conceptual": [
-          "Identify the solid generated by rotating a graph between boundary values or between two graphs.",
-          "Explain the connection between volume of revolution and the volume of a cylindrical disc.",
-          "Demonstrate how the disc-method formula for volume of revolution can be generated."
-        ],
-        "procedural": [
-          "Use the disc-method integral to find volumes of revolution for polynomial and trigonometric functions.",
-          "Find volumes of revolution between two polynomial or trigonometric functions after determining their intersection points."
-        ],
-        "problemSolving": [
-          "Derive formulas for the volume of a cylinder, cone and sphere.",
-          "Revolve a graph about a horizontal or vertical line other than the coordinate axes and determine the resulting volume."
-        ]
-      }
-    ]
-  }
-]
+const courseUnits = [
+  {id:'U1',name:'Unit 1: Old Functions and New Functions',sections:'1.3–1.5',outcomes:[
+    {id:'U1-FUNC',name:'Function Operations & Composition',desc:'Operations on functions, composition, and interpreting resulting domains.',official:['PL1-CU3','PL1-CU4','PL1-PK2','PL1-PS1']},
+    {id:'U1-TRANS',name:'Transformations, Domain & Range',desc:'Translations, reflections, stretches, graph features, domain and range.',official:['PL1-CU2','PL2-CU1','PL2-CU2','PL2-CU3','PL2-PK1']},
+    {id:'U1-INV',name:'Inverses, Exponentials & Logarithms',desc:'Inverse relationships and exponential/logarithmic functions used in the precalculus review.',official:['PL2-CU2','EL1-CU1']},
+    {id:'U1-ALG',name:'Equivalent Forms & Algebra',desc:'Factoring, radicals, rational expressions, and equivalent algebraic forms.',official:['PL3-CU1','PL3-PK1','PL3-PK2','PL3-PK3','PL3-PS1']}
+  ]},
+  {id:'U2',name:'Unit 2: Limits and Continuity',sections:'2.1–2.6',outcomes:[
+    {id:'U2-LIM-G',name:'Graphical Limits',desc:'One-sided/two-sided limits, existence of limits, and interpreting limits from graphs.',official:['PL4-CU1','PL4-CU2','PL4-CU3']},
+    {id:'U2-LIM-A',name:'Algebraic Limits',desc:'Evaluate finite limits algebraically using limit laws and simplification.',official:['PL4-CU6','PL4-CU7','PL4-PK1','PL4-PK4']},
+    {id:'U2-INF',name:'Limits at Infinity & Asymptotes',desc:'End behaviour, infinite limits, horizontal/vertical asymptotes, and related domain features.',official:['PL4-PK1','PL4-PK5','AD1-PK4']},
+    {id:'U2-CONT',name:'Continuity & IVT',desc:'Continuity at a point/on an interval and use of the Intermediate Value Theorem.',official:['PL4-CU4','CT1-CU4']},
+    {id:'U2-DEF',name:'Limit Definition & Theorems',desc:'Precise definition of limit and conceptual/theorem-based reasoning about limits.',official:['PL4-CU1','PL4-CU6','PL4-CU7','PL4-PK4','PL4-PS3']},
+    {id:'U2-TRIG',name:'Trigonometric Limits',desc:'Basic trigonometric limits and their use in more complex limit calculations.',official:['PL4-PS1','PL4-PS2']}
+  ]},
+  {id:'U3',name:'Unit 3: Derivatives and Rates of Change',sections:'2.7–2.8',outcomes:[
+    {id:'U3-DEF',name:'Derivative Definition',desc:'Derivative as a limit; first-principles differentiation.',official:['DDT1-CU1','DDT1-CU3','DDT1-PK3','DDT1-PK4','DDT1-PK5']},
+    {id:'U3-RATE',name:'Rates of Change',desc:'Average versus instantaneous rate of change, including motion/velocity contexts.',official:['DDT1-CU2','DDT1-CU3','DDT1-PK2','INT4-PK1']},
+    {id:'U3-TAN',name:'Tangent & Secant Lines',desc:'Secant slopes, tangent slopes, and equations of tangent lines.',official:['DDT1-CU1','DDT1-CU2','DDT1-CU3','DDT1-PK1','DDT1-PK2']},
+    {id:'U3-DIFF',name:'Differentiability',desc:'When a derivative exists, including one-sided derivative reasoning at corners/cusps.',official:['DDT1-CU1','DDT1-CU3']},
+    {id:'U3-GRAPH',name:'Derivative & Higher-Derivative Graphs',desc:'Interpret relationships among a function, its derivative, and higher derivatives.',official:['DDT2-CU6','DDT2-CU7','AD1-PK1']}
+  ]},
+  {id:'U4',name:'Unit 4: Differentiation Rules and Applications Part I',sections:'3.1–3.4',outcomes:[
+    {id:'U4-BASIC',name:'Basic Differentiation Rules',desc:'Power, constant, sum, and difference rules.',official:['DDT1-CU6','DDT1-PK6','DDT1-PK7']},
+    {id:'U4-PQ',name:'Product & Quotient Rules',desc:'Differentiate products and quotients and understand the structure of the rules.',official:['DDT2-CU1','DDT2-CU4','DDT2-CU5','DDT2-PK1','DDT2-PS1','DDT2-PS2']},
+    {id:'U4-TRIG',name:'Trigonometric Derivatives',desc:'Differentiate primary and reciprocal trigonometric functions.',official:['DDT3-CU1','DDT3-CU2','DDT3-PK1','DDT3-PK3','DDT3-PK4']},
+    {id:'U4-CHAIN',name:'Chain Rule',desc:'Differentiate composite functions and combine the chain rule with other rules.',official:['DDT2-CU1','DDT2-CU3','DDT2-PK2']},
+    {id:'U4-PROOF',name:'Derivative-Rule Reasoning & Proof',desc:'Derive or justify derivative rules from limits or previously established rules.',official:['CT1-CU1','CT1-PK1','CT1-PS1']}
+  ]},
+  {id:'U5',name:'Unit 5: Differentiation Rules Part II',sections:'3.5, 3.6, 3.9–3.11',outcomes:[
+    {id:'U5-IMPL',name:'Implicit Differentiation',desc:'Differentiate implicit relations and find tangent information.',official:['DDT2-CU2','DDT2-CU3','DDT2-PK3','DDT2-PS4','DDT2-PS5']},
+    {id:'U5-EXPLOG',name:'Exponential & Logarithmic Derivatives',desc:'Differentiate exponential and logarithmic functions.',official:['EL1-CU3','EL1-CU4','EL1-PK2','EL1-PK3','EL1-PK5','EL1-PK6']},
+    {id:'U5-RR',name:'Related Rates',desc:'Use the chain rule to connect changing quantities.',official:['AD2-CU1','AD2-CU2','AD2-CU3','AD2-PK1','AD2-PK2','AD2-PK3','AD2-PK4','AD2-PS1','AD2-PS2']}
+  ],note:'Stewart 3.10 and 3.11 contain extension material that does not have a separate named Math 31 specific outcome, so it is not forced into an artificial tag.'},
+  {id:'U6',name:'Unit 6: Rates of Change in Science and Engineering',sections:'3.7–3.10',outcomes:[
+    {id:'U6-RATE',name:'Rates of Change in Context',desc:'Interpret derivatives as rates in science, engineering, and other applications.',official:['AD2-CU1','AD2-CU3','AD2-PK1','AD2-PK4']},
+    {id:'U6-RR',name:'Related Rates Modelling',desc:'Build and solve related-rate models involving geometry, motion, or engineering.',official:['AD2-PK2','AD2-PK3','AD2-PK4','AD2-PK5','AD2-PS1','AD2-PS2']},
+    {id:'U6-MOTION',name:'Motion: Position, Velocity & Acceleration',desc:'Connect displacement, velocity, and acceleration through derivatives.',official:['INT4-CU1','INT4-CU2','INT4-CU3','INT4-PK1','INT4-PK2','INT4-PS1','INT4-PS3']},
+    {id:'U6-GROWTH',name:'Growth & Decay',desc:'Use exponential/differential-equation models for natural growth and decay.',official:['EL1-CU5','EL1-PK9','EL1-PS3','EL1-PS4','EL1-PS5']}
+  ]},
+  {id:'U7',name:'Unit 7: Investigate Functions by Differentiation',sections:'4.1–4.4',outcomes:[
+    {id:'U7-EXT',name:'Extrema & Critical Points',desc:'Local/absolute extrema, critical values, and derivative tests.',official:['AD1-CU4','AD1-CU5','AD1-CU7','AD1-CU8','AD1-PK3','AD1-PK6']},
+    {id:'U7-MONO',name:'Increasing, Decreasing & Concavity',desc:'Use signs of first and second derivatives to analyze function behaviour.',official:['AD1-CU3','AD1-CU6','AD1-PK3','AD1-PK5']},
+    {id:'U7-MVT',name:'IVT, Rolle & Mean Value Theorem',desc:'Apply and reason about major existence theorems.',official:['CT1-CU4','CT1-PK3','CT1-PS3']},
+    {id:'U7-OPT',name:'Maximum/Minimum Reasoning',desc:'Interpret and justify maximum/minimum conclusions in context.',official:['AD1-CU7','AD1-CU8','AD1-PK7']}
+  ],note:"Stewart 4.4 (l'Hospital's Rule) is extension material relative to the explicitly named Math 31 specific outcomes."},
+  {id:'U8',name:'Unit 8: Differentiation and Sketching Functions',sections:'4.5–4.6',outcomes:[
+    {id:'U8-SKETCH',name:'Systematic Curve Sketching',desc:'Use calculus information to sketch functions systematically.',official:['AD1-PK1','AD1-PK2','AD1-PK3','AD1-PK5','AD1-PK6','AD1-PS1','AD1-PS2']},
+    {id:'U8-ASYM',name:'Asymptotes, Domain & Range',desc:'Determine vertical, horizontal, and oblique asymptotes together with domain/range.',official:['AD1-PK4']},
+    {id:'U8-DGRAPH',name:'First & Second Derivative Graphs',desc:'Sketch and interpret derivative graphs and concavity information.',official:['AD1-PK1','DDT2-CU6','DDT2-CU7']}
+  ]},
+  {id:'U9',name:'Unit 9: More Applications of Differentiation',sections:'4.4, 4.7–4.9',outcomes:[
+    {id:'U9-OPT',name:'Optimization',desc:'Construct or use models to maximize/minimize geometric, economic, or motion quantities.',official:['AD1-CU7','AD1-CU8','AD1-PK7','AD1-PS3','AD1-PS4','AD1-PS5']},
+    {id:'U9-NEWTON',name:"Newton's Method",desc:'Use and interpret an iterative numerical method for roots.',official:['NM1-CU4','NM1-PK3','NM1-PS4','CT1-PS4']},
+    {id:'U9-ANTI',name:'Antiderivatives',desc:'Recognize integration as inverse differentiation and find basic antiderivatives.',official:['INT1-CU1','INT1-CU2','INT1-CU3','INT1-PK1','INT1-PK2','INT1-PS1','INT1-PS2']}
+  ]},
+  {id:'U10',name:'Unit 10: Definite Integrals',sections:'5.1–5.3',outcomes:[
+    {id:'U10-RIEM',name:'Area & Riemann Sums',desc:'Approximate area with rectangles and connect area to limiting sums.',official:['INT2-CU1','INT2-CU2','INT2-PK1','INT2-PS1']},
+    {id:'U10-DEFINT',name:'Definite Integral',desc:'Interpret and evaluate definite integrals.',official:['INT3-CU2','INT3-CU3','INT3-PK1','INT3-PS1']},
+    {id:'U10-FTC',name:'Fundamental Theorem of Calculus',desc:'Connect accumulation/area and antiderivatives using the FTC.',official:['INT3-CU5','INT3-CU6','CT1-CU4','CT1-PK3']},
+    {id:'U10-PROP',name:'Properties of Integrals',desc:'Use linearity, interval properties, and signed-area relationships.',official:['INT3-CU4','INT3-PS1','INT3-PS2','INT3-PS3']}
+  ]},
+  {id:'U11',name:'Unit 11: Indefinite Integrals',sections:'5.4',outcomes:[
+    {id:'U11-ANTI',name:'Indefinite Integrals & Antiderivatives',desc:'Find families of antiderivatives and interpret the constant of integration.',official:['INT1-CU1','INT1-CU2','INT1-CU3','INT1-PK1','INT1-PK2','INT3-CU1']},
+    {id:'U11-NET',name:'Net Change & Motion',desc:'Recover velocity/displacement from derivatives and antiderivatives.',official:['INT4-CU1','INT4-CU2','INT4-CU3','INT4-PK2','INT4-PK3','INT4-PS1','INT4-PS2']},
+    {id:'U11-DE',name:'Simple Differential Equations',desc:'Solve basic separable first-order differential equations.',official:['INT1-PK3']}
+  ]},
+  {id:'U12',name:'Unit 12: Integration Rules and Areas Between Curves',sections:'5.5, 7.1, 6.1',outcomes:[
+    {id:'U12-SUB',name:'Integration by Substitution',desc:'Recognize and execute change-of-variable integration.',official:['FMI1-CU2','FMI1-CU3','FMI1-PK1','FMI1-PS3']},
+    {id:'U12-PARTS',name:'Integration by Parts',desc:'Recognize and use integration by parts.',official:['FMI1-CU3','FMI1-PK4','FMI1-PS1']},
+    {id:'U12-AREA',name:'Area Between Curves',desc:'Determine area between curves, including intersection points and sign changes.',official:['INT3-PK2','INT3-PK3','INT3-PK4','INT3-PK5','INT3-PS1']}
+  ]},
+  {id:'U13',name:'Unit 13: Integration to Calculate',sections:'6.2–6.3',outcomes:[
+    {id:'U13-VOL',name:'Volumes of Revolution',desc:'Model and calculate solids of revolution using definite integrals.',official:['VR1-CU1','VR1-CU2','VR1-CU3','VR1-PK1','VR1-PK2','VR1-PS1','VR1-PS2']}
+  ],note:'The Math 31 guide explicitly names the disc method. Stewart 6.3 cylindrical shells can be treated as extension material under the broader volume concept.'}
+];
 
-const collapsedUnits = new Set();
-const questions = [];
-let questionCounter = 1;
+const outcomeById={};
+courseUnits.forEach(u=>u.outcomes.forEach(o=>outcomeById[o.id]={...o,unitId:u.id,unitName:u.name,sections:u.sections}));
 
-function getUnitPrefix(unitName) {
-  const unit = curriculum.find(u => u.unit === unitName);
-  return unit?.prefix || "K";
+const demoQuestions=[
+  {uid:1,label:'Q1',marks:10,difficulty:2,outcomes:['U1-TRANS','U1-FUNC'],collapsed:true},
+  {uid:2,label:'Q2',marks:7,difficulty:1,outcomes:['U2-LIM-G','U2-CONT'],collapsed:true},
+  {uid:3,label:'Q3',marks:10,difficulty:3,outcomes:['U2-LIM-A','U2-CONT'],collapsed:true},
+  {uid:4,label:'Q4',marks:7,difficulty:2,outcomes:['U2-INF'],collapsed:true},
+  {uid:5,label:'Q5',marks:10,difficulty:2,outcomes:['U3-RATE','U3-DEF'],collapsed:true},
+  {uid:6,label:'Q6',marks:10,difficulty:2,outcomes:['U3-GRAPH','U3-DIFF'],collapsed:false}
+];
+
+let state={title:'Math 31: Unit Exam 1',selectedUnits:['U1','U2','U3'],questions:structuredClone(demoQuestions),nextUid:7};
+const STORE='math31-streamlined-blueprint-v2';
+const OLD_STORE='math31-streamlined-blueprint-v1';
+
+function normalizeQuestion(q){
+  const outcomes=Array.isArray(q.outcomes) ? q.outcomes : [q.primary,q.secondary].filter(Boolean);
+  return {...q,outcomes:[...new Set(outcomes.filter(id=>outcomeById[id]))]};
 }
-
-function getAllKnowledgeItems() {
-  const items = [];
-
-  curriculum.forEach(unit => {
-    let gleNumber = 1;
-    const prefix = getUnitPrefix(unit.unit);
-
-    unit.clusters.forEach(cluster => {
-      const gleId = `${prefix}${gleNumber++}`;
-      const gleText = cluster.knowledge[0];
-
-      (cluster.conceptual || []).forEach((text, index) => {
-        items.push({
-          id: `${gleId}-CU${index + 1}`,
-          parentId: gleId,
-          subtype: "Conceptual Understanding",
-          unit: unit.unit,
-          text,
-          parentText: gleText,
-          conceptual: cluster.conceptual || [],
-          procedural: cluster.procedural || [],
-          problemSolving: cluster.problemSolving || []
-        });
-      });
-
-      (cluster.procedural || []).forEach((text, index) => {
-        items.push({
-          id: `${gleId}-PK${index + 1}`,
-          parentId: gleId,
-          subtype: "Procedural Knowledge",
-          unit: unit.unit,
-          text,
-          parentText: gleText,
-          conceptual: cluster.conceptual || [],
-          procedural: cluster.procedural || [],
-          problemSolving: cluster.problemSolving || []
-        });
-      });
-
-      // Keep problem-solving contexts available as draggable references as well.
-      // This gives teachers the option to blueprint application/problem-solving questions distinctly.
-      (cluster.problemSolving || []).forEach((text, index) => {
-        items.push({
-          id: `${gleId}-PS${index + 1}`,
-          parentId: gleId,
-          subtype: "Problem-solving Context",
-          unit: unit.unit,
-          text,
-          parentText: gleText,
-          conceptual: cluster.conceptual || [],
-          procedural: cluster.procedural || [],
-          problemSolving: cluster.problemSolving || []
-        });
-      });
-    });
-  });
-
-  return items;
-}
-
-const knowledgeItems = getAllKnowledgeItems();
-const knowledgeById = Object.fromEntries(knowledgeItems.map(item => [item.id, item]));
-
-function renderCurriculum() {
-  const container = document.getElementById("curriculum-container");
-  container.innerHTML = "";
-
-  curriculum.forEach(unit => {
-    const unitItems = knowledgeItems.filter(x => x.unit === unit.unit);
-    const covered = unitItems.filter(item =>
-      questions.some(q => q.tags.includes(item.id))
-    ).length;
-
-    const unitDiv = document.createElement("section");
-    unitDiv.className = `unit ${collapsedUnits.has(unit.unit) ? "collapsed" : ""}`;
-
-    unitDiv.innerHTML = `
-      <button class="unit-header" type="button" data-unit="${unit.unit}">
-        <span class="unit-title-wrap">
-          <span class="unit-chevron">▼</span>
-          <h3>${unit.unit}</h3>
-        </span>
-        <span class="unit-count">${covered} of ${unitItems.length} covered</span>
-      </button>
-      <div class="unit-body"></div>
-    `;
-
-    const body = unitDiv.querySelector(".unit-body");
-
-    let currentParentId = null;
-
-    unitItems.forEach(item => {
-      if (item.parentId !== currentParentId) {
-        currentParentId = item.parentId;
-
-        const parent = document.createElement("div");
-        parent.className = "gle-parent";
-        parent.innerHTML = `
-          <strong>${item.parentId}</strong> — ${item.parentText}
-        `;
-        body.appendChild(parent);
-      }
-
-      const card = document.createElement("div");
-      card.className = "knowledge-card";
-      card.setAttribute("draggable", "true");
-      card.dataset.knowledgeId = item.id;
-
-      card.innerHTML = `
-        <div class="knowledge-main">
-          <div class="knowledge-text">
-            <span class="knowledge-id">${item.id}</span>${item.text}
-          </div>
-        </div>
-      `;
-
-      card.addEventListener("dragstart", event => {
-        card.classList.add("dragging");
-        event.dataTransfer.effectAllowed = "copy";
-        event.dataTransfer.setData("text/plain", item.id);
-      });
-
-      card.addEventListener("dragend", () => {
-        card.classList.remove("dragging");
-      });
-
-      body.appendChild(card);
-    });
-
-    container.appendChild(unitDiv);
-  });
-
-  document.querySelectorAll("[data-unit]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const unit = btn.dataset.unit;
-      if (collapsedUnits.has(unit)) collapsedUnits.delete(unit);
-      else collapsedUnits.add(unit);
-      renderCurriculum();
-    });
-  });
-}
-
-function collapseAllUnits() {
-  curriculum.forEach(unit => collapsedUnits.add(unit.unit));
-  renderCurriculum();
-}
-
-function expandAllUnits() {
-  collapsedUnits.clear();
-  renderCurriculum();
-}
-
-function addQuestion() {
-  questions.forEach(existing => existing.collapsed = true);
-
-  const q = {
-    uid: questionCounter++,
-    label: `Q${questions.length + 1}`,
-    marks: 1,
-    difficulty: 2,
-    tags: [],
-    allocations: {},
-    collapsed: false
+function normalizeState(s){
+  if(!s||!Array.isArray(s.questions))return null;
+  return {
+    title:typeof s.title==='string'?s.title:'Math 31 Assessment',
+    selectedUnits:Array.isArray(s.selectedUnits)?s.selectedUnits:['U1','U2','U3'],
+    questions:s.questions.map(normalizeQuestion),
+    nextUid:Number(s.nextUid)||((Math.max(0,...s.questions.map(q=>Number(q.uid)||0)))+1)
   };
+}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){}}
+function load(){
+  try{
+    const raw=localStorage.getItem(STORE)||localStorage.getItem(OLD_STORE);
+    const loaded=normalizeState(raw?JSON.parse(raw):null);
+    if(loaded)state=loaded;
+  }catch(e){}
+}
+function escapeHtml(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function latexEscape(s){return String(s??'').replace(/\\/g,'\\textbackslash{}').replace(/([#$%&_{}])/g,'\\$1').replace(/~/g,'\\textasciitilde{}').replace(/\^/g,'\\textasciicircum{}')}
 
-  questions.push(q);
-  renderQuestions();
-  updateSummary();
+function renderUnitChips(){
+  document.getElementById('unit-chips').innerHTML=courseUnits.map(u=>`<button class="unit-chip ${state.selectedUnits.includes(u.id)?'active':''}" onclick="toggleUnit('${u.id}')">${u.id}</button>`).join('');
+}
+function toggleUnit(id){
+  state.selectedUnits=state.selectedUnits.includes(id)?state.selectedUnits.filter(x=>x!==id):[...state.selectedUnits,id];
+  save();renderAll();
+}
+function selectAllUnits(on){state.selectedUnits=on?courseUnits.map(u=>u.id):[];save();renderAll()}
+function loadDemoScope(){state.selectedUnits=['U1','U2','U3'];save();renderAll()}
+
+function renderOutcomeReference(){
+  const el=document.getElementById('outcome-reference');
+  const units=courseUnits.filter(u=>state.selectedUnits.includes(u.id));
+  if(!units.length){el.innerHTML='<div class="empty">Select one or more teaching units above.</div>';return}
+  el.innerHTML=units.map(u=>`<div class="outcome-unit">
+    <div class="outcome-unit-head"><div><div class="outcome-unit-title">${u.id} — ${escapeHtml(u.name.replace(/^Unit \d+: /,''))}</div><div class="sections">Stewart ${u.sections}</div></div><div style="font-size:.7rem;color:#64748b">${u.outcomes.length} outcomes</div></div>
+    ${u.outcomes.map(o=>`<div class="outcome-card"><div class="outcome-card-name">${escapeHtml(o.name)}</div><div class="outcome-card-desc">${escapeHtml(o.desc)}</div><details><summary>Official Math 31 mapping</summary><div class="official-tags">${o.official.map(escapeHtml).join(' · ')}</div></details></div>`).join('')}
+    ${u.note?`<div class="extension-note">${escapeHtml(u.note)}</div>`:''}
+  </div>`).join('');
 }
 
-function toggleQuestionCollapse(uid) {
-  const q = questions.find(q => q.uid === uid);
-  if (!q) return;
-  q.collapsed = !q.collapsed;
-  renderQuestions();
+function getAvailableOutcomes(extra=[]){
+  const ids=new Set(extra.filter(Boolean));
+  courseUnits.filter(u=>state.selectedUnits.includes(u.id)).forEach(u=>u.outcomes.forEach(o=>ids.add(o.id)));
+  return [...ids].map(id=>outcomeById[id]).filter(Boolean).sort((a,b)=>a.unitId.localeCompare(b.unitId)||a.name.localeCompare(b.name));
 }
-
-function deleteQuestion(uid) {
-  const index = questions.findIndex(q => q.uid === uid);
-  if (index >= 0) questions.splice(index, 1);
-  renderQuestions();
-  updateSummary();
-  renderCurriculum();
-}
-
-function updateQuestion(uid, field, value) {
-  const q = questions.find(q => q.uid === uid);
-  if (!q) return;
-
-  if (field === "marks") {
-    q.marks = Math.max(0, Number(value) || 0);
-    rebalanceAllocations(q);
-  } else {
-    q[field] = value;
-  }
-
-  renderQuestions();
-  updateSummary();
-}
-
-function setDifficulty(uid, level) {
-  const q = questions.find(q => q.uid === uid);
-  if (!q) return;
-  q.difficulty = level;
-  renderQuestions();
-  updateSummary();
-}
-
-function addTagToQuestion(uid, tag) {
-  const q = questions.find(q => q.uid === uid);
-  if (!q || !tag || q.tags.includes(tag) || !knowledgeById[tag]) return;
-
-  q.tags.push(tag);
-  rebalanceAllocations(q);
-  renderQuestions();
-  updateSummary();
-  renderCurriculum();
-}
-
-function removeTag(uid, tag) {
-  const q = questions.find(q => q.uid === uid);
-  if (!q) return;
-
-  q.tags = q.tags.filter(x => x !== tag);
-  delete q.allocations[tag];
-  rebalanceAllocations(q);
-  renderQuestions();
-  updateSummary();
-  renderCurriculum();
-}
-
-function rebalanceAllocations(q) {
-  if (!q.tags.length) {
-    q.allocations = {};
-    return;
-  }
-
-  const marks = Number(q.marks) || 0;
-  const base = marks / q.tags.length;
-
-  q.tags.forEach(tag => {
-    q.allocations[tag] = Number(base.toFixed(2));
+function outcomeOptions(exclude=[]){
+  const excluded=new Set(exclude||[]);
+  const arr=getAvailableOutcomes();
+  let last='';let html='<option value="">— Select an outcome —</option>';
+  arr.forEach(o=>{
+    if(excluded.has(o.id))return;
+    if(o.unitId!==last){if(last)html+='</optgroup>';html+=`<optgroup label="${o.unitId} — ${escapeHtml(o.unitName.replace(/^Unit \d+: /,''))}">`;last=o.unitId}
+    html+=`<option value="${o.id}">${escapeHtml(o.name)}</option>`;
   });
+  if(last)html+='</optgroup>';
+  return html;
 }
 
-function updateAllocation(uid, tag, value) {
-  const q = questions.find(q => q.uid === uid);
-  if (!q) return;
-
-  q.allocations[tag] = Math.max(0, Number(value) || 0);
-  updateSummary();
-  updateAllocationStatus(uid);
+function addQuestion(){
+  state.questions.forEach(q=>q.collapsed=true);
+  state.questions.push({uid:state.nextUid++,label:`Q${state.questions.length+1}`,marks:1,difficulty:2,outcomes:[],collapsed:false});save();renderAll();
+}
+function deleteQuestion(uid){state.questions=state.questions.filter(q=>q.uid!==uid);renumberBlankLabels();save();renderAll()}
+function renumberBlankLabels(){state.questions.forEach((q,i)=>{if(/^Q\d+$/.test(q.label))q.label=`Q${i+1}`})}
+function toggleQuestion(uid){const q=state.questions.find(q=>q.uid===uid);if(q){q.collapsed=!q.collapsed;save();renderQuestions()}}
+function collapseAllQuestions(){state.questions.forEach(q=>q.collapsed=true);save();renderQuestions()}
+function updateQuestion(uid,field,value){
+  const q=state.questions.find(q=>q.uid===uid);if(!q)return;
+  if(field==='marks')q.marks=Math.max(0,Number(value)||0);
+  else if(field==='difficulty')q.difficulty=Number(value)||2;
+  else q[field]=value;
+  save();renderQuestions();renderSummary();
+}
+function addOutcomeToQuestion(uid){
+  const q=state.questions.find(q=>q.uid===uid);if(!q)return;
+  const picker=document.getElementById(`outcome-picker-${uid}`);
+  const id=picker?.value;
+  if(!id||!outcomeById[id])return;
+  q.outcomes=Array.isArray(q.outcomes)?q.outcomes:[];
+  if(!q.outcomes.includes(id))q.outcomes.push(id);
+  save();renderQuestions();renderSummary();
+}
+function removeOutcomeFromQuestion(uid,id){
+  const q=state.questions.find(q=>q.uid===uid);if(!q)return;
+  q.outcomes=(q.outcomes||[]).filter(x=>x!==id);
+  save();renderQuestions();renderSummary();
 }
 
-function getAllocationTotal(q) {
-  return q.tags.reduce((sum, tag) => sum + (Number(q.allocations[tag]) || 0), 0);
-}
-
-function updateAllocationStatus(uid) {
-  const q = questions.find(q => q.uid === uid);
-  const el = document.getElementById(`allocation-status-${uid}`);
-  if (!q || !el) return;
-
-  const total = getAllocationTotal(q);
-  const expected = Number(q.marks) || 0;
-  const ok = Math.abs(total - expected) < 0.01;
-
-  el.className = `allocation-summary ${ok ? "ok" : "bad"}`;
-  el.textContent = `Allocated: ${total.toFixed(2)} / ${expected.toFixed(2)} marks ${ok ? "✓" : "— adjust allocations"}`;
-}
-
-function renderQuestions() {
-  const container = document.getElementById("questions-container");
-
-  if (!questions.length) {
-    container.innerHTML = `<div class="empty">No questions yet. Click “+ Add Question” to begin.</div>`;
-    return;
-  }
-
-  container.innerHTML = "";
-
-  questions.forEach(q => {
-
-    const card = document.createElement("div");
-    card.className = `question-card ${q.collapsed ? "collapsed" : ""}`;
-
-
-    const tagsHtml = q.tags.length
-      ? q.tags.map(tag => `
-          <span class="tag">
-            ${tag}
-            <button type="button" title="Remove ${tag}" onclick="removeTag(${q.uid}, '${tag}')">×</button>
-          </span>
-        `).join("")
-      : `<span class="empty">No curriculum outcomes tagged yet.</span>`;
-
-
-    card.innerHTML = `
-      <div class="question-head">
-        <strong>${escapeHtml(q.label || `Question ${q.uid}`)}</strong>
-        <div class="question-head-actions">
-          <button class="question-collapse-btn"
-                  type="button"
-                  onclick="toggleQuestionCollapse(${q.uid})">
-            ${q.collapsed ? "Expand" : "Minimize"}
-          </button>
-          <button class="delete-question"
-                  type="button"
-                  onclick="deleteQuestion(${q.uid})">
-            Remove Question
-          </button>
-        </div>
+function renderQuestions(){
+  document.getElementById('question-count').textContent=state.questions.length;
+  const el=document.getElementById('questions');
+  if(!state.questions.length){el.innerHTML='<div class="empty">No questions yet. Click “+ Add Question”.</div>';return}
+  el.innerHTML=state.questions.map((q,i)=>{
+    q.outcomes=Array.isArray(q.outcomes)?q.outcomes:[];
+    const selected=q.outcomes.map(id=>outcomeById[id]).filter(Boolean);
+    let mini='No outcome mapped';
+    if(selected.length){
+      const names=selected.slice(0,2).map(o=>o.name);
+      mini=names.join(' + ')+(selected.length>2?` + ${selected.length-2} more`:'');
+    }
+    return `<div class="question-card ${q.collapsed?'collapsed':''}">
+      <div class="question-head" onclick="toggleQuestion(${q.uid})">
+        <div class="question-head-left"><div class="q-number">${escapeHtml(q.label||`Q${i+1}`)}</div><div class="q-mini">${escapeHtml(mini)}</div></div>
+        <div class="q-actions" onclick="event.stopPropagation()"><button class="head-btn" onclick="toggleQuestion(${q.uid})">${q.collapsed?'Expand':'Minimize'}</button><button class="head-btn remove" onclick="deleteQuestion(${q.uid})">Remove</button></div>
       </div>
-
       <div class="question-body">
         <div class="question-grid">
-          <div>
-            <label class="field-label">Question label</label>
-            <input type="text" value="${escapeHtml(q.label)}"
-                   oninput="updateQuestion(${q.uid}, 'label', this.value)">
-          </div>
-
-          <div>
-            <label class="field-label">Marks</label>
-            <input type="number" min="0" step="1" value="${q.marks}"
-                   onchange="updateQuestion(${q.uid}, 'marks', this.value)">
-          </div>
-
-          <div>
-            <label class="field-label">Difficulty</label>
-            <div class="difficulty-group">
-              <button type="button" class="difficulty-btn level1 ${q.difficulty === 1 ? "active" : ""}"
-                      onclick="setDifficulty(${q.uid}, 1)">1</button>
-              <button type="button" class="difficulty-btn level2 ${q.difficulty === 2 ? "active" : ""}"
-                      onclick="setDifficulty(${q.uid}, 2)">2</button>
-              <button type="button" class="difficulty-btn level3 ${q.difficulty === 3 ? "active" : ""}"
-                      onclick="setDifficulty(${q.uid}, 3)">3</button>
-            </div>
-          </div>
+          <div><label>Question label</label><input type="text" value="${escapeHtml(q.label)}" onchange="updateQuestion(${q.uid},'label',this.value)"></div>
+          <div><label>Marks</label><input type="number" min="0" step="1" value="${q.marks}" onchange="updateQuestion(${q.uid},'marks',this.value)"></div>
+          <div><label>Difficulty</label><div class="difficulty">${[1,2,3].map(n=>`<button class="diff-btn l${n} ${q.difficulty===n?'active':''}" onclick="updateQuestion(${q.uid},'difficulty',${n})">L${n}</button>`).join('')}</div></div>
         </div>
-
-        <div class="tag-section">
-          <div class="tag-section-title">
-            <strong>Curriculum outcomes assessed</strong>
-            <span class="subtle">${q.tags.length} tagged</span>
-          </div>
-
-          <div class="drop-zone"
-               data-drop-question="${q.uid}">
-            Drag a curriculum outcome from the left and drop it here
-          </div>
-
-          <div class="tag-list" style="margin-top:10px;">${tagsHtml}</div>
-
-
+        <div class="mapping-grid">
+          <div class="mapping-field"><label>Add assessment outcome</label><select id="outcome-picker-${q.uid}">${outcomeOptions(q.outcomes)}</select><div class="mapping-hint">Add every outcome that is meaningfully assessed by this question. You can add as many as needed.</div></div>
+          <button class="add-btn outcome-add-btn" onclick="addOutcomeToQuestion(${q.uid})">+ Add Outcome</button>
         </div>
+        <div class="selected-map">${selected.length?selected.map(o=>`<span class="map-pill">${escapeHtml(o.name)} <button type="button" title="Remove ${escapeHtml(o.name)}" onclick="removeOutcomeFromQuestion(${q.uid},'${o.id}')">×</button></span>`).join(''):'<span class="empty">No outcomes assigned.</span>'}</div>
       </div>
-    `;
+    </div>`
+  }).join('');
+}
 
-    container.appendChild(card);
-  });
-
-  document.querySelectorAll("[data-drop-question]").forEach(zone => {
-    zone.addEventListener("dragover", event => {
-      event.preventDefault();
-      event.dataTransfer.dropEffect = "copy";
-      zone.classList.add("drag-over");
-    });
-
-    zone.addEventListener("dragleave", () => {
-      zone.classList.remove("drag-over");
-    });
-
-    zone.addEventListener("drop", event => {
-      event.preventDefault();
-      zone.classList.remove("drag-over");
-      const tag = event.dataTransfer.getData("text/plain");
-      const uid = Number(zone.dataset.dropQuestion);
-      addTagToQuestion(uid, tag);
+function renderSummary(){
+  const total=state.questions.reduce((a,q)=>a+(Number(q.marks)||0),0);document.getElementById('total-marks').textContent=total;
+  const d=document.getElementById('difficulty-summary');
+  d.innerHTML=[1,2,3].map(n=>{const marks=state.questions.filter(q=>q.difficulty===n).reduce((a,q)=>a+(Number(q.marks)||0),0);const pct=total?marks/total*100:0;return `<div class="progress-row"><div class="progress-label"><span>Level ${n}</span><strong>${marks} marks · ${pct.toFixed(0)}%</strong></div><div class="bar"><div style="width:${pct}%"></div></div></div>`}).join('');
+  const map={};
+  state.questions.forEach(q=>{
+    (q.outcomes||[]).forEach(id=>{
+      if(!outcomeById[id])return;
+      map[id]??=[];
+      if(!map[id].includes(q.label))map[id].push(q.label);
     });
   });
+  const ids=Object.keys(map);
+  const assessed=document.getElementById('assessed-summary');
+  if(!ids.length){assessed.innerHTML='<div class="empty">Assign outcomes to questions to build the summary.</div>';return}
+  assessed.innerHTML=ids.sort((a,b)=>(outcomeById[a]?.unitId||'').localeCompare(outcomeById[b]?.unitId||'')||(outcomeById[a]?.name||'').localeCompare(outcomeById[b]?.name||'')).map(id=>{
+    const o=outcomeById[id];return `<div class="assessed-row"><div class="assessed-name">${o.unitId}: ${escapeHtml(o.name)}</div><div class="assessed-q">${map[id].map(escapeHtml).join(', ')}</div></div>`
+  }).join('');
 }
 
-function updateSummary() {
-  const totalMarks = questions.reduce((sum, q) => sum + (Number(q.marks) || 0), 0);
-  document.getElementById("total-marks").textContent = totalMarks.toFixed(2).replace(".00","");
-
-  const difficultyMarks = {1:0, 2:0, 3:0};
-  questions.forEach(q => {
-    difficultyMarks[q.difficulty] += Number(q.marks) || 0;
-  });
-
-  document.getElementById("difficulty-summary").innerHTML = [1,2,3].map(level => {
-    const marks = difficultyMarks[level];
-    const pct = totalMarks ? marks / totalMarks * 100 : 0;
-    return `
-      <div class="progress-row">
-        <div class="progress-label">
-          <span>Level ${level}</span>
-          <span>${marks.toFixed(2).replace(".00","")} — ${pct.toFixed(1)}%</span>
-        </div>
-        <div class="bar"><div style="width:${pct}%"></div></div>
-      </div>
-    `;
-  }).join("");
-
-  const knowledgeQuestions = {};
-  knowledgeItems.forEach(item => knowledgeQuestions[item.id] = []);
-
-  questions.forEach((q, index) => {
-    const questionLabel = (q.label || `Q${index + 1}`).trim();
-    q.tags.forEach(tag => {
-      knowledgeQuestions[tag].push(questionLabel);
-    });
-  });
-
-  const taggedIds = knowledgeItems
-    .filter(item => knowledgeQuestions[item.id].length > 0)
-    .map(item => item.id);
-
-  const knowledgeSummary = document.getElementById("knowledge-summary");
-
-  if (!taggedIds.length) {
-    knowledgeSummary.innerHTML = `<div class="empty">Tag curriculum outcomes to questions to see distribution.</div>`;
-  } else {
-    knowledgeSummary.innerHTML = taggedIds.map(id => {
-      const questionLabels = knowledgeQuestions[id].join(", ");
-      return `
-        <div class="progress-row">
-          <div class="progress-label">
-            <span><strong>${id}</strong> — ${knowledgeById[id].text}</span>
-            <span style="white-space:nowrap; font-weight:800; color:#12355b;">${questionLabels}</span>
-          </div>
-        </div>
-      `;
-    }).join("");
-  }
-
-  const coveredSet = new Set();
-  questions.forEach(q => q.tags.forEach(tag => coveredSet.add(tag)));
-
-  const coverage = document.getElementById("coverage-summary");
-  coverage.innerHTML = curriculum.map(unit => {
-    const unitItems = knowledgeItems.filter(item => item.unit === unit.unit);
-    const chips = unitItems.map(item => `
-      <span class="coverage-chip ${coveredSet.has(item.id) ? "covered" : ""}">${item.id}</span>
-    `).join("");
-
-    return `
-      <div class="coverage-unit">
-        <div class="coverage-unit-title">${unit.unit}</div>
-        <div class="coverage-chips">${chips}</div>
-      </div>
-    `;
-  }).join("");
+function buildLatex(){
+  const title=state.title||'Math 31 Assessment Blueprint';const total=state.questions.reduce((a,q)=>a+(Number(q.marks)||0),0);
+  const used={};state.questions.forEach(q=>{(q.outcomes||[]).filter(id=>outcomeById[id]).forEach(id=>{used[id]??=[];if(!used[id].includes(q.label))used[id].push(q.label)})});
+  const qrows=state.questions.map(q=>{const names=(q.outcomes||[]).map(id=>outcomeById[id]?.name).filter(Boolean).join('; ');return `${latexEscape(q.label)} & ${q.marks} & L${q.difficulty} & ${latexEscape(names)} \\\\`}).join('\n');
+  const orows=Object.keys(used).map(id=>{const o=outcomeById[id];return `${latexEscape(o.name)} & ${latexEscape(used[id].join(', '))} & ${latexEscape(o.official.join(', '))} \\\\`}).join('\n');
+  return `\\documentclass[10pt]{article}\n\\usepackage[margin=0.75in]{geometry}\n\\usepackage{booktabs,longtable,array}\n\\usepackage{xcolor}\n\\begin{document}\n\\begin{center}\n{\\Large\\bfseries ${latexEscape(title)}}\\\\[4pt]\nStreamlined Math 31 Assessment Blueprint\\\\[4pt]\n\\textbf{Total Marks: ${total}}\n\\end{center}\n\n\\section*{Question Blueprint}\n\\begin{longtable}{p{0.10\\textwidth}p{0.08\\textwidth}p{0.08\\textwidth}p{0.62\\textwidth}}\n\\toprule\nQuestion & Marks & Diff. & Assessment Outcomes \\\\\n\\midrule\n${qrows}\n\\bottomrule\n\\end{longtable}\n\n\\section*{Outcomes Assessed}\n\\begin{longtable}{p{0.34\\textwidth}p{0.18\\textwidth}p{0.38\\textwidth}}\n\\toprule\nAssessment Outcome & Questions & Official Math 31 Mapping \\\\\n\\midrule\n${orows||'No outcomes assigned. & & \\\\'}\n\\bottomrule\n\\end{longtable}\n\n\\end{document}`;
 }
+function openExport(){document.getElementById('latex-output').value=buildLatex();document.getElementById('export-modal').classList.add('open')}
+function closeExport(){document.getElementById('export-modal').classList.remove('open')}
+async function copyExport(){const t=document.getElementById('latex-output');try{await navigator.clipboard.writeText(t.value)}catch(e){t.select();document.execCommand('copy')}}
+function downloadExport(){const blob=new Blob([document.getElementById('latex-output').value],{type:'text/x-tex'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(state.title||'math31_blueprint').replace(/[^a-z0-9_-]+/gi,'_')+'.tex';a.click();URL.revokeObjectURL(a.href)}
 
-function escapeHtml(str) {
-  return String(str)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-
-function latexEscape(value) {
-  let text = String(value ?? "");
-
-  const placeholders = [];
-
-  function protect(latex) {
-    const token = `@@SAFE${placeholders.length}@@`;
-    placeholders.push(latex);
-    return token;
-  }
-
-  // Common complete math fragments first.
-  text = text
-    .replace(/√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$\\sqrt{${radicand}}$`))
-    .replace(/−√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$-\\sqrt{${radicand}}$`))
-    .replace(/±√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$\\pm\\sqrt{${radicand}}$`))
-    .replace(/([A-Za-z0-9])²/g, (_, base) => protect(`$${base}^{2}$`))
-    .replace(/([A-Za-z0-9])³/g, (_, base) => protect(`$${base}^{3}$`))
-    .replace(/([A-Za-z0-9])¹/g, (_, base) => protect(`$${base}^{1}$`))
-    .replace(/([A-Za-z0-9])⁰/g, (_, base) => protect(`$${base}^{0}$`));
-
-  const replacements = [
-    ["π", "$\\pi$"],
-    ["×", "$\\times$"],
-    ["⋅", "$\\cdot$"],
-    ["−", "$-$"],
-    ["√", "$\\sqrt{\\phantom{x}}$"],
-    ["∛", "$\\sqrt[3]{\\phantom{x}}$"],
-    ["≤", "$\\leq$"],
-    ["≥", "$\\geq$"],
-    ["≠", "$\\neq$"],
-    ["±", "$\\pm$"],
-    ["≅", "$\\cong$"],
-    ["⊥", "$\\perp$"],
-    ["∥", "$\\parallel$"],
-    ["°", "$^{\\circ}$"],
-    ["○", "$\\circ$"],
-    ["●", "$\\bullet$"]
-  ];
-
-  replacements.forEach(([unicode, latex]) => {
-    text = text.split(unicode).join(protect(latex));
-  });
-
-  text = text
-    .replace(/[“”]/g, '"')
-    .replace(/[‘’]/g, "'")
-    .replace(/–/g, "--")
-    .replace(/—/g, "---")
-    .replace(/\u00A0/g, " ");
-
-  text = text
-    .replaceAll("\\", "\\textbackslash{}")
-    .replaceAll("&", "\\&")
-    .replaceAll("%", "\\%")
-    .replaceAll("$", "\\$")
-    .replaceAll("#", "\\#")
-    .replaceAll("_", "\\_")
-    .replaceAll("{", "\\{")
-    .replaceAll("}", "\\}")
-    .replaceAll("~", "\\textasciitilde{}")
-    .replaceAll("^", "\\textasciicircum{}");
-
-  placeholders.forEach((latex, index) => {
-    text = text.split(`@@SAFE${index}@@`).join(latex);
-  });
-
-  return text;
-}
-
-function buildLatexBlueprint() {
-  const assignmentTitle = document.getElementById("assignment-title").value.trim() || "Math 31 Test Blueprint";
-  const latexAssignmentTitle = latexEscape(assignmentTitle);
-  const totalMarks = questions.reduce((sum, q) => sum + (Number(q.marks) || 0), 0);
-
-  const difficultyMarks = {1: 0, 2: 0, 3: 0};
-  questions.forEach(q => {
-    difficultyMarks[q.difficulty] += Number(q.marks) || 0;
-  });
-
-  const knowledgeQuestions = {};
-  knowledgeItems.forEach(item => knowledgeQuestions[item.id] = []);
-
-  questions.forEach((q, index) => {
-    const qLabel = (q.label || `Q${index + 1}`).trim();
-    q.tags.forEach(tag => {
-      knowledgeQuestions[tag].push(qLabel);
-    });
-  });
-
-  const coveredKnowledge = knowledgeItems.filter(item => knowledgeQuestions[item.id].length > 0);
-
-  const questionRows = questions.map((q, index) => {
-    const qLabel = latexEscape((q.label || `Q${index + 1}`).trim());
-    const tags = q.tags.length ? q.tags.map(latexEscape).join(", ") : "---";
-    return `${qLabel} & ${Number(q.marks) || 0} & Level ${q.difficulty} & ${tags} \\\\`;
-  }).join("\n");
-
-  const knowledgeRows = coveredKnowledge.map(item => {
-    const refs = knowledgeQuestions[item.id].map(latexEscape).join(", ");
-    return `${latexEscape(item.id)} & ${latexEscape(item.text)} & ${refs} \\\\`;
-  }).join("\n");
-
-  const coverageByUnit = curriculum.map(unit => {
-    const items = knowledgeItems.filter(item => item.unit === unit.unit);
-    const covered = items.filter(item => knowledgeQuestions[item.id].length > 0);
-    const missing = items.filter(item => knowledgeQuestions[item.id].length === 0);
-
-    return `
-\\subsection*{${latexEscape(unit.unit)}}
-\\textbf{Covered:} ${covered.length ? covered.map(item => latexEscape(item.id)).join(", ") : "None"}\\\\
-\\textbf{Not represented:} ${missing.length ? missing.map(item => latexEscape(item.id)).join(", ") : "None"}
-`;
-  }).join("\n");
-
-  const difficultyRows = [1,2,3].map(level => {
-    const marks = difficultyMarks[level];
-    const pct = totalMarks ? (marks / totalMarks * 100) : 0;
-    return `Level ${level} & ${marks} & ${pct.toFixed(1)}\\% \\\\`;
-  }).join("\n");
-
-  return `\\documentclass[11pt]{article}
-
-\\usepackage[margin=0.75in]{geometry}
-\\usepackage{array}
-\\usepackage{booktabs}
-\\usepackage{longtable}
-\\usepackage{xcolor}
-\\usepackage{tabularx}
-\\usepackage{enumitem}
-\\usepackage{fancyhdr}
-\\usepackage{titlesec}
-
-\\definecolor{blueprintblue}{HTML}{12355B}
-\\definecolor{lightblue}{HTML}{EEF4FB}
-\\definecolor{lightgray}{HTML}{F5F7FA}
-
-\\pagestyle{fancy}
-\\fancyhf{}
-\\lhead{Math 31 Blueprint}
-\\rhead{${latexAssignmentTitle}}
-\\cfoot{\\thepage}
-
-\\titleformat{\\section}
-  {\\large\\bfseries\\color{blueprintblue}}
-  {}
-  {0pt}
-  {}
-
-\\titleformat{\\subsection}
-  {\\normalsize\\bfseries\\color{blueprintblue}}
-  {}
-  {0pt}
-  {}
-
-\\setlength{\\parindent}{0pt}
-\\setlength{\\parskip}{4pt}
-
-\\begin{document}
-
-\\begin{center}
-    {\\LARGE\\bfseries\\color{blueprintblue} ${latexAssignmentTitle}}\\\\[4pt]
-    {\\large Math 31 Curriculum Coverage Overview}
-\\end{center}
-
-\\vspace{0.5em}
-
-\\section*{Assessment Summary}
-
-\\begin{tabular}{@{}lr@{}}
-\\toprule
-\\textbf{Assignment} & ${latexAssignmentTitle} \\\\
-\\textbf{Total Questions} & ${questions.length} \\\\
-\\textbf{Total Marks} & ${totalMarks} \\\\
-\\bottomrule
-\\end{tabular}
-
-\\vspace{1em}
-
-\\section*{Difficulty Distribution}
-
-\\begin{tabular}{@{}lrr@{}}
-\\toprule
-\\textbf{Difficulty} & \\textbf{Marks} & \\textbf{Percent} \\\\
-\\midrule
-${difficultyRows}
-\\bottomrule
-\\end{tabular}
-
-\\vspace{1em}
-
-\\section*{Questions}
-
-\\begin{longtable}{>{\\bfseries}p{0.12\\textwidth} p{0.10\\textwidth} p{0.13\\textwidth} p{0.52\\textwidth}}
-\\toprule
-\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Curriculum References} \\\\
-\\midrule
-\\endfirsthead
-\\toprule
-\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Curriculum References} \\\\
-\\midrule
-\\endhead
-${questionRows || "\\multicolumn{4}{l}{No questions entered.} \\\\"}
-\\bottomrule
-\\end{longtable}
-
-\\section*{Curriculum Distribution}
-
-\\begin{longtable}{>{\\bfseries}p{0.08\\textwidth} p{0.70\\textwidth} p{0.14\\textwidth}}
-\\toprule
-\\textbf{Ref.} & \\textbf{Math 31 Sub-outcome} & \\textbf{Questions} \\\\
-\\midrule
-\\endfirsthead
-\\toprule
-\\textbf{Ref.} & \\textbf{Math 31 Sub-outcome} & \\textbf{Questions} \\\\
-\\midrule
-\\endhead
-${knowledgeRows || "\\multicolumn{3}{l}{No curriculum references tagged.} \\\\"}
-\\bottomrule
-\\end{longtable}
-
-\\section*{Curriculum Coverage by Topic}
-
-${coverageByUnit}
-
-\\end{document}
-`;
-}
-
-function generateOverleafCode() {
-  const modal = document.getElementById("latex-modal");
-  const output = document.getElementById("latex-output");
-
-  output.value = buildLatexBlueprint();
-  modal.classList.add("open");
-  modal.setAttribute("aria-hidden", "false");
-}
-
-function closeLatexModal() {
-  const modal = document.getElementById("latex-modal");
-  modal.classList.remove("open");
-  modal.setAttribute("aria-hidden", "true");
-}
-
-async function copyLatexCode() {
-  const output = document.getElementById("latex-output");
-  const button = document.getElementById("copy-latex-btn");
-
-  try {
-    await navigator.clipboard.writeText(output.value);
-  } catch (err) {
-    output.select();
-    document.execCommand("copy");
-  }
-
-  if (button) {
-    const originalText = button.textContent;
-    button.textContent = "Copied ✓";
-    button.disabled = true;
-
-    setTimeout(() => {
-      button.textContent = originalText;
-      button.disabled = false;
-    }, 1400);
-  }
-}
-
-function downloadLatexFile() {
-  const code = document.getElementById("latex-output").value || buildLatexBlueprint();
-  const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-
-  link.href = url;
-  const assignmentTitle = document.getElementById("assignment-title").value.trim() || "Math 31 Test Blueprint";
-  const safeFilename = assignmentTitle
-    .replace(/[^a-z0-9]+/gi, "-")
-    .replace(/^-+|-+$/g, "")
-    .toLowerCase();
-  link.download = `${safeFilename || "math31-test-blueprint"}.tex`;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-
-  URL.revokeObjectURL(url);
-}
-
-document.getElementById("latex-modal").addEventListener("click", event => {
-  if (event.target.id === "latex-modal") closeLatexModal();
-});
-
-renderCurriculum();
-renderQuestions();
-updateSummary();
+function renderAll(){document.getElementById('assessment-title').value=state.title;renderUnitChips();renderOutcomeReference();renderQuestions();renderSummary()}
+load();renderAll();
 </script>
 </body>
 </html>
