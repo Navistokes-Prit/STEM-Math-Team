@@ -3,115 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Math 31 Streamlined Test Blueprinter</title>
+<title>Math 31 Test Blueprint</title>
 <style>
-  *{box-sizing:border-box}
-  :root{
-    --navy:#12355b;--navy2:#1d4f7f;--ink:#1f2937;--muted:#667085;--line:#d8dee8;
-    --bg:#f4f6f8;--soft:#f8fafc;--blueSoft:#eef4fb;--green:#166534;--red:#b42318;
+  * { box-sizing: border-box; }
+  :root {
+    --navy:#12355b; --ink:#1f2937; --muted:#667085; --line:#d8dee8;
+    --bg:#f4f6f8; --soft:#f8fafc; --blue-soft:#eef4fb;
   }
-  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
-  header{background:var(--navy);color:#fff;padding:18px 20px}
-  .header-inner{max-width:1500px;margin:0 auto;display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap}
-  header h1{margin:0;font-size:1.8rem}
-  header p{margin:5px 0 0;opacity:.9;font-size:.93rem}
-  main{max-width:1500px;margin:22px auto;padding:0 16px 50px}
-  .page-grid{display:grid;grid-template-columns:minmax(310px,.82fr) minmax(500px,1.35fr) minmax(300px,.8fr);gap:18px;align-items:start}
-  .panel{background:#fff;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.08);padding:18px}
-  .panel h2{margin:0 0 8px;color:var(--navy);font-size:1.2rem}
-  .subtle{font-size:.86rem;line-height:1.45;color:var(--muted);margin:0}
-  .sticky{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto;scrollbar-gutter:stable}
+  body { margin:0; font-family:Arial,Helvetica,sans-serif; background:var(--bg); color:var(--ink); }
+  header { background:var(--navy); color:#fff; padding:22px 20px; }
+  .header-inner { max-width:1500px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+  header h1 { margin:0; font-size:2rem; }
+  header p { margin:6px 0 0; opacity:.9; }
+  .back-link { color:#fff; text-decoration:none; border:1px solid rgba(255,255,255,.45); padding:10px 14px; border-radius:8px; }
 
-  .setup-box{border:1px solid var(--line);background:var(--soft);border-radius:10px;padding:12px;margin:14px 0}
-  .setup-box strong{color:var(--navy);font-size:.9rem}
-  .unit-chip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:9px}
-  .unit-chip{border:1px solid #cfd8e3;background:#fff;border-radius:7px;padding:7px 6px;cursor:pointer;font-weight:800;font-size:.76rem;color:var(--navy)}
-  .unit-chip.active{background:var(--navy);border-color:var(--navy);color:#fff}
-  .scope-actions{display:flex;gap:6px;margin-top:8px}
-  .tiny-btn{border:1px solid #cfd8e3;background:#fff;color:var(--navy);border-radius:7px;padding:6px 8px;font-size:.74rem;font-weight:800;cursor:pointer}
-  .tiny-btn:hover{background:var(--blueSoft)}
+  main { max-width:1500px; margin:28px auto; padding:0 18px 60px; }
+  .page-grid { display:grid; grid-template-columns:minmax(340px,.95fr) minmax(430px,1.25fr) minmax(310px,.8fr); gap:20px; align-items:start; }
+  .panel { background:#fff; border-radius:12px; box-shadow:0 3px 12px rgba(0,0,0,.08); padding:20px; }
+  .panel h2 { margin-top:0; color:var(--navy); }
+  .subtle { color:var(--muted); line-height:1.45; font-size:.9rem; }
+  .sticky { position:sticky; top:18px; max-height:calc(100vh - 36px); overflow-y:auto; scrollbar-gutter:stable; }
 
-  .outcome-unit{border-top:1px solid #e7ebf0;padding-top:12px;margin-top:12px}
-  .outcome-unit:first-of-type{border-top:0;margin-top:6px}
-  .outcome-unit-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:8px}
-  .outcome-unit-title{font-weight:900;color:var(--navy);font-size:.88rem}
-  .sections{font-size:.71rem;color:var(--muted);margin-top:2px}
-  .outcome-card{border:1px solid #e0e5ec;border-radius:9px;padding:9px 10px;margin-bottom:7px;background:#fff}
-  .outcome-card-name{font-size:.85rem;font-weight:900;color:#243b53}
-  .outcome-card-desc{font-size:.76rem;line-height:1.35;color:var(--muted);margin-top:3px}
-  .outcome-card details{margin-top:6px}
-  .outcome-card summary{font-size:.7rem;color:#64748b;font-weight:800;cursor:pointer}
-  .official-tags{font-family:Consolas,"Courier New",monospace;font-size:.68rem;line-height:1.45;color:#475569;background:var(--soft);border-radius:6px;padding:6px;margin-top:5px}
-  .extension-note{font-size:.72rem;color:#805600;background:#fff8e1;border:1px solid #f1dfaa;border-radius:7px;padding:7px;margin-top:7px}
+  .unit-selector-box { margin:14px 0 12px; padding:12px; border:1px solid var(--line); border-radius:10px; background:var(--soft); }
+  .unit-selector-box strong { color:var(--navy); font-size:.85rem; }
+  .unit-chip-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:9px; }
+  .unit-chip { border:1px solid #cfd8e3; background:#fff; color:var(--navy); border-radius:7px; padding:7px 5px; cursor:pointer; font-weight:800; font-size:.74rem; }
+  .unit-chip.active { background:var(--navy); border-color:var(--navy); color:#fff; }
+  .scope-actions { display:flex; gap:7px; flex-wrap:wrap; margin-top:9px; }
+  .toolbar-btn { border:1px solid #cfd8e3; background:#fff; color:var(--navy); border-radius:8px; padding:7px 9px; cursor:pointer; font-weight:800; font-size:.77rem; }
+  .toolbar-btn:hover { background:var(--blue-soft); }
 
-  .title-box{display:grid;grid-template-columns:minmax(0,1fr) 115px;gap:10px;border:1px solid var(--line);background:var(--soft);border-radius:10px;padding:12px;margin-bottom:14px}
-  label{font-size:.73rem;font-weight:800;color:var(--muted);display:block;margin-bottom:4px}
-  input[type=text],input[type=number],select{width:100%;border:1px solid #cfd6df;border-radius:7px;padding:8px 9px;background:#fff;font-size:.88rem}
-  .toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:12px 0;flex-wrap:wrap}
-  .add-btn,.action-btn{border:0;border-radius:8px;padding:9px 11px;font-weight:900;cursor:pointer}
-  .add-btn{background:var(--navy);color:#fff}
-  .action-btn{background:#eaf1fb;color:var(--navy)}
-  .action-btn.danger{background:#fee2e2;color:#991b1b}
+  .outcome-unit { margin-top:12px; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff; }
+  .outcome-unit-head { background:var(--blue-soft); padding:10px 11px; display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+  .outcome-unit-title { color:var(--navy); font-weight:900; font-size:.88rem; }
+  .sections { color:var(--muted); font-size:.72rem; margin-top:2px; }
+  .unit-count { color:#516174; font-size:.72rem; font-weight:800; background:#fff; padding:4px 7px; border-radius:999px; white-space:nowrap; }
+  .outcome-unit-body { padding:8px; }
+  .outcome-card { border:1px solid #e0e5ec; border-radius:8px; margin-bottom:7px; background:#fff; overflow:hidden; }
+  .outcome-select-zone { padding:9px 10px; display:flex; gap:9px; align-items:flex-start; cursor:pointer; }
+  .outcome-select-zone:hover { background:#f8fbff; }
+  .outcome-card.selected { border-color:#86b990; background:#f4fbf5; }
+  .outcome-card.selected .outcome-select-zone { background:#eef8f0; }
+  .outcome-select-indicator { width:22px; height:22px; border:2px solid #b7c2cf; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; color:transparent; font-weight:900; font-size:.78rem; margin-top:1px; }
+  .outcome-card.selected .outcome-select-indicator { background:#2e7d32; border-color:#2e7d32; color:#fff; }
+  .outcome-main { flex:1; min-width:0; }
+  .outcome-name { color:#243b53; font-weight:900; font-size:.84rem; }
+  .outcome-desc { margin-top:3px; color:var(--muted); font-size:.75rem; line-height:1.35; }
+  .context-wrap { padding:0 10px 8px 41px; }
+  details summary { cursor:pointer; color:#64748b; font-size:.72rem; font-weight:800; }
+  .official-tags { font-family:Consolas,"Courier New",monospace; font-size:.68rem; line-height:1.45; color:#475569; background:var(--soft); border-radius:6px; padding:6px; margin-top:5px; }
+  .extension-note { font-size:.72rem; color:#805600; background:#fff8e1; border:1px solid #f1dfaa; border-radius:7px; padding:7px; margin-top:7px; }
 
-  .question-card{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:11px;background:#fff}
-  .question-head{background:var(--blueSoft);padding:10px 11px;display:flex;justify-content:space-between;gap:10px;align-items:center;cursor:pointer}
-  .question-head-left{display:flex;align-items:center;gap:9px;min-width:0}
-  .q-number{font-weight:900;color:var(--navy);white-space:nowrap}
-  .q-mini{font-size:.74rem;color:#516174;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .q-actions{display:flex;gap:5px;align-items:center}
-  .head-btn{border:1px solid #cfd8e3;background:#fff;color:var(--navy);border-radius:6px;padding:5px 7px;font-size:.72rem;font-weight:900;cursor:pointer}
-  .head-btn.remove{background:#fee2e2;border-color:#fecaca;color:#991b1b}
-  .question-card.collapsed .question-body{display:none}
-  .question-body{padding:11px}
-  .question-grid{display:grid;grid-template-columns:minmax(0,1.2fr) 84px 190px;gap:9px;align-items:end}
-  .difficulty{display:flex;gap:5px}
-  .diff-btn{flex:1;border:1px solid #cfd6df;background:#fff;border-radius:7px;padding:7px 4px;font-size:.75rem;font-weight:900;cursor:pointer}
-  .diff-btn.active.l1{background:#e8f5e9;border-color:#2e7d32;color:#1b5e20}
-  .diff-btn.active.l2{background:#fff8e1;border-color:#f9a825;color:#805600}
-  .diff-btn.active.l3{background:#ffebee;border-color:#c62828;color:#991b1b}
-  .mapping-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;margin-top:10px;padding-top:10px;border-top:1px solid #e5e7eb;align-items:end}
-  .mapping-field select{border-color:#7894b3;background:#fbfdff}
-  .outcome-add-btn{white-space:nowrap;height:35px}
-  .mapping-hint{font-size:.69rem;color:var(--muted);margin-top:4px}
-  .selected-map{margin-top:8px;display:flex;flex-wrap:wrap;gap:5px}
-  .map-pill{display:inline-flex;align-items:center;gap:5px;background:#eaf1fb;color:var(--navy);border-radius:999px;padding:4px 7px;font-size:.71rem;font-weight:900}
-  .map-pill button{border:0;background:transparent;color:inherit;cursor:pointer;padding:0;font-size:.9rem;font-weight:900;line-height:1}
-  .empty{font-size:.82rem;color:var(--muted);font-style:italic}
+  .assignment-title-box { margin-bottom:18px; padding:14px; border:1px solid var(--line); border-radius:10px; background:var(--soft); }
+  .assignment-title-box label, label.field-label { display:block; margin-bottom:5px; color:var(--navy); font-size:.8rem; font-weight:800; }
+  input[type="text"], input[type="number"] { width:100%; padding:8px 9px; border:1px solid #cfd6df; border-radius:7px; font-size:.9rem; background:#fff; }
+  .question-toolbar { display:flex; justify-content:space-between; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px; }
+  .add-question-btn { border:0; background:var(--navy); color:#fff; border-radius:8px; padding:10px 13px; font-weight:800; cursor:pointer; }
+  .question-card { border:1px solid var(--line); border-radius:11px; overflow:hidden; margin-bottom:14px; background:#fff; }
+  .question-card.collapsed .question-body { display:none; }
+  .question-head { background:var(--blue-soft); padding:12px 13px; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+  .question-head-left { min-width:0; }
+  .question-head strong { color:var(--navy); font-size:1rem; }
+  .question-mini { color:#64748b; font-size:.76rem; margin-top:2px; }
+  .question-head-actions { display:flex; gap:7px; align-items:center; flex-shrink:0; }
+  .question-collapse-btn { border:1px solid #cfd8e3; background:#fff; color:var(--navy); border-radius:7px; padding:6px 9px; cursor:pointer; font-size:.8rem; font-weight:800; }
+  .delete-question { border:0; background:#fee2e2; color:#991b1b; border-radius:7px; padding:7px 9px; cursor:pointer; font-size:.8rem; }
+  .question-body { padding:13px; }
+  .question-grid { display:grid; grid-template-columns:minmax(0,1.5fr) 90px minmax(150px,.8fr); gap:10px; align-items:end; }
+  .difficulty-group { display:flex; gap:5px; flex-wrap:wrap; }
+  .difficulty-btn { border:1px solid #cfd6df; background:#fff; border-radius:7px; padding:7px 9px; cursor:pointer; font-weight:800; min-width:34px; }
+  .difficulty-btn.active.level1 { background:#e8f5e9; border-color:#2e7d32; color:#1b5e20; }
+  .difficulty-btn.active.level2 { background:#fff8e1; border-color:#f9a825; color:#805600; }
+  .difficulty-btn.active.level3 { background:#ffebee; border-color:#c62828; color:#991b1b; }
 
-  .summary-card{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fbfcfe;margin-bottom:10px}
-  .summary-card>strong{display:block;color:var(--navy);margin-bottom:7px;font-size:.9rem}
-  .big-number{font-size:1.55rem;font-weight:900;color:var(--navy)}
-  .progress-row{margin:8px 0}
-  .progress-label{display:flex;justify-content:space-between;gap:8px;font-size:.77rem;margin-bottom:4px}
-  .bar{height:7px;background:#e5e7eb;border-radius:999px;overflow:hidden}
-  .bar>div{height:100%;background:var(--navy)}
-  .assessed-row{border-top:1px solid #e5e7eb;padding:8px 0}
-  .assessed-row:first-child{border-top:0;padding-top:0}
-  .assessed-name{font-size:.79rem;font-weight:900;color:#334155}
-  .assessed-q{font-size:.72rem;color:var(--muted);margin-top:2px}
-  .summary-key{font-size:.68rem;color:var(--muted);line-height:1.45;margin-top:6px}
-  .export-btn{width:100%;border:0;background:#0f766e;color:#fff;border-radius:8px;padding:10px 12px;font-weight:900;cursor:pointer;margin-bottom:10px}
+  .overleaf-btn { width:100%; border:0; background:#0f766e; color:#fff; border-radius:8px; padding:11px 13px; font-weight:800; cursor:pointer; margin-bottom:12px; }
+  .summary-card { border:1px solid var(--line); border-radius:10px; padding:13px; background:#fbfcfe; margin-bottom:12px; }
+  .summary-card > strong { display:block; color:var(--navy); margin-bottom:8px; }
+  .progress-row { margin:9px 0; }
+  .progress-label { display:flex; justify-content:space-between; gap:10px; font-size:.82rem; margin-bottom:4px; }
+  .progress-label span:first-child { flex:1; }
+  .bar { height:8px; background:#e5e7eb; border-radius:999px; overflow:hidden; }
+  .bar > div { height:100%; background:var(--navy); }
+  .selected-summary-item { border-top:1px solid #e5e7eb; padding:9px 0; }
+  .selected-summary-item:first-child { border-top:0; padding-top:0; }
+  .selected-summary-name { font-size:.8rem; font-weight:900; color:#334155; line-height:1.35; }
+  .selected-summary-meta { margin-top:3px; color:var(--muted); font-size:.72rem; line-height:1.35; }
+  .difficulty-key { margin-top:14px; }
+  .key { border-radius:8px; padding:9px 10px; margin-bottom:7px; line-height:1.35; font-size:.82rem; }
+  .key1 { background:#e8f5e9; } .key2 { background:#fff8e1; } .key3 { background:#ffebee; }
+  .empty { color:var(--muted); font-style:italic; font-size:.88rem; }
 
-  .modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
-  .modal.open{display:flex}
-  .dialog{width:min(1000px,96vw);max-height:90vh;background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-  .dialog-head{background:var(--navy);color:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
-  .dialog-head h3{margin:0;font-size:1rem}
-  .dialog-body{padding:12px;overflow:auto}
-  textarea{width:100%;min-height:520px;border:1px solid #cfd8e3;border-radius:8px;padding:10px;font:12px/1.4 Consolas,"Courier New",monospace;white-space:pre}
-  .modal-actions{display:flex;gap:7px;margin-bottom:8px}
+  .latex-modal { position:fixed; inset:0; background:rgba(15,23,42,.55); display:none; align-items:center; justify-content:center; padding:20px; z-index:9999; }
+  .latex-modal.open { display:flex; }
+  .latex-dialog { width:min(1050px,96vw); max-height:90vh; background:#fff; border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,.25); overflow:hidden; display:flex; flex-direction:column; }
+  .latex-dialog-head { padding:14px 16px; background:var(--navy); color:#fff; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+  .latex-dialog-head h3 { margin:0; font-size:1.05rem; }
+  .latex-close { border:1px solid rgba(255,255,255,.45); background:transparent; color:#fff; border-radius:7px; padding:6px 9px; cursor:pointer; font-weight:800; }
+  .latex-dialog-body { padding:14px; overflow:auto; }
+  .latex-actions { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+  .latex-action-btn { border:1px solid #cfd8e3; background:#fff; color:var(--navy); border-radius:8px; padding:8px 11px; cursor:pointer; font-weight:800; }
+  .latex-action-btn.primary { background:var(--navy); color:#fff; border-color:var(--navy); }
+  #latex-output { width:100%; min-height:520px; resize:vertical; border:1px solid #cfd8e3; border-radius:8px; padding:12px; font-family:Consolas,"Courier New",monospace; font-size:.82rem; line-height:1.4; white-space:pre; }
 
-  @media(max-width:1180px){.page-grid{grid-template-columns:minmax(300px,.85fr) minmax(480px,1.2fr)}.right-panel{grid-column:1/-1;position:static;max-height:none}.left-panel{position:static;max-height:none}}
-  @media(max-width:820px){.page-grid{grid-template-columns:1fr}.title-box,.question-grid,.mapping-grid{grid-template-columns:1fr}.unit-chip-grid{grid-template-columns:repeat(4,1fr)}}
+  @media (max-width:1180px) {
+    .page-grid { grid-template-columns:minmax(320px,.9fr) minmax(430px,1.2fr); }
+    .right-panel { grid-column:1/-1; position:static; max-height:none; overflow:visible; }
+    .left-panel { position:static; max-height:none; overflow:visible; }
+  }
+  @media (max-width:820px) {
+    .page-grid { grid-template-columns:1fr; }
+    .question-grid { grid-template-columns:1fr; }
+    .unit-chip-grid { grid-template-columns:repeat(4,1fr); }
+  }
 </style>
 </head>
 <body>
 <header>
   <div class="header-inner">
     <div>
-      <h1>Math 31 Test Blueprinter — Streamlined</h1>
-      <p>Teacher-friendly assessment outcomes on the surface; official Math 31 curriculum tags underneath.</p>
+      <h1>Math 31 Test Blueprint</h1>
+      <p>Whole-assessment outcome selection with official Math 31 curriculum mapping underneath.</p>
     </div>
+    <a class="back-link" href="blueprintmain.html">← Back to Courses</a>
   </div>
 </header>
 
@@ -119,15 +132,15 @@
   <div class="page-grid">
     <section class="panel sticky left-panel">
       <h2>Assessment Outcomes</h2>
-      <p class="subtle">Pick only the teaching units included on this assessment. The list below immediately shrinks to the outcomes you are likely to map.</p>
+      <p class="subtle">Choose the teaching units you want visible, then click an outcome once to include it on the assessment. Outcomes are selected for the test as a whole, not assigned question-by-question.</p>
 
-      <div class="setup-box">
-        <strong>Teaching units included</strong>
+      <div class="unit-selector-box">
+        <strong>Teaching units visible</strong>
         <div class="unit-chip-grid" id="unit-chips"></div>
         <div class="scope-actions">
-          <button class="tiny-btn" onclick="selectAllUnits(false)">Clear</button>
-          <button class="tiny-btn" onclick="selectAllUnits(true)">All units</button>
-          <button class="tiny-btn" onclick="loadDemoScope()">Demo: U1–U3</button>
+          <button class="toolbar-btn" type="button" onclick="selectAllUnits(false)">Clear Units</button>
+          <button class="toolbar-btn" type="button" onclick="selectAllUnits(true)">Show All Units</button>
+          <button class="toolbar-btn" type="button" onclick="clearSelectedOutcomes()">Clear Selected Outcomes</button>
         </div>
       </div>
 
@@ -135,37 +148,32 @@
     </section>
 
     <section class="panel">
-      <div class="title-box">
+      <div class="assignment-title-box">
+        <label for="assessment-title">Assignment / Test Title</label>
+        <input id="assessment-title" type="text" placeholder="e.g. Math 31 Unit 3 Test" oninput="updateTitle(this.value)">
+      </div>
+
+      <div class="question-toolbar">
         <div>
-          <label for="assessment-title">Assessment / Test Title</label>
-          <input id="assessment-title" type="text" oninput="state.title=this.value;save();renderSummary()">
+          <h2 style="margin-bottom:5px;">Test Questions</h2>
+          <p class="subtle" style="margin:0;">Add each question, its mark value, and its difficulty. Curriculum outcomes are selected separately for the assessment as a whole.</p>
         </div>
-        <div>
-          <label>Questions</label>
-          <div class="big-number" id="question-count">0</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <button class="toolbar-btn" type="button" onclick="collapseAllQuestions()">Minimize All</button>
+          <button class="add-question-btn" type="button" onclick="addQuestion()">+ Add Question</button>
         </div>
       </div>
 
-      <div class="toolbar">
-        <div>
-          <h2 style="margin-bottom:3px">Questions</h2>
-          <p class="subtle">Add as many assessment outcomes as genuinely apply to each question. Keep the list focused on what the question actually assesses.</p>
-        </div>
-        <div style="display:flex;gap:6px">
-          <button class="action-btn" onclick="collapseAllQuestions()">Minimize all</button>
-          <button class="add-btn" onclick="addQuestion()">+ Add Question</button>
-        </div>
-      </div>
-      <div id="questions"></div>
+      <div id="questions-container"></div>
     </section>
 
     <aside class="panel sticky right-panel">
       <h2>Blueprint Summary</h2>
-      <button class="export-btn" onclick="openExport()">Generate Overleaf Code</button>
+      <button class="overleaf-btn" type="button" onclick="generateOverleafCode()">Generate Overleaf Code</button>
 
       <div class="summary-card">
         <strong>Total Test Marks</strong>
-        <div class="big-number" id="total-marks">0</div>
+        <span id="total-marks">0</span>
       </div>
 
       <div class="summary-card">
@@ -174,24 +182,29 @@
       </div>
 
       <div class="summary-card">
-        <strong>Outcomes Assessed</strong>
-        <div id="assessed-summary"></div>
-        <div class="summary-key">Only outcomes you assign to at least one question are shown. Uncovered outcomes are intentionally omitted.</div>
+        <strong>Selected Assessment Outcomes</strong>
+        <div id="outcome-summary"><div class="empty">Click outcomes on the left to include them on this assessment.</div></div>
+      </div>
+
+      <div class="difficulty-key">
+        <div class="key key1"><strong>Level 1:</strong> direct recall or straightforward one-step work.</div>
+        <div class="key key2"><strong>Level 2:</strong> familiar application or multiple straightforward steps.</div>
+        <div class="key key3"><strong>Level 3:</strong> non-routine reasoning, strategic planning, or synthesis.</div>
       </div>
     </aside>
   </div>
 </main>
 
-<div class="modal" id="export-modal">
-  <div class="dialog">
-    <div class="dialog-head">
-      <h3>Overleaf / LaTeX Blueprint</h3>
-      <button class="head-btn" onclick="closeExport()">Close</button>
+<div class="latex-modal" id="latex-modal" aria-hidden="true">
+  <div class="latex-dialog">
+    <div class="latex-dialog-head">
+      <h3>Overleaf / LaTeX Blueprint Code</h3>
+      <button class="latex-close" type="button" onclick="closeLatexModal()">Close</button>
     </div>
-    <div class="dialog-body">
-      <div class="modal-actions">
-        <button class="add-btn" onclick="copyExport()">Copy Code</button>
-        <button class="action-btn" onclick="downloadExport()">Download .tex</button>
+    <div class="latex-dialog-body">
+      <div class="latex-actions">
+        <button class="latex-action-btn primary" id="copy-latex-btn" type="button" onclick="copyLatexCode()">Copy Code</button>
+        <button class="latex-action-btn" type="button" onclick="downloadLatexFile()">Download .tex</button>
       </div>
       <textarea id="latex-output" spellcheck="false"></textarea>
     </div>
@@ -276,182 +289,541 @@ const courseUnits = [
   ],note:'The Math 31 guide explicitly names the disc method. Stewart 6.3 cylindrical shells can be treated as extension material under the broader volume concept.'}
 ];
 
-const outcomeById={};
-courseUnits.forEach(u=>u.outcomes.forEach(o=>outcomeById[o.id]={...o,unitId:u.id,unitName:u.name,sections:u.sections}));
+const outcomeById = {};
+courseUnits.forEach(unit => unit.outcomes.forEach(outcome => {
+  outcomeById[outcome.id] = {
+    ...outcome,
+    unitId: unit.id,
+    unitName: unit.name,
+    sections: unit.sections,
+    note: unit.note || ""
+  };
+}));
 
-const demoQuestions=[
-  {uid:1,label:'Q1',marks:10,difficulty:2,outcomes:['U1-TRANS','U1-FUNC'],collapsed:true},
-  {uid:2,label:'Q2',marks:7,difficulty:1,outcomes:['U2-LIM-G','U2-CONT'],collapsed:true},
-  {uid:3,label:'Q3',marks:10,difficulty:3,outcomes:['U2-LIM-A','U2-CONT'],collapsed:true},
-  {uid:4,label:'Q4',marks:7,difficulty:2,outcomes:['U2-INF'],collapsed:true},
-  {uid:5,label:'Q5',marks:10,difficulty:2,outcomes:['U3-RATE','U3-DEF'],collapsed:true},
-  {uid:6,label:'Q6',marks:10,difficulty:2,outcomes:['U3-GRAPH','U3-DIFF'],collapsed:false}
-];
+const STORE = "math31-test-blueprint-simplified-v3";
+const OLD_STORES = ["math31-streamlined-blueprint-v2", "math31-streamlined-blueprint-v1"];
 
-let state={title:'Math 31: Unit Exam 1',selectedUnits:['U1','U2','U3'],questions:structuredClone(demoQuestions),nextUid:7};
-const STORE='math31-streamlined-blueprint-v2';
-const OLD_STORE='math31-streamlined-blueprint-v1';
+let state = {
+  title: "Math 31 Assessment",
+  selectedUnits: courseUnits.map(unit => unit.id),
+  selectedOutcomes: [],
+  questions: [],
+  nextUid: 1
+};
 
-function normalizeQuestion(q){
-  const outcomes=Array.isArray(q.outcomes) ? q.outcomes : [q.primary,q.secondary].filter(Boolean);
-  return {...q,outcomes:[...new Set(outcomes.filter(id=>outcomeById[id]))]};
-}
-function normalizeState(s){
-  if(!s||!Array.isArray(s.questions))return null;
+function normalizeState(raw) {
+  if (!raw || typeof raw !== "object") return null;
+  const questions = Array.isArray(raw.questions)
+    ? raw.questions.map((q, index) => ({
+        uid: Number(q.uid) || index + 1,
+        label: typeof q.label === "string" ? q.label : `Q${index + 1}`,
+        marks: Math.max(0, Number(q.marks) || 0),
+        difficulty: [1,2,3].includes(Number(q.difficulty)) ? Number(q.difficulty) : 2,
+        collapsed: Boolean(q.collapsed)
+      }))
+    : [];
+
+  const migratedSelections = new Set(Array.isArray(raw.selectedOutcomes) ? raw.selectedOutcomes : []);
+  if (!raw.selectedOutcomes && Array.isArray(raw.questions)) {
+    raw.questions.forEach(q => {
+      const ids = Array.isArray(q.outcomes) ? q.outcomes : [q.primary, q.secondary].filter(Boolean);
+      ids.forEach(id => { if (outcomeById[id]) migratedSelections.add(id); });
+    });
+  }
+
   return {
-    title:typeof s.title==='string'?s.title:'Math 31 Assessment',
-    selectedUnits:Array.isArray(s.selectedUnits)?s.selectedUnits:['U1','U2','U3'],
-    questions:s.questions.map(normalizeQuestion),
-    nextUid:Number(s.nextUid)||((Math.max(0,...s.questions.map(q=>Number(q.uid)||0)))+1)
+    title: typeof raw.title === "string" ? raw.title : "Math 31 Assessment",
+    selectedUnits: Array.isArray(raw.selectedUnits)
+      ? raw.selectedUnits.filter(id => courseUnits.some(unit => unit.id === id))
+      : courseUnits.map(unit => unit.id),
+    selectedOutcomes: [...migratedSelections].filter(id => outcomeById[id]),
+    questions,
+    nextUid: Number(raw.nextUid) || Math.max(1, ...questions.map(q => q.uid + 1))
   };
 }
-function save(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){}}
-function load(){
-  try{
-    const raw=localStorage.getItem(STORE)||localStorage.getItem(OLD_STORE);
-    const loaded=normalizeState(raw?JSON.parse(raw):null);
-    if(loaded)state=loaded;
-  }catch(e){}
-}
-function escapeHtml(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-function latexEscape(s){return String(s??'').replace(/\\/g,'\\textbackslash{}').replace(/([#$%&_{}])/g,'\\$1').replace(/~/g,'\\textasciitilde{}').replace(/\^/g,'\\textasciicircum{}')}
 
-function renderUnitChips(){
-  document.getElementById('unit-chips').innerHTML=courseUnits.map(u=>`<button class="unit-chip ${state.selectedUnits.includes(u.id)?'active':''}" onclick="toggleUnit('${u.id}')">${u.id}</button>`).join('');
-}
-function toggleUnit(id){
-  state.selectedUnits=state.selectedUnits.includes(id)?state.selectedUnits.filter(x=>x!==id):[...state.selectedUnits,id];
-  save();renderAll();
-}
-function selectAllUnits(on){state.selectedUnits=on?courseUnits.map(u=>u.id):[];save();renderAll()}
-function loadDemoScope(){state.selectedUnits=['U1','U2','U3'];save();renderAll()}
-
-function renderOutcomeReference(){
-  const el=document.getElementById('outcome-reference');
-  const units=courseUnits.filter(u=>state.selectedUnits.includes(u.id));
-  if(!units.length){el.innerHTML='<div class="empty">Select one or more teaching units above.</div>';return}
-  el.innerHTML=units.map(u=>`<div class="outcome-unit">
-    <div class="outcome-unit-head"><div><div class="outcome-unit-title">${u.id} — ${escapeHtml(u.name.replace(/^Unit \d+: /,''))}</div><div class="sections">Stewart ${u.sections}</div></div><div style="font-size:.7rem;color:#64748b">${u.outcomes.length} outcomes</div></div>
-    ${u.outcomes.map(o=>`<div class="outcome-card"><div class="outcome-card-name">${escapeHtml(o.name)}</div><div class="outcome-card-desc">${escapeHtml(o.desc)}</div><details><summary>Official Math 31 mapping</summary><div class="official-tags">${o.official.map(escapeHtml).join(' · ')}</div></details></div>`).join('')}
-    ${u.note?`<div class="extension-note">${escapeHtml(u.note)}</div>`:''}
-  </div>`).join('');
-}
-
-function getAvailableOutcomes(extra=[]){
-  const ids=new Set(extra.filter(Boolean));
-  courseUnits.filter(u=>state.selectedUnits.includes(u.id)).forEach(u=>u.outcomes.forEach(o=>ids.add(o.id)));
-  return [...ids].map(id=>outcomeById[id]).filter(Boolean).sort((a,b)=>a.unitId.localeCompare(b.unitId)||a.name.localeCompare(b.name));
-}
-function outcomeOptions(exclude=[]){
-  const excluded=new Set(exclude||[]);
-  const arr=getAvailableOutcomes();
-  let last='';let html='<option value="">— Select an outcome —</option>';
-  arr.forEach(o=>{
-    if(excluded.has(o.id))return;
-    if(o.unitId!==last){if(last)html+='</optgroup>';html+=`<optgroup label="${o.unitId} — ${escapeHtml(o.unitName.replace(/^Unit \d+: /,''))}">`;last=o.unitId}
-    html+=`<option value="${o.id}">${escapeHtml(o.name)}</option>`;
-  });
-  if(last)html+='</optgroup>';
-  return html;
-}
-
-function addQuestion(){
-  state.questions.forEach(q=>q.collapsed=true);
-  state.questions.push({uid:state.nextUid++,label:`Q${state.questions.length+1}`,marks:1,difficulty:2,outcomes:[],collapsed:false});save();renderAll();
-}
-function deleteQuestion(uid){state.questions=state.questions.filter(q=>q.uid!==uid);renumberBlankLabels();save();renderAll()}
-function renumberBlankLabels(){state.questions.forEach((q,i)=>{if(/^Q\d+$/.test(q.label))q.label=`Q${i+1}`})}
-function toggleQuestion(uid){const q=state.questions.find(q=>q.uid===uid);if(q){q.collapsed=!q.collapsed;save();renderQuestions()}}
-function collapseAllQuestions(){state.questions.forEach(q=>q.collapsed=true);save();renderQuestions()}
-function updateQuestion(uid,field,value){
-  const q=state.questions.find(q=>q.uid===uid);if(!q)return;
-  if(field==='marks')q.marks=Math.max(0,Number(value)||0);
-  else if(field==='difficulty')q.difficulty=Number(value)||2;
-  else q[field]=value;
-  save();renderQuestions();renderSummary();
-}
-function addOutcomeToQuestion(uid){
-  const q=state.questions.find(q=>q.uid===uid);if(!q)return;
-  const picker=document.getElementById(`outcome-picker-${uid}`);
-  const id=picker?.value;
-  if(!id||!outcomeById[id])return;
-  q.outcomes=Array.isArray(q.outcomes)?q.outcomes:[];
-  if(!q.outcomes.includes(id))q.outcomes.push(id);
-  save();renderQuestions();renderSummary();
-}
-function removeOutcomeFromQuestion(uid,id){
-  const q=state.questions.find(q=>q.uid===uid);if(!q)return;
-  q.outcomes=(q.outcomes||[]).filter(x=>x!==id);
-  save();renderQuestions();renderSummary();
-}
-
-function renderQuestions(){
-  document.getElementById('question-count').textContent=state.questions.length;
-  const el=document.getElementById('questions');
-  if(!state.questions.length){el.innerHTML='<div class="empty">No questions yet. Click “+ Add Question”.</div>';return}
-  el.innerHTML=state.questions.map((q,i)=>{
-    q.outcomes=Array.isArray(q.outcomes)?q.outcomes:[];
-    const selected=q.outcomes.map(id=>outcomeById[id]).filter(Boolean);
-    let mini='No outcome mapped';
-    if(selected.length){
-      const names=selected.slice(0,2).map(o=>o.name);
-      mini=names.join(' + ')+(selected.length>2?` + ${selected.length-2} more`:'');
+function loadState() {
+  try {
+    const current = localStorage.getItem(STORE);
+    if (current) {
+      const normalized = normalizeState(JSON.parse(current));
+      if (normalized) state = normalized;
+      return;
     }
-    return `<div class="question-card ${q.collapsed?'collapsed':''}">
-      <div class="question-head" onclick="toggleQuestion(${q.uid})">
-        <div class="question-head-left"><div class="q-number">${escapeHtml(q.label||`Q${i+1}`)}</div><div class="q-mini">${escapeHtml(mini)}</div></div>
-        <div class="q-actions" onclick="event.stopPropagation()"><button class="head-btn" onclick="toggleQuestion(${q.uid})">${q.collapsed?'Expand':'Minimize'}</button><button class="head-btn remove" onclick="deleteQuestion(${q.uid})">Remove</button></div>
+    for (const key of OLD_STORES) {
+      const old = localStorage.getItem(key);
+      if (!old) continue;
+      const normalized = normalizeState(JSON.parse(old));
+      if (normalized) {
+        state = normalized;
+        saveState();
+        return;
+      }
+    }
+  } catch (err) {}
+}
+
+function saveState() {
+  try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (err) {}
+}
+
+function selectedSet() { return new Set(state.selectedOutcomes); }
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function renderUnitChips() {
+  document.getElementById("unit-chips").innerHTML = courseUnits.map(unit => `
+    <button class="unit-chip ${state.selectedUnits.includes(unit.id) ? "active" : ""}"
+            type="button"
+            onclick="toggleUnit('${unit.id}')">${unit.id}</button>
+  `).join("");
+}
+
+function toggleUnit(id) {
+  state.selectedUnits = state.selectedUnits.includes(id)
+    ? state.selectedUnits.filter(unitId => unitId !== id)
+    : [...state.selectedUnits, id];
+  saveState();
+  renderUnitChips();
+  renderOutcomeReference();
+}
+
+function selectAllUnits(show) {
+  state.selectedUnits = show ? courseUnits.map(unit => unit.id) : [];
+  saveState();
+  renderUnitChips();
+  renderOutcomeReference();
+}
+
+function clearSelectedOutcomes() {
+  state.selectedOutcomes = [];
+  saveState();
+  renderOutcomeReference();
+  updateSummary();
+}
+
+function toggleOutcome(id) {
+  if (!outcomeById[id]) return;
+  const set = selectedSet();
+  if (set.has(id)) set.delete(id); else set.add(id);
+  state.selectedOutcomes = [...set];
+  saveState();
+  renderOutcomeReference();
+  updateSummary();
+}
+
+function renderOutcomeReference() {
+  const container = document.getElementById("outcome-reference");
+  const units = courseUnits.filter(unit => state.selectedUnits.includes(unit.id));
+  const set = selectedSet();
+
+  if (!units.length) {
+    container.innerHTML = `<div class="empty">Choose one or more teaching units above to view outcomes. Any outcomes already selected remain on the assessment.</div>`;
+    return;
+  }
+
+  container.innerHTML = units.map(unit => {
+    const selectedCount = unit.outcomes.filter(outcome => set.has(outcome.id)).length;
+    return `
+      <section class="outcome-unit">
+        <div class="outcome-unit-head">
+          <div>
+            <div class="outcome-unit-title">${unit.id} — ${escapeHtml(unit.name.replace(/^Unit \d+: /, ""))}</div>
+            <div class="sections">Stewart ${escapeHtml(unit.sections)}</div>
+          </div>
+          <span class="unit-count">${selectedCount} of ${unit.outcomes.length} selected</span>
+        </div>
+        <div class="outcome-unit-body">
+          ${unit.outcomes.map(outcome => {
+            const isSelected = set.has(outcome.id);
+            return `
+              <div class="outcome-card ${isSelected ? "selected" : ""}">
+                <div class="outcome-select-zone" role="button" tabindex="0" aria-pressed="${isSelected ? "true" : "false"}"
+                     onclick="toggleOutcome('${outcome.id}')"
+                     onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleOutcome('${outcome.id}');}">
+                  <span class="outcome-select-indicator">✓</span>
+                  <div class="outcome-main">
+                    <div class="outcome-name">${escapeHtml(outcome.name)}</div>
+                    <div class="outcome-desc">${escapeHtml(outcome.desc)}</div>
+                  </div>
+                </div>
+                <div class="context-wrap">
+                  <details onclick="event.stopPropagation()">
+                    <summary>Official Math 31 mapping</summary>
+                    <div class="official-tags">${outcome.official.map(escapeHtml).join(" · ")}</div>
+                  </details>
+                </div>
+              </div>`;
+          }).join("")}
+          ${unit.note ? `<div class="extension-note">${escapeHtml(unit.note)}</div>` : ""}
+        </div>
+      </section>`;
+  }).join("");
+}
+
+function updateTitle(value) {
+  state.title = value;
+  saveState();
+}
+
+function addQuestion() {
+  state.questions.forEach(question => question.collapsed = true);
+  state.questions.push({
+    uid: state.nextUid++,
+    label: `Q${state.questions.length + 1}`,
+    marks: 1,
+    difficulty: 2,
+    collapsed: false
+  });
+  saveState();
+  renderQuestions();
+  updateSummary();
+}
+
+function toggleQuestionCollapse(uid) {
+  const question = state.questions.find(q => q.uid === uid);
+  if (!question) return;
+  question.collapsed = !question.collapsed;
+  saveState();
+  renderQuestions();
+}
+
+function collapseAllQuestions() {
+  state.questions.forEach(question => question.collapsed = true);
+  saveState();
+  renderQuestions();
+}
+
+function deleteQuestion(uid) {
+  state.questions = state.questions.filter(question => question.uid !== uid);
+  state.questions.forEach((question, index) => {
+    if (/^Q\d+$/.test(question.label)) question.label = `Q${index + 1}`;
+  });
+  saveState();
+  renderQuestions();
+  updateSummary();
+}
+
+function updateQuestion(uid, field, value) {
+  const question = state.questions.find(q => q.uid === uid);
+  if (!question) return;
+
+  if (field === "marks") question.marks = Math.max(0, Number(value) || 0);
+  else if (field === "difficulty") question.difficulty = Number(value) || 2;
+  else question[field] = value;
+
+  saveState();
+  if (field === "difficulty" || field === "marks") renderQuestions();
+  else if (field === "label") {
+    const title = document.querySelector(`[data-question-title="${uid}"]`);
+    if (title) title.textContent = question.label || `Question ${uid}`;
+  }
+  updateSummary();
+}
+
+function renderQuestions() {
+  const container = document.getElementById("questions-container");
+  if (!state.questions.length) {
+    container.innerHTML = `<div class="empty">No questions yet. Click “+ Add Question” to begin.</div>`;
+    return;
+  }
+
+  container.innerHTML = state.questions.map((question, index) => `
+    <div class="question-card ${question.collapsed ? "collapsed" : ""}">
+      <div class="question-head">
+        <div class="question-head-left">
+          <strong data-question-title="${question.uid}">${escapeHtml(question.label || `Q${index + 1}`)}</strong>
+          <div class="question-mini">${Number(question.marks) || 0} mark${Number(question.marks) === 1 ? "" : "s"} · Level ${question.difficulty}</div>
+        </div>
+        <div class="question-head-actions">
+          <button class="question-collapse-btn" type="button" onclick="toggleQuestionCollapse(${question.uid})">${question.collapsed ? "Expand" : "Minimize"}</button>
+          <button class="delete-question" type="button" onclick="deleteQuestion(${question.uid})">Remove Question</button>
+        </div>
       </div>
       <div class="question-body">
         <div class="question-grid">
-          <div><label>Question label</label><input type="text" value="${escapeHtml(q.label)}" onchange="updateQuestion(${q.uid},'label',this.value)"></div>
-          <div><label>Marks</label><input type="number" min="0" step="1" value="${q.marks}" onchange="updateQuestion(${q.uid},'marks',this.value)"></div>
-          <div><label>Difficulty</label><div class="difficulty">${[1,2,3].map(n=>`<button class="diff-btn l${n} ${q.difficulty===n?'active':''}" onclick="updateQuestion(${q.uid},'difficulty',${n})">L${n}</button>`).join('')}</div></div>
+          <div>
+            <label class="field-label">Question label</label>
+            <input type="text" value="${escapeHtml(question.label)}" oninput="updateQuestion(${question.uid}, 'label', this.value)">
+          </div>
+          <div>
+            <label class="field-label">Marks</label>
+            <input type="number" min="0" step="1" value="${question.marks}" onchange="updateQuestion(${question.uid}, 'marks', this.value)">
+          </div>
+          <div>
+            <label class="field-label">Difficulty</label>
+            <div class="difficulty-group">
+              ${[1,2,3].map(level => `
+                <button type="button" class="difficulty-btn level${level} ${question.difficulty === level ? "active" : ""}"
+                        onclick="updateQuestion(${question.uid}, 'difficulty', ${level})">${level}</button>
+              `).join("")}
+            </div>
+          </div>
         </div>
-        <div class="mapping-grid">
-          <div class="mapping-field"><label>Add assessment outcome</label><select id="outcome-picker-${q.uid}">${outcomeOptions(q.outcomes)}</select><div class="mapping-hint">Add every outcome that is meaningfully assessed by this question. You can add as many as needed.</div></div>
-          <button class="add-btn outcome-add-btn" onclick="addOutcomeToQuestion(${q.uid})">+ Add Outcome</button>
-        </div>
-        <div class="selected-map">${selected.length?selected.map(o=>`<span class="map-pill">${escapeHtml(o.name)} <button type="button" title="Remove ${escapeHtml(o.name)}" onclick="removeOutcomeFromQuestion(${q.uid},'${o.id}')">×</button></span>`).join(''):'<span class="empty">No outcomes assigned.</span>'}</div>
       </div>
-    </div>`
-  }).join('');
+    </div>
+  `).join("");
 }
 
-function renderSummary(){
-  const total=state.questions.reduce((a,q)=>a+(Number(q.marks)||0),0);document.getElementById('total-marks').textContent=total;
-  const d=document.getElementById('difficulty-summary');
-  d.innerHTML=[1,2,3].map(n=>{const marks=state.questions.filter(q=>q.difficulty===n).reduce((a,q)=>a+(Number(q.marks)||0),0);const pct=total?marks/total*100:0;return `<div class="progress-row"><div class="progress-label"><span>Level ${n}</span><strong>${marks} marks · ${pct.toFixed(0)}%</strong></div><div class="bar"><div style="width:${pct}%"></div></div></div>`}).join('');
-  const map={};
-  state.questions.forEach(q=>{
-    (q.outcomes||[]).forEach(id=>{
-      if(!outcomeById[id])return;
-      map[id]??=[];
-      if(!map[id].includes(q.label))map[id].push(q.label);
-    });
+function updateSummary() {
+  const totalMarks = state.questions.reduce((sum, question) => sum + (Number(question.marks) || 0), 0);
+  document.getElementById("total-marks").textContent = totalMarks.toFixed(2).replace(".00", "");
+
+  const difficultyMarks = {1:0, 2:0, 3:0};
+  state.questions.forEach(question => {
+    difficultyMarks[question.difficulty] += Number(question.marks) || 0;
   });
-  const ids=Object.keys(map);
-  const assessed=document.getElementById('assessed-summary');
-  if(!ids.length){assessed.innerHTML='<div class="empty">Assign outcomes to questions to build the summary.</div>';return}
-  assessed.innerHTML=ids.sort((a,b)=>(outcomeById[a]?.unitId||'').localeCompare(outcomeById[b]?.unitId||'')||(outcomeById[a]?.name||'').localeCompare(outcomeById[b]?.name||'')).map(id=>{
-    const o=outcomeById[id];return `<div class="assessed-row"><div class="assessed-name">${o.unitId}: ${escapeHtml(o.name)}</div><div class="assessed-q">${map[id].map(escapeHtml).join(', ')}</div></div>`
-  }).join('');
+
+  document.getElementById("difficulty-summary").innerHTML = [1,2,3].map(level => {
+    const marks = difficultyMarks[level];
+    const pct = totalMarks ? marks / totalMarks * 100 : 0;
+    return `
+      <div class="progress-row">
+        <div class="progress-label">
+          <span>Level ${level}</span>
+          <span>${marks.toFixed(2).replace(".00", "")} — ${pct.toFixed(1)}%</span>
+        </div>
+        <div class="bar"><div style="width:${pct}%"></div></div>
+      </div>`;
+  }).join("");
+
+  const selected = state.selectedOutcomes.map(id => outcomeById[id]).filter(Boolean)
+    .sort((a,b) => a.unitId.localeCompare(b.unitId, undefined, {numeric:true}) || a.name.localeCompare(b.name));
+  const summary = document.getElementById("outcome-summary");
+
+  if (!selected.length) {
+    summary.innerHTML = `<div class="empty">Click outcomes on the left to include them on this assessment.</div>`;
+    return;
+  }
+
+  summary.innerHTML = selected.map(outcome => `
+    <div class="selected-summary-item">
+      <div class="selected-summary-name">${outcome.unitId}: ${escapeHtml(outcome.name)}</div>
+      <div class="selected-summary-meta">${escapeHtml(outcome.unitName.replace(/^Unit \d+: /, ""))}<br>${outcome.official.map(escapeHtml).join(" · ")}</div>
+    </div>
+  `).join("");
 }
 
-function buildLatex(){
-  const title=state.title||'Math 31 Assessment Blueprint';const total=state.questions.reduce((a,q)=>a+(Number(q.marks)||0),0);
-  const used={};state.questions.forEach(q=>{(q.outcomes||[]).filter(id=>outcomeById[id]).forEach(id=>{used[id]??=[];if(!used[id].includes(q.label))used[id].push(q.label)})});
-  const qrows=state.questions.map(q=>{const names=(q.outcomes||[]).map(id=>outcomeById[id]?.name).filter(Boolean).join('; ');return `${latexEscape(q.label)} & ${q.marks} & L${q.difficulty} & ${latexEscape(names)} \\\\`}).join('\n');
-  const orows=Object.keys(used).map(id=>{const o=outcomeById[id];return `${latexEscape(o.name)} & ${latexEscape(used[id].join(', '))} & ${latexEscape(o.official.join(', '))} \\\\`}).join('\n');
-  return `\\documentclass[10pt]{article}\n\\usepackage[margin=0.75in]{geometry}\n\\usepackage{booktabs,longtable,array}\n\\usepackage{xcolor}\n\\begin{document}\n\\begin{center}\n{\\Large\\bfseries ${latexEscape(title)}}\\\\[4pt]\nStreamlined Math 31 Assessment Blueprint\\\\[4pt]\n\\textbf{Total Marks: ${total}}\n\\end{center}\n\n\\section*{Question Blueprint}\n\\begin{longtable}{p{0.10\\textwidth}p{0.08\\textwidth}p{0.08\\textwidth}p{0.62\\textwidth}}\n\\toprule\nQuestion & Marks & Diff. & Assessment Outcomes \\\\\n\\midrule\n${qrows}\n\\bottomrule\n\\end{longtable}\n\n\\section*{Outcomes Assessed}\n\\begin{longtable}{p{0.34\\textwidth}p{0.18\\textwidth}p{0.38\\textwidth}}\n\\toprule\nAssessment Outcome & Questions & Official Math 31 Mapping \\\\\n\\midrule\n${orows||'No outcomes assigned. & & \\\\'}\n\\bottomrule\n\\end{longtable}\n\n\\end{document}`;
-}
-function openExport(){document.getElementById('latex-output').value=buildLatex();document.getElementById('export-modal').classList.add('open')}
-function closeExport(){document.getElementById('export-modal').classList.remove('open')}
-async function copyExport(){const t=document.getElementById('latex-output');try{await navigator.clipboard.writeText(t.value)}catch(e){t.select();document.execCommand('copy')}}
-function downloadExport(){const blob=new Blob([document.getElementById('latex-output').value],{type:'text/x-tex'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(state.title||'math31_blueprint').replace(/[^a-z0-9_-]+/gi,'_')+'.tex';a.click();URL.revokeObjectURL(a.href)}
+function latexEscape(value) {
+  let text = String(value ?? "");
+  const placeholders = [];
 
-function renderAll(){document.getElementById('assessment-title').value=state.title;renderUnitChips();renderOutcomeReference();renderQuestions();renderSummary()}
-load();renderAll();
+  function protect(latex) {
+    const token = `@@SAFE${placeholders.length}@@`;
+    placeholders.push(latex);
+    return token;
+  }
+
+  text = text
+    .replace(/√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$\\sqrt{${radicand}}$`))
+    .replace(/−√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$-\\sqrt{${radicand}}$`))
+    .replace(/±√([A-Za-z0-9]+)/g, (_, radicand) => protect(`$\\pm\\sqrt{${radicand}}$`))
+    .replace(/([A-Za-z0-9])²/g, (_, base) => protect(`$${base}^{2}$`))
+    .replace(/([A-Za-z0-9])³/g, (_, base) => protect(`$${base}^{3}$`));
+
+  const replacements = [
+    ["π", "$\\pi$"], ["×", "$\\times$"], ["⋅", "$\\cdot$"], ["−", "$-$"],
+    ["√", "$\\sqrt{\\phantom{x}}$"], ["∛", "$\\sqrt[3]{\\phantom{x}}$"],
+    ["≤", "$\\leq$"], ["≥", "$\\geq$"], ["≠", "$\\neq$"], ["±", "$\\pm$"],
+    ["°", "$^{\\circ}$"]
+  ];
+
+  replacements.forEach(([unicode, latex]) => { text = text.split(unicode).join(protect(latex)); });
+
+  text = text
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/–/g, "--")
+    .replace(/—/g, "---")
+    .replace(/\u00A0/g, " ");
+
+  text = text
+    .replaceAll("\\", "\\textbackslash{}")
+    .replaceAll("&", "\\&")
+    .replaceAll("%", "\\%")
+    .replaceAll("$", "\\$")
+    .replaceAll("#", "\\#")
+    .replaceAll("_", "\\_")
+    .replaceAll("{", "\\{")
+    .replaceAll("}", "\\}")
+    .replaceAll("~", "\\textasciitilde{}")
+    .replaceAll("^", "\\textasciicircum{}");
+
+  placeholders.forEach((latex, index) => {
+    text = text.split(`@@SAFE${index}@@`).join(latex);
+  });
+  return text;
+}
+
+function buildLatexBlueprint() {
+  const title = state.title.trim() || "Math 31 Assessment Blueprint";
+  const latexTitle = latexEscape(title);
+  const totalMarks = state.questions.reduce((sum, question) => sum + (Number(question.marks) || 0), 0);
+
+  const difficultyMarks = {1:0, 2:0, 3:0};
+  state.questions.forEach(question => {
+    difficultyMarks[question.difficulty] += Number(question.marks) || 0;
+  });
+
+  const selected = state.selectedOutcomes.map(id => outcomeById[id]).filter(Boolean)
+    .sort((a,b) => a.unitId.localeCompare(b.unitId, undefined, {numeric:true}) || a.name.localeCompare(b.name));
+
+  const questionRows = state.questions.map((question, index) => {
+    const label = latexEscape((question.label || `Q${index + 1}`).trim());
+    return `${label} & ${Number(question.marks) || 0} & Level ${question.difficulty} \\\\`;
+  }).join("\n");
+
+  const outcomeRows = selected.map(outcome => {
+    return `${latexEscape(outcome.unitId)} & ${latexEscape(outcome.name)} & ${latexEscape(outcome.unitName.replace(/^Unit \d+: /, ""))} & ${latexEscape(outcome.official.join(", "))} \\\\`;
+  }).join("\n");
+
+  const difficultyRows = [1,2,3].map(level => {
+    const marks = difficultyMarks[level];
+    const pct = totalMarks ? marks / totalMarks * 100 : 0;
+    return `Level ${level} & ${marks} & ${pct.toFixed(1)}\\% \\\\`;
+  }).join("\n");
+
+  return `\\documentclass[11pt]{article}
+
+\\usepackage[margin=0.75in]{geometry}
+\\usepackage{array}
+\\usepackage{booktabs}
+\\usepackage{longtable}
+\\usepackage{xcolor}
+\\usepackage{fancyhdr}
+\\usepackage{titlesec}
+
+\\definecolor{blueprintblue}{HTML}{12355B}
+
+\\pagestyle{fancy}
+\\fancyhf{}
+\\lhead{Math 31 Blueprint}
+\\rhead{${latexTitle}}
+\\cfoot{\\thepage}
+
+\\titleformat{\\section}{\\large\\bfseries\\color{blueprintblue}}{}{0pt}{}
+\\setlength{\\parindent}{0pt}
+\\setlength{\\parskip}{4pt}
+
+\\begin{document}
+
+\\begin{center}
+{\\LARGE\\bfseries\\color{blueprintblue} ${latexTitle}}\\\\[4pt]
+{\\large Math 31 Curriculum Blueprint}
+\\end{center}
+
+\\vspace{0.5em}
+
+\\section*{Assessment Summary}
+\\begin{tabular}{@{}lr@{}}
+\\toprule
+\\textbf{Assignment} & ${latexTitle} \\\\
+\\textbf{Total Questions} & ${state.questions.length} \\\\
+\\textbf{Total Marks} & ${totalMarks} \\\\
+\\textbf{Selected Assessment Outcomes} & ${selected.length} \\\\
+\\bottomrule
+\\end{tabular}
+
+\\vspace{1em}
+
+\\section*{Difficulty Distribution}
+\\begin{tabular}{@{}lrr@{}}
+\\toprule
+\\textbf{Difficulty} & \\textbf{Marks} & \\textbf{Percent} \\\\
+\\midrule
+${difficultyRows}
+\\bottomrule
+\\end{tabular}
+
+\\vspace{1em}
+
+\\section*{Questions}
+\\begin{longtable}{>{\\bfseries}p{0.22\\textwidth} p{0.16\\textwidth} p{0.22\\textwidth}}
+\\toprule
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} \\\\
+\\midrule
+\\endfirsthead
+\\toprule
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} \\\\
+\\midrule
+\\endhead
+${questionRows || "\\multicolumn{3}{l}{No questions entered.} \\\\"}
+\\bottomrule
+\\end{longtable}
+
+\\section*{Selected Assessment Outcomes}
+\\begin{longtable}{>{\\bfseries}p{0.07\\textwidth} p{0.25\\textwidth} p{0.27\\textwidth} p{0.31\\textwidth}}
+\\toprule
+\\textbf{Unit} & \\textbf{Assessment Outcome} & \\textbf{Teaching Topic} & \\textbf{Official Math 31 Mapping} \\\\
+\\midrule
+\\endfirsthead
+\\toprule
+\\textbf{Unit} & \\textbf{Assessment Outcome} & \\textbf{Teaching Topic} & \\textbf{Official Math 31 Mapping} \\\\
+\\midrule
+\\endhead
+${outcomeRows || "\\multicolumn{4}{l}{No assessment outcomes selected.} \\\\"}
+\\bottomrule
+\\end{longtable}
+
+\\end{document}`;
+}
+
+function generateOverleafCode() {
+  const modal = document.getElementById("latex-modal");
+  document.getElementById("latex-output").value = buildLatexBlueprint();
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+}
+
+function closeLatexModal() {
+  const modal = document.getElementById("latex-modal");
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+}
+
+async function copyLatexCode() {
+  const output = document.getElementById("latex-output");
+  const button = document.getElementById("copy-latex-btn");
+  try { await navigator.clipboard.writeText(output.value); }
+  catch (err) { output.select(); document.execCommand("copy"); }
+
+  const original = button.textContent;
+  button.textContent = "Copied ✓";
+  button.disabled = true;
+  setTimeout(() => { button.textContent = original; button.disabled = false; }, 1400);
+}
+
+function downloadLatexFile() {
+  const code = document.getElementById("latex-output").value || buildLatexBlueprint();
+  const blob = new Blob([code], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  const safe = (state.title || "Math 31 Test Blueprint").replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "").toLowerCase();
+  link.href = url;
+  link.download = `${safe || "math31-test-blueprint"}.tex`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function renderAll() {
+  document.getElementById("assessment-title").value = state.title;
+  renderUnitChips();
+  renderOutcomeReference();
+  renderQuestions();
+  updateSummary();
+}
+
+loadState();
+renderAll();
 </script>
 </body>
 </html>

@@ -208,11 +208,47 @@
       background: #fff;
     }
 
+    .knowledge-card.selected {
+      border-color: #2e7d32;
+      box-shadow: 0 0 0 2px rgba(46,125,50,.08);
+    }
+
+    .knowledge-card.selected .knowledge-main {
+      background: #eef8ef;
+    }
+
+    .outcome-select-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid #cfd6df;
+      background: #fff;
+      color: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: .8rem;
+      font-weight: 900;
+    }
+
+    .knowledge-card.selected .outcome-select-indicator {
+      background: #2e7d32;
+      border-color: #2e7d32;
+      color: #fff;
+    }
+
     .knowledge-main {
       padding: 9px 10px 6px;
       display: flex;
       gap: 9px;
       align-items: flex-start;
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+
+    .knowledge-main:hover {
+      background: #f4f8fc;
     }
 
     .knowledge-id {
@@ -823,9 +859,8 @@
     <section class="panel">
       <h2>Curriculum Reference</h2>
       <p class="subtle">
-        Choose a unit to show only the curriculum statements for that assessment. Knowledge statements keep permanent unit-based tags, so
-        teachers can build a focused unit test without searching through the entire Grade 7 curriculum. Open Curriculum context when you need
-        the related Understanding or Skills &amp; Procedures.
+        Choose a unit, then click the curriculum statements that are assessed on this test. Selected outcomes apply to the assessment as a whole,
+        so you do not need to assign outcomes question-by-question. Open Curriculum context when you need the related Understanding or Skills &amp; Procedures.
       </p>
 
       <div class="unit-selector-box">
@@ -858,7 +893,7 @@
         <div>
           <h2 style="margin-bottom:5px;">Test Questions</h2>
           <p class="subtle" style="margin:0;">
-            Create each question once, then drag Knowledge outcomes from the curriculum column onto the question. If a question assesses multiple outcomes, each tagged curriculum reference lists the question numbers that assess it in the Knowledge Distribution. Adding a new question automatically minimizes the questions above it.
+            Add each question and set its marks and difficulty. Curriculum outcomes are selected once for the whole test from the left column, so there is no outcome tagging inside individual questions. Adding a new question automatically minimizes the questions above it.
           </p>
         </div>
         <button class="add-question-btn" type="button" onclick="addQuestion()">+ Add Question</button>
@@ -885,15 +920,10 @@
       </div>
 
       <div class="summary-card">
-        <strong>Knowledge Distribution</strong>
-        <div id="knowledge-summary">
-          <div class="empty">Tag curriculum Knowledge statements to questions to see distribution.</div>
+        <strong>Selected Learning Outcomes</strong>
+        <div id="outcome-summary">
+          <div class="empty">Click curriculum outcomes to include them on this test.</div>
         </div>
-      </div>
-
-      <div class="summary-card">
-        <strong>Unit Knowledge Coverage</strong>
-        <div id="coverage-summary"></div>
       </div>
 
       <div class="difficulty-key">
@@ -1535,6 +1565,7 @@ const curriculum = [
 
 const collapsedUnits = new Set();
 const questions = [];
+const selectedOutcomes = new Set();
 let questionCounter = 1;
 
 function getUnitPrefix(unitName) {
@@ -1603,6 +1634,16 @@ function showAllUnits() {
   setActiveUnit("all");
 }
 
+function toggleOutcome(id) {
+  if (!knowledgeById[id]) return;
+
+  if (selectedOutcomes.has(id)) selectedOutcomes.delete(id);
+  else selectedOutcomes.add(id);
+
+  renderCurriculum();
+  updateSummary();
+}
+
 function renderCurriculum() {
   const container = document.getElementById("curriculum-container");
   container.innerHTML = "";
@@ -1613,9 +1654,7 @@ function renderCurriculum() {
 
   unitsToRender.forEach(unit => {
     const unitItems = knowledgeItems.filter(x => x.unit === unit.unit);
-    const covered = unitItems.filter(item =>
-      questions.some(q => q.tags.includes(item.id))
-    ).length;
+    const selectedCount = unitItems.filter(item => selectedOutcomes.has(item.id)).length;
 
     const unitDiv = document.createElement("section");
     unitDiv.className = `unit ${collapsedUnits.has(unit.unit) ? "collapsed" : ""}`;
@@ -1627,7 +1666,7 @@ function renderCurriculum() {
           <span class="unit-number">U${unit.unitNumber}</span>
           <h3>${unit.unit}</h3>
         </span>
-        <span class="unit-count">${covered} of ${unitItems.length} covered</span>
+        <span class="unit-count">${selectedCount} selected</span>
       </button>
       <div class="unit-body"></div>
     `;
@@ -1636,15 +1675,16 @@ function renderCurriculum() {
 
     unitItems.forEach(item => {
       const card = document.createElement("div");
-      card.className = "knowledge-card";
-      card.setAttribute("draggable", "true");
+      const isSelected = selectedOutcomes.has(item.id);
+      card.className = `knowledge-card ${isSelected ? "selected" : ""}`;
       card.dataset.knowledgeId = item.id;
 
       card.innerHTML = `
-        <div class="knowledge-main">
+        <div class="knowledge-main" role="button" tabindex="0" aria-pressed="${isSelected}">
           <div class="knowledge-text">
             <span class="knowledge-id">${item.id}</span>${item.text}
           </div>
+          <span class="outcome-select-indicator" aria-hidden="true">✓</span>
         </div>
         <div class="context-wrap">
           <details class="context-details">
@@ -1659,14 +1699,13 @@ function renderCurriculum() {
         </div>
       `;
 
-      card.addEventListener("dragstart", event => {
-        card.classList.add("dragging");
-        event.dataTransfer.effectAllowed = "copy";
-        event.dataTransfer.setData("text/plain", item.id);
-      });
-
-      card.addEventListener("dragend", () => {
-        card.classList.remove("dragging");
+      const selectArea = card.querySelector(".knowledge-main");
+      selectArea.addEventListener("click", () => toggleOutcome(item.id));
+      selectArea.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleOutcome(item.id);
+        }
       });
 
       body.appendChild(card);
@@ -1703,8 +1742,6 @@ function addQuestion() {
     label: `Q${questions.length + 1}`,
     marks: 1,
     difficulty: 2,
-    tags: [],
-    allocations: {},
     collapsed: false
   };
 
@@ -1725,7 +1762,6 @@ function deleteQuestion(uid) {
   if (index >= 0) questions.splice(index, 1);
   renderQuestions();
   updateSummary();
-  renderCurriculum();
 }
 
 function updateQuestion(uid, field, value) {
@@ -1734,12 +1770,15 @@ function updateQuestion(uid, field, value) {
 
   if (field === "marks") {
     q.marks = Math.max(0, Number(value) || 0);
-    rebalanceAllocations(q);
   } else {
     q[field] = value;
   }
 
-  renderQuestions();
+  if (field === "label") {
+    const title = document.querySelector(`[data-question-title="${uid}"]`);
+    if (title) title.textContent = q.label || `Question ${uid}`;
+  }
+
   updateSummary();
 }
 
@@ -1749,69 +1788,6 @@ function setDifficulty(uid, level) {
   q.difficulty = level;
   renderQuestions();
   updateSummary();
-}
-
-function addTagToQuestion(uid, tag) {
-  const q = questions.find(q => q.uid === uid);
-  if (!q || !tag || q.tags.includes(tag) || !knowledgeById[tag]) return;
-
-  q.tags.push(tag);
-  rebalanceAllocations(q);
-  renderQuestions();
-  updateSummary();
-  renderCurriculum();
-}
-
-function removeTag(uid, tag) {
-  const q = questions.find(q => q.uid === uid);
-  if (!q) return;
-
-  q.tags = q.tags.filter(x => x !== tag);
-  delete q.allocations[tag];
-  rebalanceAllocations(q);
-  renderQuestions();
-  updateSummary();
-  renderCurriculum();
-}
-
-function rebalanceAllocations(q) {
-  if (!q.tags.length) {
-    q.allocations = {};
-    return;
-  }
-
-  const marks = Number(q.marks) || 0;
-  const base = marks / q.tags.length;
-
-  q.tags.forEach(tag => {
-    q.allocations[tag] = Number(base.toFixed(2));
-  });
-}
-
-function updateAllocation(uid, tag, value) {
-  const q = questions.find(q => q.uid === uid);
-  if (!q) return;
-
-  q.allocations[tag] = Math.max(0, Number(value) || 0);
-  updateSummary();
-  updateAllocationStatus(uid);
-}
-
-function getAllocationTotal(q) {
-  return q.tags.reduce((sum, tag) => sum + (Number(q.allocations[tag]) || 0), 0);
-}
-
-function updateAllocationStatus(uid) {
-  const q = questions.find(q => q.uid === uid);
-  const el = document.getElementById(`allocation-status-${uid}`);
-  if (!q || !el) return;
-
-  const total = getAllocationTotal(q);
-  const expected = Number(q.marks) || 0;
-  const ok = Math.abs(total - expected) < 0.01;
-
-  el.className = `allocation-summary ${ok ? "ok" : "bad"}`;
-  el.textContent = `Allocated: ${total.toFixed(2)} / ${expected.toFixed(2)} marks ${ok ? "✓" : "— adjust allocations"}`;
 }
 
 function renderQuestions() {
@@ -1825,24 +1801,12 @@ function renderQuestions() {
   container.innerHTML = "";
 
   questions.forEach(q => {
-
     const card = document.createElement("div");
     card.className = `question-card ${q.collapsed ? "collapsed" : ""}`;
 
-
-    const tagsHtml = q.tags.length
-      ? q.tags.map(tag => `
-          <span class="tag">
-            ${tag}
-            <button type="button" title="Remove ${tag}" onclick="removeTag(${q.uid}, '${tag}')">×</button>
-          </span>
-        `).join("")
-      : `<span class="empty">No Knowledge tagged yet.</span>`;
-
-
     card.innerHTML = `
       <div class="question-head">
-        <strong>${escapeHtml(q.label || `Question ${q.uid}`)}</strong>
+        <strong data-question-title="${q.uid}">${escapeHtml(q.label || `Question ${q.uid}`)}</strong>
         <div class="question-head-actions">
           <button class="question-collapse-btn"
                   type="button"
@@ -1868,7 +1832,7 @@ function renderQuestions() {
           <div>
             <label class="field-label">Marks</label>
             <input type="number" min="0" step="1" value="${q.marks}"
-                   onchange="updateQuestion(${q.uid}, 'marks', this.value)">
+                   oninput="updateQuestion(${q.uid}, 'marks', this.value)">
           </div>
 
           <div>
@@ -1883,46 +1847,10 @@ function renderQuestions() {
             </div>
           </div>
         </div>
-
-        <div class="tag-section">
-          <div class="tag-section-title">
-            <strong>Knowledge assessed</strong>
-            <span class="subtle">${q.tags.length} tagged</span>
-          </div>
-
-          <div class="drop-zone"
-               data-drop-question="${q.uid}">
-            Drag a curriculum Knowledge statement from the selected unit and drop it here
-          </div>
-
-          <div class="tag-list" style="margin-top:10px;">${tagsHtml}</div>
-
-
-        </div>
       </div>
     `;
 
     container.appendChild(card);
-  });
-
-  document.querySelectorAll("[data-drop-question]").forEach(zone => {
-    zone.addEventListener("dragover", event => {
-      event.preventDefault();
-      event.dataTransfer.dropEffect = "copy";
-      zone.classList.add("drag-over");
-    });
-
-    zone.addEventListener("dragleave", () => {
-      zone.classList.remove("drag-over");
-    });
-
-    zone.addEventListener("drop", event => {
-      event.preventDefault();
-      zone.classList.remove("drag-over");
-      const tag = event.dataTransfer.getData("text/plain");
-      const uid = Number(zone.dataset.dropQuestion);
-      addTagToQuestion(uid, tag);
-    });
   });
 }
 
@@ -1949,59 +1877,21 @@ function updateSummary() {
     `;
   }).join("");
 
-  const knowledgeQuestions = {};
-  knowledgeItems.forEach(item => knowledgeQuestions[item.id] = []);
+  const selectedItems = knowledgeItems.filter(item => selectedOutcomes.has(item.id));
+  const outcomeSummary = document.getElementById("outcome-summary");
 
-  questions.forEach((q, index) => {
-    const questionLabel = (q.label || `Q${index + 1}`).trim();
-    q.tags.forEach(tag => {
-      knowledgeQuestions[tag].push(questionLabel);
-    });
-  });
-
-  const taggedIds = knowledgeItems
-    .filter(item => knowledgeQuestions[item.id].length > 0)
-    .map(item => item.id);
-
-  const knowledgeSummary = document.getElementById("knowledge-summary");
-
-  if (!taggedIds.length) {
-    knowledgeSummary.innerHTML = `<div class="empty">Tag curriculum Knowledge statements to questions to see distribution.</div>`;
-  } else {
-    knowledgeSummary.innerHTML = taggedIds.map(id => {
-      const questionLabels = knowledgeQuestions[id].join(", ");
-      return `
-        <div class="progress-row">
-          <div class="progress-label">
-            <span><strong>${id}</strong> — ${knowledgeById[id].text}</span>
-            <span style="white-space:nowrap; font-weight:800; color:#12355b;">${questionLabels}</span>
-          </div>
-        </div>
-      `;
-    }).join("");
+  if (!selectedItems.length) {
+    outcomeSummary.innerHTML = `<div class="empty">Click curriculum outcomes to include them on this test.</div>`;
+    return;
   }
 
-  const coveredSet = new Set();
-  questions.forEach(q => q.tags.forEach(tag => coveredSet.add(tag)));
-
-  const coverage = document.getElementById("coverage-summary");
-  const coverageUnits = activeUnit === "all"
-    ? curriculum
-    : curriculum.filter(unit => unit.unit === activeUnit);
-
-  coverage.innerHTML = coverageUnits.map(unit => {
-    const unitItems = knowledgeItems.filter(item => item.unit === unit.unit);
-    const chips = unitItems.map(item => `
-      <span class="coverage-chip ${coveredSet.has(item.id) ? "covered" : ""}">${item.id}</span>
-    `).join("");
-
-    return `
-      <div class="coverage-unit">
-        <div class="coverage-unit-title">${unit.unit}</div>
-        <div class="coverage-chips">${chips}</div>
+  outcomeSummary.innerHTML = selectedItems.map(item => `
+    <div class="progress-row">
+      <div class="progress-label">
+        <span><strong>${item.id}</strong> — ${item.text}</span>
       </div>
-    `;
-  }).join("");
+    </div>
+  `).join("");
 }
 
 function escapeHtml(str) {
@@ -2092,39 +1982,15 @@ function buildLatexBlueprint() {
     difficultyMarks[q.difficulty] += Number(q.marks) || 0;
   });
 
-  const knowledgeQuestions = {};
-  knowledgeItems.forEach(item => knowledgeQuestions[item.id] = []);
-
-  questions.forEach((q, index) => {
-    const qLabel = (q.label || `Q${index + 1}`).trim();
-    q.tags.forEach(tag => {
-      knowledgeQuestions[tag].push(qLabel);
-    });
-  });
-
-  const coveredKnowledge = knowledgeItems.filter(item => knowledgeQuestions[item.id].length > 0);
+  const selectedKnowledge = knowledgeItems.filter(item => selectedOutcomes.has(item.id));
 
   const questionRows = questions.map((q, index) => {
     const qLabel = latexEscape((q.label || `Q${index + 1}`).trim());
-    const tags = q.tags.length ? q.tags.map(latexEscape).join(", ") : "---";
-    return `${qLabel} & ${Number(q.marks) || 0} & Level ${q.difficulty} & ${tags} \\\\`;
+    return `${qLabel} & ${Number(q.marks) || 0} & Level ${q.difficulty} \\\\`;
   }).join("\n");
 
-  const knowledgeRows = coveredKnowledge.map(item => {
-    const refs = knowledgeQuestions[item.id].map(latexEscape).join(", ");
-    return `${latexEscape(item.id)} & ${latexEscape(item.text)} & ${refs} \\\\`;
-  }).join("\n");
-
-  const coverageByUnit = curriculum.map(unit => {
-    const items = knowledgeItems.filter(item => item.unit === unit.unit);
-    const covered = items.filter(item => knowledgeQuestions[item.id].length > 0);
-    const missing = items.filter(item => knowledgeQuestions[item.id].length === 0);
-
-    return `
-\\subsection*{${latexEscape(unit.unit)}}
-\\textbf{Covered:} ${covered.length ? covered.map(item => latexEscape(item.id)).join(", ") : "None"}\\\\
-\\textbf{Not represented:} ${missing.length ? missing.map(item => latexEscape(item.id)).join(", ") : "None"}
-`;
+  const outcomeRows = selectedKnowledge.map(item => {
+    return `${latexEscape(item.id)} & ${latexEscape(item.unit)} & ${latexEscape(item.text)} \\\\`;
   }).join("\n");
 
   const difficultyRows = [1,2,3].map(level => {
@@ -2161,12 +2027,6 @@ function buildLatexBlueprint() {
   {0pt}
   {}
 
-\\titleformat{\\subsection}
-  {\\normalsize\\bfseries\\color{blueprintblue}}
-  {}
-  {0pt}
-  {}
-
 \\setlength{\\parindent}{0pt}
 \\setlength{\\parskip}{4pt}
 
@@ -2174,7 +2034,7 @@ function buildLatexBlueprint() {
 
 \\begin{center}
     {\\LARGE\\bfseries\\color{blueprintblue} ${latexAssignmentTitle}}\\\\[4pt]
-    {\\large Math 7 Curriculum Coverage Overview}
+    {\\large Math 7 Curriculum Blueprint}
 \\end{center}
 
 \\vspace{0.5em}
@@ -2186,6 +2046,7 @@ function buildLatexBlueprint() {
 \\textbf{Assignment} & ${latexAssignmentTitle} \\\\
 \\textbf{Total Questions} & ${questions.length} \\\\
 \\textbf{Total Marks} & ${totalMarks} \\\\
+\\textbf{Selected Learning Outcomes} & ${selectedKnowledge.length} \\\\
 \\bottomrule
 \\end{tabular}
 
@@ -2205,37 +2066,33 @@ ${difficultyRows}
 
 \\section*{Questions}
 
-\\begin{longtable}{>{\\bfseries}p{0.12\\textwidth} p{0.10\\textwidth} p{0.13\\textwidth} p{0.52\\textwidth}}
+\\begin{longtable}{>{\\bfseries}p{0.22\\textwidth} p{0.16\\textwidth} p{0.22\\textwidth}}
 \\toprule
-\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Knowledge References} \\\\
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} \\\\
 \\midrule
 \\endfirsthead
 \\toprule
-\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} & \\textbf{Knowledge References} \\\\
+\\textbf{Question} & \\textbf{Marks} & \\textbf{Difficulty} \\\\
 \\midrule
 \\endhead
-${questionRows || "\\multicolumn{4}{l}{No questions entered.} \\\\"}
+${questionRows || "\\multicolumn{3}{l}{No questions entered.} \\\\"}
 \\bottomrule
 \\end{longtable}
 
-\\section*{Knowledge Distribution}
+\\section*{Selected Learning Outcomes}
 
-\\begin{longtable}{>{\\bfseries}p{0.08\\textwidth} p{0.70\\textwidth} p{0.14\\textwidth}}
+\\begin{longtable}{>{\\bfseries}p{0.08\\textwidth} p{0.24\\textwidth} p{0.60\\textwidth}}
 \\toprule
-\\textbf{Ref.} & \\textbf{Knowledge Statement} & \\textbf{Questions} \\\\
+\\textbf{Ref.} & \\textbf{Unit} & \\textbf{Learning Outcome} \\\\
 \\midrule
 \\endfirsthead
 \\toprule
-\\textbf{Ref.} & \\textbf{Knowledge Statement} & \\textbf{Questions} \\\\
+\\textbf{Ref.} & \\textbf{Unit} & \\textbf{Learning Outcome} \\\\
 \\midrule
 \\endhead
-${knowledgeRows || "\\multicolumn{3}{l}{No Knowledge references tagged.} \\\\"}
+${outcomeRows || "\\multicolumn{3}{l}{No learning outcomes selected.} \\\\"}
 \\bottomrule
 \\end{longtable}
-
-\\section*{Curriculum Coverage by Unit}
-
-${coverageByUnit}
 
 \\end{document}
 `;
